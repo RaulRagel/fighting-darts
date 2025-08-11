@@ -1,4 +1,8 @@
 
+body {
+    width: 100%;
+    height: 100%;
+}
 
 .board {
     position: relative;
@@ -6,34 +10,46 @@
     aspect-ratio: 1;
     max-width: 700px;
     min-width: 250px;
-    background-color: black;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.background {
-    width: 86%;
+.board svg {
+    width: 117.5%;
     aspect-ratio: 1;
-    border-radius: 50%;
+    position: absolute;
+    left: -10%;
+}
+.inner-background {
+    width: 87%;
+    aspect-ratio: 1;
     background: #cdcdcd;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
+}
+.outer-background {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    clip-path: circle(50% at 50% 50%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.board svg {
-    width: 117%;
-    aspect-ratio: 1;
-    position: absolute;
-    left: -9.5%;
-}
+/* .outer-background:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+} */
 
 #dartboard #areas g path:hover,
 #dartboard #areas g circle:hover {
     cursor: pointer;
-    opacity: 0.6;
+    opacity: 0.2;
 }
 
 #score {

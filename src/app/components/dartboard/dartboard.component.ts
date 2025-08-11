@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DartBoardComponent implements OnInit {
 
+  // throws: Array[] = 
+
   constructor() {
     
   }
@@ -15,3 +17,8 @@ export class DartBoardComponent implements OnInit {
     
   }
 }
+
+
+// Id áreas:
+// <s/d/t><num> (Ej: single 20 -> s20, triple 19 -> t19, doble 6 -> d6)
+// Centro: Bull, Outer
