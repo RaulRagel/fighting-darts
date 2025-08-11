@@ -1,5 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
+interface Throw {
+  // id: string,
+  hits: number,
+  name: string
+  value: number // valor de la tirada (s: x1, d: x2, t: x3)
+}
+
+const VALUES: { [key: string]: number } = {
+  s: 1,
+  d: 2,
+  t: 3,
+  outer: 1, // 1 a todos
+  bull: 3 // 3 a todos
+}
+
 @Component({
   selector: 'app-dartboard',
   templateUrl: './dartboard.component.html',
@@ -7,8 +22,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DartBoardComponent implements OnInit {
 
-  throws: String[] = [];
   dartboardSections!: NodeList;
+  throws: string[] = [];
+  throwInfo: Throw[] = [];
+  totalPoints: number[] = [];
 
   constructor() {
     
@@ -31,28 +48,58 @@ export class DartBoardComponent implements OnInit {
   addDart(id: string) {
     this.throws.push(id);
     console.log('added dart', this.throws);
+    this.updateInfo();
   }
 
-  // getDartValueFromID(id: string) {
-  //   if (!id) return 0;
+  removeDart() {
+    this.throws.pop();
+    this.updateInfo();
+  }
+
+  updateInfo() {
+    this.updateThrows();
+  }
+
+  updateThrows() {
+    let duplicatedThrow;
+    let throwInfo: Throw[] = [];
+
+    for(let currentThrow of this.throws) {
+      duplicatedThrow = throwInfo.find(d => d.name === this.getThrowName(currentThrow));
+      if(duplicatedThrow) {
+        duplicatedThrow.hits++;
+        duplicatedThrow.value += this.getThrowValue(currentThrow);
+      } else {
+        throwInfo.push({
+          name: this.getThrowName(currentThrow),
+          hits: 1,
+          value: this.getThrowValue(currentThrow)
+        });
+      }
+    }
+
+    this.throwInfo = throwInfo;
+
+    console.log('throwInfo', this.throwInfo);
+  }
+
+  getThrowName(id: string): string {
+    if (!id) return '';
+    if(['bull', 'outer'].includes(id)) return 'Centro';
     
-  //   if (id == 'Bull') return 50;
-  //   if (id == 'Outer') return 25;
+    return id.slice(1);
+  }
+
+  getThrowValue(id: string): number {
+    if (!id) return 0;
+    if(['bull', 'outer'].includes(id)) return VALUES[id];
     
-  //   let mod = 0;
-  //   switch(id[0]) {
-  //       case 's': mod = 1; break;
-  //       case 'd': mod = 2; break;
-  //       case 't': mod = 3; break;
-  //       default: mod = 1;
-  //   }
-    
-  //   return mod * parseInt(id.slice(1));
-  // }
+    return VALUES[id[0]];
+  }
     
 }
 
 
 // Id áreas:
 // <s/d/t><num> (Ej: single 20 -> s20, triple 19 -> t19, doble 6 -> d6)
-// Centro: Bull, Outer
+// Centro: bull, outer
