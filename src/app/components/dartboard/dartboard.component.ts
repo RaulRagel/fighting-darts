@@ -44,7 +44,8 @@ export class DartBoardComponent implements OnInit {
     enableMobileHover(this.dartboardSections);
     enablePinchZoom(
       document.getElementById('board') as HTMLElement,
-      document.querySelector('.board-container') as HTMLElement
+      document.querySelector('.board-container') as HTMLElement,
+      true
     );
   }
 
