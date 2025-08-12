@@ -6,16 +6,17 @@ body {
 
 .board-container {
     width: 95vw;
+    aspect-ratio: 1;
     background: gray;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: hidden; /* importante para el zoom de #board */
     display: flex;
     justify-content: center;
 }
 
-#board {
+#board { /* zoomable (pinch-zoom.ts) */
     position: relative;
-    width: 95vw;
+    width: 100%;
     aspect-ratio: 1;
     max-width: 700px;
     min-width: 250px;
@@ -26,7 +27,7 @@ body {
     background: gray;
     border-radius: 10px;
     display: inline-block;
-    touch-action: none; /* importante para que no interfiera el scroll */
+    touch-action: none; /* importante para que no interfiera el scroll al hacerle zoom */
     will-change: transform;
     transform-origin: 0 0; /* Usamos coordenadas absolutas, no center */
     svg {
@@ -57,20 +58,17 @@ body {
     align-items: center;
 }
 
-/* .outer-background:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-} */
-
-// #dartboard #areas g path:hover,
-// #dartboard #areas g circle:hover {
-//     cursor: pointer;
-//     opacity: 0.2;
-// }
 #dartboard #areas g path,
 #dartboard #areas g circle {
     cursor: pointer;
 }
+
+//* No funciona bien en movil *//
+// #dartboard #areas g path:hover,
+// #dartboard #areas g circle:hover {
+//     opacity: 0.2;
+// }
+
 #dartboard #areas g path.mobile-hover,
 #dartboard #areas g circle.mobile-hover {
     opacity: 0.2;

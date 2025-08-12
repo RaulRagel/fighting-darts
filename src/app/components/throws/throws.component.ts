@@ -24,4 +24,8 @@ export class ThrowsComponent implements OnInit {
     );
   }
 
+  removeLastDart() {
+    this.infoService.removeDart();
+  }
+
 }

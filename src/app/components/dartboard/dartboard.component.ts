@@ -45,7 +45,6 @@ export class DartBoardComponent implements OnInit {
     enablePinchZoom(
       document.getElementById('board') as HTMLElement,
       document.querySelector('.board-container') as HTMLElement
-
     );
   }
 
