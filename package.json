@@ -5,9 +5,9 @@
     "ng": "ng",
     "prestart": "nvm use 16.20.2",
     "start": "ng serve",
-    "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build": "bash scripts/build.sh"
   },
   "private": true,
   "dependencies": {

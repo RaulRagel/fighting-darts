@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InfoDartboardService } from 'src/app/services/info-dartboard.service';
+import { enablePinchZoom } from 'src/app/plugins/pinch-zoom';
+import { enableMobileHover } from 'src/app/plugins/mobile-hover';
 
 @Component({
   selector: 'app-dartboard',
@@ -8,18 +10,26 @@ import { InfoDartboardService } from 'src/app/services/info-dartboard.service';
 })
 export class DartBoardComponent implements OnInit {
 
-  dartboardSections!: NodeList;
+  dartboardSections!: HTMLElement[];
 
   constructor(private infoService: InfoDartboardService) {
     
   }
+
+  // ngAfterViewInit() {
+  //   const sections = document.querySelectorAll('.dartboard-section') as NodeListOf<HTMLElement>;
+  //   enableMobileHover(sections);
+
+  //   const board = document.querySelector('.board') as HTMLElement;
+  //   enablePinchZoomPan(board);
+  // }
 
   ngOnInit(): void {
 
     // ! este init será movido a game.service cuando sesté creado
     this.infoService.init();
 
-    this.dartboardSections = document.querySelectorAll('#dartboard #areas g path, #dartboard #areas g circle');
+    this.dartboardSections = Array.from(document.querySelectorAll('#dartboard #areas g path, #dartboard #areas g circle'));
     console.log('init boardSections', this.dartboardSections);
 
     this.dartboardSections.forEach(p =>
@@ -29,6 +39,10 @@ export class DartBoardComponent implements OnInit {
     (window as any).paint = this.paintZone.bind(this); // id
     (window as any).remove = this.removeGradient.bind(this); // id
     // this.paintZone('20', 'red', 'blue');
+
+    // HOVER PARA MOVIL
+    enableMobileHover(this.dartboardSections);
+    enablePinchZoom(document.getElementById('board') as HTMLElement);
   }
 
   boardClickHandler(event: any) {

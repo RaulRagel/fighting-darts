@@ -25,7 +25,7 @@ export class InfoDartboardService {
     .pipe()
     .subscribe(
       throws => {
-        console.log('throws$ changed, update info', throws);
+        // console.log('throws$ changed, update info', throws);
         this.updateThrows(throws);
       }
     );
@@ -65,7 +65,7 @@ export class InfoDartboardService {
 
     this.throwInfo$.next(throwInfo);
 
-    console.log('throwInfo', this.throwInfo$.value);
+    // console.log('throwInfo', this.throwInfo$.value);
   }
 
   getThrowName(id: string): string {

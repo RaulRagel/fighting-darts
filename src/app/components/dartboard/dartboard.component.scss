@@ -4,7 +4,7 @@ body {
     height: 100%;
 }
 
-.board {
+#board {
     position: relative;
     width: 95vw;
     aspect-ratio: 1;
@@ -14,13 +14,18 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow: hidden;
-}
-.board svg {
-    width: 117.5%;
-    aspect-ratio: 1;
-    position: absolute;
-    left: -10%;
+    background: gray;
+    border-radius: 10px;
+    display: inline-block;
+    touch-action: none; /* importante para que no interfiera el scroll */
+    will-change: transform;
+    transform-origin: 0 0; /* Usamos coordenadas absolutas, no center */
+    svg {
+        width: 117.5%;
+        aspect-ratio: 1;
+        position: absolute;
+        left: -10%;
+    }
 }
 .inner-background {
     width: 87%;
@@ -48,9 +53,17 @@ body {
     cursor: pointer;
 } */
 
-#dartboard #areas g path:hover,
-#dartboard #areas g circle:hover {
+// #dartboard #areas g path:hover,
+// #dartboard #areas g circle:hover {
+//     cursor: pointer;
+//     opacity: 0.2;
+// }
+#dartboard #areas g path,
+#dartboard #areas g circle {
     cursor: pointer;
+}
+#dartboard #areas g path.mobile-hover,
+#dartboard #areas g circle.mobile-hover {
     opacity: 0.2;
 }
 

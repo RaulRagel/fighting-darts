@@ -18,7 +18,7 @@ export class ThrowsComponent implements OnInit {
     .pipe()
     .subscribe(
       (throwInfo) => {
-        console.log('throwInfo$ changed', throwInfo)
+        // console.log('throwInfo$ changed', throwInfo);
         this.throwInfo = throwInfo;
       }
     );
