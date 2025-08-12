@@ -4,6 +4,15 @@ body {
     height: 100%;
 }
 
+.board-container {
+    width: 95vw;
+    background: gray;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
 #board {
     position: relative;
     width: 95vw;

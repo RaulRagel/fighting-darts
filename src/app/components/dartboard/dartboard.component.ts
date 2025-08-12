@@ -42,7 +42,11 @@ export class DartBoardComponent implements OnInit {
 
     // HOVER PARA MOVIL
     enableMobileHover(this.dartboardSections);
-    enablePinchZoom(document.getElementById('board') as HTMLElement);
+    enablePinchZoom(
+      document.getElementById('board') as HTMLElement,
+      document.querySelector('.board-container') as HTMLElement
+
+    );
   }
 
   boardClickHandler(event: any) {
