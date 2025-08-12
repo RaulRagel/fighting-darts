@@ -1,4 +1,4 @@
-<div class="board">
+<div class="board zoomable">
     <div class="outer-background">
     <div class="inner-background">
         <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="787px" height="774px" viewBox="0 0 787 774" enable-background="new 0 0 787 774" xml:space="preserve">
@@ -81,7 +81,9 @@
         </svg>
     </div>
     </div>
-    <div class="info-container">
+</div>
+<div class="info-container">
+    <div class="info">
         <div class="info-header">
             <span>Lanzamientos</span>
             <button (click)="removeDart()">Borrar último</button>
@@ -91,7 +93,7 @@
             <span *ngFor="let info of throwInfo">{{ info.name }} (+{{info.value}})</span>
         </div>
     </div>
-    <div class="info-container">
+    <div class="info">
         <div class="info-header">
             <span>Puntuación</span>
             <button>Finalizar turno</button>
@@ -99,15 +101,15 @@
         <hr>
         <div class="info-points">
             <div>
-                <span>Daño: </span>
+                <span class="dmg">Daño: </span>
                 <span>3</span>
             </div>
             <div>
-                <span>Curación: </span>
+                <span class="heal">Curación: </span>
                 <span>5</span>
             </div>
             <div>
-                <span>Objeto: </span>
+                <span class="obj">Objeto: </span>
                 <span>Poción</span>
             </div>
         </div>
