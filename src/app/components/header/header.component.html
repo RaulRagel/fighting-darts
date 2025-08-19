@@ -1,0 +1,16 @@
+
+<div class="header">
+    <div class="incline-left"></div>
+    <ng-template *ngIf="title; else showLogo">
+        <div class="title-container">
+            <img [src]="icon">
+            <span>{{title}}</span>
+        </div>
+    </ng-template>
+    <ng-template #showLogo>
+        <div class="img-container">
+            <img src="assets/images/logo-fd.png">
+        </div>
+    </ng-template>
+    
+</div>

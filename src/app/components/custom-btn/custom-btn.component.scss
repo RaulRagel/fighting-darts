@@ -1,0 +1,37 @@
+
+
+.custom-btn {
+    position: relative;
+    background-color: white;
+    color: white;
+    border: none;
+    padding: 0;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+    width: 61vw;
+    height: 15vw;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+
+    .title {
+        position: relative;
+        z-index: 1;
+        span {
+            font-weight: bold;
+            font-size: 5vw;
+            text-shadow: -3px 3px 6px black;
+        }
+    }
+    .img-container {
+        position: absolute;
+        bottom: 0;
+        left: 5px;
+        width: 6vw;
+    }
+    .incline-right {
+        position: absolute;
+        top: 0;
+    }
+}

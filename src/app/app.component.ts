@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StatesService } from './services/states.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'boxing-darts-angular';
+
+  constructor(private statesService: StatesService) {
+    this.statesService.init();
+  }
 }
