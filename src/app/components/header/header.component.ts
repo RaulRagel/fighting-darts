@@ -16,17 +16,25 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.stateService)
-    this.stateService.currentRoute$
+    this.stateService.appState$
     .pipe(
-      tap(x => console.log('currentRoute$', x))
+      tap(info => console.log('appState$', info))
     )
     .subscribe(
-      route => {
-
+      stateInfo => {
+        this.setHeaderInfo(stateInfo);
       }
     );
   }
 
+  setHeaderInfo(stateInfo: any | {}) {
+    this.title = stateInfo.name || '';
+    this.icon = this.getWhiteIcon(stateInfo.icon);
+  }
 
+  getWhiteIcon(icon: string): string {
+    if(!icon) return '';
+    return icon.replace('.png', '-white.png');
+  }
 
 }

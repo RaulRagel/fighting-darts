@@ -9,42 +9,27 @@ import { StatesService } from 'src/app/services/states.service';
 })
 export class MainMenuComponent implements OnInit {
 
-  buttons: MenuButton[] = [
-    {
-      name: 'Añadir jugadores',
-      icon: 'assets/images/icons/players.png',
-      action: this.goToPlayers.bind(this)
-    },
-    {
-      name: 'Instrucciones',
-      icon: 'assets/images/icons/question.png'
-    },
-    {
-      name: 'Ajustes',
-      icon: 'assets/images/icons/settings.png',
-      action: this.goToSettings.bind(this)
-    },
-    // {
-    //   name: 'Créditos',
-    //   icon: 'assets/images/icons/credits.png'
-    // },
-    // {
-    //   name: 'Contacto',
-    //   icon: 'assets/images/icons/mail.png'
-    // }
-  ]
+  buttons!: MenuButton[];
 
   constructor(private statesService: StatesService) { }
 
   ngOnInit(): void {
+    this.initButtons();
   }
 
-  goToPlayers() {
-    this.statesService.navigateTo('/players');
+  initButtons() {
+    this.buttons = this.statesService.getStates().map(state => ({
+      id: state.id || '',
+      name: state.name || '',
+      icon: state.icon || '',
+      action: () => this.goTo(state.id || '')
+    }));
   }
 
-  goToSettings() {
-    this.statesService.navigateTo('/settings');
+  goTo(id: string) {
+    var appState = this.buttons.find(button => button.id === id);
+    this.statesService.navigateTo(`/${id}`);
+    this.statesService.setAppState(appState || {});
   }
 
 }

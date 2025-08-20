@@ -15,7 +15,7 @@ export class CustomBtnComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('CustomBtnComponent initialized with button:', this.button);
+    // console.log('CustomBtnComponent initialized with button:', this.button);
   }
 
   onClick() {

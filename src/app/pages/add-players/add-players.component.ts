@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatesService } from 'src/app/services/states.service';
 
 @Component({
   selector: 'app-add-players',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPlayersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private statesService: StatesService) { }
 
   ngOnInit(): void {
+    this.statesService.setAppState(this.statesService.getStateById('players') || {});
   }
 
 }
