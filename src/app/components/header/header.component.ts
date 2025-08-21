@@ -1,6 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { tap } from 'rxjs/operators';
-import { StatesService } from 'src/app/services/states.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
