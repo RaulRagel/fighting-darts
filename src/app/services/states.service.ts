@@ -9,43 +9,8 @@ import { State } from '../interfaces/state';
 })
 export class StatesService {
 
-  // routes = {
-  //   menu: 'menu',
-  //   game: 'game',
-  //   players: 'players'
-  // }
-
-  private states: State[] = [
-    {
-      id: 'players',
-      name: 'Añadir jugadores',
-      icon: 'assets/images/icons/players.png'
-    },
-    {
-      id: 'question',
-      name: 'Instrucciones',
-      icon: 'assets/images/icons/question.png'
-    },
-    {
-      id: 'settings',
-      name: 'Ajustes',
-      icon: 'assets/images/icons/settings.png'
-    },
-    // {
-    //   name: 'Créditos',
-    //   icon: 'assets/images/icons/credits.png'
-    // },
-    // {
-    //   name: 'Contacto',
-    //   icon: 'assets/images/icons/mail.png'
-    // }
-  ]
-
   private currentRouteSubject = new BehaviorSubject<string>('/');
   currentRoute$ = this.currentRouteSubject.asObservable();
-
-  private appStateSubject = new BehaviorSubject<State | {}>({});
-  appState$ = this.appStateSubject.asObservable();
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -58,23 +23,9 @@ export class StatesService {
       .subscribe((event: any) => {
         // console.log('EVENT', event); // eventos de router
         if (event instanceof NavigationEnd) {
-          if (this.router.url === '/menu') this.setAppState({});
           this.currentRouteSubject.next(event.urlAfterRedirects);
         }
       });
-  }
-
-  getStateById(id: string): State {
-    return this.states.find(state => state.id === id) || {};
-  }
-
-  getStates(): State[] {
-    return this.states;
-  }
-
-  setAppState(state: State) {
-    console.log('state changed', state);
-    this.appStateSubject.next(state);
   }
 
   navigateTo(route: string) {
@@ -83,7 +34,7 @@ export class StatesService {
 
   goBack() {
     if (this.router.url !== '/menu') {
-      this.setAppState({});
+      // this.setAppState({});
       this.navigateTo('../');  // o window.history.back();
     }
   }

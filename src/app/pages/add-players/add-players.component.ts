@@ -11,7 +11,6 @@ export class AddPlayersComponent implements OnInit {
   constructor(private statesService: StatesService) { }
 
   ngOnInit(): void {
-    this.statesService.setAppState(this.statesService.getStateById('players') || {});
   }
 
 }
