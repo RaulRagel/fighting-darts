@@ -8,3 +8,6 @@ https://yqnn.github.io/svg-path-editor/
 IDEA:
 - Usar figma para editar el svg y asi puedes girar los numeros
 - Usar los numeros del proyecto original de boxing darts
+
+EXCALIDRAW
+https://excalidraw.com/#room=61b578a5e6957d2223dd,lTHmv6mnjhfjTatf_8DVaQ

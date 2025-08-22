@@ -4,5 +4,21 @@
     [showBackButton]="true"
 ></app-header>
 <div class="players-container">
-
+    <app-player
+        *ngFor="let player of players"
+        [player]="player"
+        [editable]="true"
+    ></app-player>
 </div>
+
+<!-- <button class="btn btn-primary" (click)="addPlayer()">
+    <img
+        class="btn-icon"
+        [src]="utilsService.iconsUrl + 'add-player.svg'"
+        alt="add player"
+    />
+    Añadir jugador
+</button>
+<button class="btn btn-success" (click)="startGame()" [disabled]="players.length < 2">
+    LISTO
+</button> -->

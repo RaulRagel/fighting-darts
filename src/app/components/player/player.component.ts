@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Player } from 'src/app/interface/player';
 
 @Component({
   selector: 'app-player',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerComponent implements OnInit {
 
+  @Input() player!: Player;
+  @Input() editable: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log('Player data:', this.player);
   }
 
 }

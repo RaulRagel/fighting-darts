@@ -1,1 +1,14 @@
-<p>player works!</p>
+<div class="player-container" *ngIf="player">
+    <div class="character-container">
+        <div class="character">
+            <div class="img-container">
+                <img [src]="player.fightersGif" alt="Character Image" />
+            </div>
+        </div>
+    </div>
+    <div class="player-info-container">
+        <div class="player-info">
+
+        </div>
+    </div>
+</div>
