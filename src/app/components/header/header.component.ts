@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.icon = this.utilsService.getIconUrl(this.icon, 'white');
+    this.icon = this.utilsService.getIconUrl(this.icon, {color: 'white'});
   }
 
 }

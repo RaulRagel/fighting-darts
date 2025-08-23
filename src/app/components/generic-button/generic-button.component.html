@@ -1,0 +1,14 @@
+
+
+<button (click)="onClick()">
+    <div *ngIf="button.icon" class="icon-container">
+        <div class="icon">
+            <img [src]="button.icon">
+        </div>
+    </div>
+    <div *ngIf="button.name" class="name-container">
+        <div class="name">
+            {{button.name}}
+        </div>
+    </div>
+</button>

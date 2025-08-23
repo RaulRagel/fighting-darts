@@ -13,6 +13,11 @@ export class AddPlayersComponent implements OnInit {
 
   players: Player[] = [];
 
+  defaultPlayers = [ // todo mover a default-factory.service
+    { name: 'Jugador 1', fighterGif: this.utilsService.getFighterGif(1) },
+    { name: 'Jugador 2', fighterGif: this.utilsService.getFighterGif(1) }
+  ];
+
   constructor(private gameService: GameService, private utilsService: UtilsService) { }
 
   ngOnInit(): void {
@@ -22,15 +27,7 @@ export class AddPlayersComponent implements OnInit {
       console.log('Current players:', this.players);
     });
 
-    this.parseDefaultPlayers();
-  }
-
-  parseDefaultPlayers(): void {
-    let defaultPlayers = [
-      { name: 'Jugador 1', fightersGif: this.utilsService.getFighterGif(1) },
-      { name: 'Jugador 2', fightersGif: this.utilsService.getFighterGif(1) }
-    ];
-    this.gameService.addPlayer(...defaultPlayers);
+    this.gameService.addPlayer(...this.defaultPlayers);
   }
 
 }

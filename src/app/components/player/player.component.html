@@ -2,13 +2,34 @@
     <div class="character-container">
         <div class="character">
             <div class="img-container">
-                <img [src]="player.fightersGif" alt="Character Image" />
+                <img [src]="player.fighterGif" alt="Character Image" />
             </div>
         </div>
     </div>
-    <div class="player-info-container">
-        <div class="player-info">
 
+    <!-- ADDING -->
+    <div class="info-container-editable polygon" *ngIf="editable; else playing">
+        <div class="player-info polygon">
+            <div class="player-name">
+                <input name="name" type="text">
+            </div>
+            <div class="buttons">
+                <app-generic-button
+                    *ngFor="let button of buttons"
+                    [button]="button"
+                ></app-generic-button>
+            </div>
         </div>
     </div>
+
+    <!-- PLAYING -->
+    <ng-template #playing>
+        <div class="info-container polygon">
+        <div class="player-info polygon">
+            <div class="player-name">
+                <input name="name" type="text">
+            </div>
+        </div>
+    </div>
+    </ng-template>
 </div>

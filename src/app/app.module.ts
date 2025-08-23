@@ -13,6 +13,7 @@ import { CustomBtnComponent } from './components/custom-btn/custom-btn.component
 import { AddPlayersComponent } from './pages/add-players/add-players.component';
 import { PlayerComponent } from './components/player/player.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { GenericButtonComponent } from './components/generic-button/generic-button.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     CustomBtnComponent,
     AddPlayersComponent,
     PlayerComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    GenericButtonComponent
   ],
   imports: [
     BrowserModule,

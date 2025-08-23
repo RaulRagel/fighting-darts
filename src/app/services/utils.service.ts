@@ -1,19 +1,28 @@
 import { Injectable } from '@angular/core';
 
+export interface IconConfig {
+  color?: string,
+  subcarpet?: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  iconsUrl = 'assets/images/icons/';
   fightersUrl = 'assets/images/fighters/';
   // ! todo agregar los personajes y colores para pasarlos al componente que los use
 
   constructor() { }
 
-  getIconUrl(icon: string, color: string): string {
+  getIconUrl(icon: string, config: IconConfig): string {
     if (!icon) return '';
-    return this.iconsUrl + icon + (color ? `-${color}` : '') + '.png';
+    let color = null, subcarpet = null, iconsUrl = 'assets/images/icons/';
+    if(config) {
+      color = config.color || null;
+      subcarpet = config.subcarpet || null;
+    }
+    return iconsUrl + (subcarpet ? `${subcarpet}/` : '') + icon + (color ? `-${color}` : '') + '.png';
   }
 
   getFighterGif(character: string | number): string {
