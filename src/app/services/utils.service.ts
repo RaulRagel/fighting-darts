@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-
-export interface IconConfig {
-  color?: string,
-  subcarpet?: string
-}
+import { IconConfig } from '../interfaces/icon-config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +11,7 @@ export class UtilsService {
 
   constructor() { }
 
-  getIconUrl(icon: string, config: IconConfig): string {
+  getIconUrl(icon: string, config?: IconConfig): string {
     if (!icon) return '';
     let color = null, subcarpet = null, iconsUrl = 'assets/images/icons/';
     if(config) {

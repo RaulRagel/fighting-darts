@@ -2,10 +2,12 @@
 button {
     all: unset;
     width: 100%;
+    max-width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 2vw;
+    position: relative;
     .icon-container {
         background-color: black;
         padding: 5px;
@@ -33,4 +35,8 @@ button {
             font-weight: bold;
         }
     }
+}
+
+button.big {
+    transform: scale(1.3);
 }

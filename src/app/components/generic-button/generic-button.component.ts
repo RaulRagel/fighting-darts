@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GenericButton } from 'src/app/interfaces/generic-button';
 
 @Component({
   selector: 'app-generic-button',
@@ -7,7 +8,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class GenericButtonComponent implements OnInit {
 
-  @Input() button: any;
+  @Input() button!: GenericButton;
+
+  SIZES = {
+    big: 'big'
+  }
 
   constructor() { }
 

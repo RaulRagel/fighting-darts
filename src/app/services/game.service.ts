@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Player } from '../interface/player';
+import { Player } from '../interfaces/player';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -12,18 +12,22 @@ export class GameService {
 
   constructor() { }
 
-  addPlayer(...player: Player[]) {
+  addPlayer(...players: Player[]) {
     const currentPlayers = this.playersSubject.getValue();
-    if (currentPlayers.some(p => player.some(newPlayer => newPlayer.name === p.name))) {
-      console.warn('Player with the same name already exists:', player);
-      return;
-    }
-    this.playersSubject.next([...currentPlayers, ...player]);
+    players = players.map((player, index) => {
+      if(!player.name) player.name = 'Sin nombre';
+      return {
+        ...player,
+        id: new Date().getTime() + index
+      }
+    });
+
+    this.playersSubject.next([...currentPlayers, ...players]);
   }
 
   modifyPlayer(player: Player) {
     const currentPlayers = this.playersSubject.getValue();
-    const index = currentPlayers.findIndex(p => p.name === player.name);
+    const index = currentPlayers.findIndex(p => p.id === player.id);
 
     if (index !== -1) {
       currentPlayers[index] = player;
@@ -33,9 +37,9 @@ export class GameService {
     }
   }
 
-  removePlayer(playerName: string) {
+  removePlayer(playerId: number) {
     const currentPlayers = this.playersSubject.getValue();
-    const updatedPlayers = currentPlayers.filter(p => p.name !== playerName);
+    const updatedPlayers = currentPlayers.filter(p => p.id !== playerId);
 
     this.playersSubject.next(updatedPlayers);
   }

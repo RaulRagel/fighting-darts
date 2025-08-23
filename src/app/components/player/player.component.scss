@@ -6,6 +6,7 @@
     position: relative;
     padding: 0 10px;
     margin-bottom: 2vw;
+    border-radius: 10px;
     .character-container {
         position: relative;
         width: 40vw;
@@ -13,6 +14,7 @@
         background-color: black;
         padding: 6px 10px;
         z-index: 1;
+        border-radius: 10px;
         .character {
             background-color: white;
             padding: 5px;
@@ -48,11 +50,13 @@
     width: 95%;
     height: 20vh;
     background: black;
+    border-radius: 10px;
     .player-info {
-        width: 54%;
+        width: 52%;
         height: 17vh;
         background: #ffffff;
         right: 25px;
+        border-radius: 12px;
 
         .player-name {
             position: relative;
@@ -85,24 +89,6 @@
             width: 70%;
             right: 7vw;
         }
-        /* PLAYING */
-        .player-name {
-            position: relative;
-            height: 10vw;
-            background: #909090;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            input {
-                all: unset;
-                width: 80%;
-                border-radius: 6px;
-                padding: 3px;
-                font-family: monospace;
-                font-weight: bold;
-                font-size: 5vw;
-            }
-        }
     }
 }
 
@@ -111,6 +97,7 @@
     width: 95%;
     height: 17vh;
     background: black;
+    border-radius: 10px;
     .player-info {
         width: 54%;
         height: 14vh;

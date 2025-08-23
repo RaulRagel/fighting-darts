@@ -11,18 +11,18 @@ export class MainMenuComponent implements OnInit {
 
   buttons: MenuButton[] = [
     {
-      id: 'players',
+      // id: 'players',
       name: 'Añadir jugadores',
       icon: 'assets/images/icons/players.png',
       action: () => this.goTo('players')
     },
     {
-      id: 'question',
+      // id: 'question',
       name: 'Instrucciones',
       icon: 'assets/images/icons/question.png'
     },
     {
-      id: 'settings',
+      // id: 'settings',
       name: 'Ajustes',
       icon: 'assets/images/icons/settings.png'
     },

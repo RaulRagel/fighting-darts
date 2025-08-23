@@ -11,10 +11,10 @@
     <div class="info-container-editable polygon" *ngIf="editable; else playing">
         <div class="player-info polygon">
             <div class="player-name">
-                <input name="name" type="text" [placeholder]="player.name">
-                <div class="img-container">
+                <input [id]="player.id" type="text" [placeholder]="player.name">
+                <label [for]="player.id" class="img-container">
                     <img [src]="'assets/images/icons/edit.png'" />
-                </div>
+                </label>
             </div>
             <div class="buttons">
                 <app-generic-button

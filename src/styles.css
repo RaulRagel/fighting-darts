@@ -32,7 +32,7 @@ body {
 
 .incline-right {
   clip-path: polygon(100% 0, 0 0, 0 50%, 100% 90%);
-  width: 100%;
+  width: 101%;
   height: 100%;
   background: black;
 }

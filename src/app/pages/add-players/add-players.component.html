@@ -1,24 +1,20 @@
-<app-header
-    [title]="'Añadir jugadores'"
-    [icon]="'players'"
-    [showBackButton]="true"
-></app-header>
-<div class="players-container">
-    <app-player
-        *ngFor="let player of players"
-        [player]="player"
-        [editable]="true"
-    ></app-player>
+<div class="flex">
+    <app-header
+        [title]="'Añadir jugadores'"
+        [icon]="'players'"
+        [showBackButton]="true"
+    ></app-header>
+    <div class="players-container">
+        <app-player
+            *ngFor="let player of players"
+            [player]="player"
+            [editable]="true"
+        ></app-player>
+        <div class="button-container">
+            <app-generic-button [button]="newPlayerBtn"></app-generic-button>
+        </div>
+    </div>
+    <div class="button-container">
+        <app-custom-btn [button]="readyBtn"></app-custom-btn>
+    </div>
 </div>
-
-<!-- <button class="btn btn-primary" (click)="addPlayer()">
-    <img
-        class="btn-icon"
-        [src]="utilsService.iconsUrl + 'add-player.svg'"
-        alt="add player"
-    />
-    Añadir jugador
-</button>
-<button class="btn btn-success" (click)="startGame()" [disabled]="players.length < 2">
-    LISTO
-</button> -->

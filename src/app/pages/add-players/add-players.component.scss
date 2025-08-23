@@ -1,0 +1,19 @@
+
+.players-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    height: 55vh;
+    overflow-y: auto;
+    .button-container {
+        height: fit-content;
+    }
+}
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 17vh;
+}
+

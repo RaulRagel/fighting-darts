@@ -1,6 +1,6 @@
 
 
-<button (click)="onClick()">
+<button (click)="onClick()" *ngIf="button" [ngClass]="{'big': button.size === SIZES.big}">
     <div *ngIf="button.icon" class="icon-container">
         <div class="icon">
             <img [src]="button.icon">
