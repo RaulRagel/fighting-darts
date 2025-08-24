@@ -32,6 +32,7 @@ export class GameService {
     if (index !== -1) {
       currentPlayers[index] = player;
       this.playersSubject.next([...currentPlayers]);
+      console.log('Player modified:', player);
     } else {
       console.warn('Player not found:', player);
     }

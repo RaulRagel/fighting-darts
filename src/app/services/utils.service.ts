@@ -10,6 +10,10 @@ export class UtilsService {
   fighterIconsUrl = 'assets/images/fighter-icons/';
   // ! todo agregar los personajes y colores para pasarlos al componente que los use
 
+  get totalFighters() {
+    return 17;
+  }
+
   constructor() { }
 
   getIconUrl(icon: string, config?: IconConfig): string {
@@ -28,12 +32,19 @@ export class UtilsService {
   }
 
   getFighterIcons() {
-    let iconsLength = 17;
+    let iconsLength = this.totalFighters;
     let urls = [];
     for (let i = 1; i < (iconsLength + 1); i++) {
-      urls.push(this.getFighterIconUrl(i));
+      urls.push({
+        url: this.getFighterIconUrl(i),
+        id: i
+      });
     }
-    urls.push(this.getFighterIconUrl('random'));
+    // Random icon
+    urls.push({
+      url: this.getFighterIconUrl('0'),
+      id: 0
+    });
     return urls;
   }
 
@@ -42,7 +53,7 @@ export class UtilsService {
   }
 
   getFighterColors() {
-    return ['#646464', '#15c3e9', '#089e27', '#d39f12', '#8d5fc0'];
+    return ['#15c3e9', '#089e27', '#d39f12', '#8d5fc0', '#646464'];
   }
 
   getSkills() {

@@ -11,7 +11,7 @@
     <div class="info-container-editable polygon" *ngIf="editable; else playing">
         <div class="player-info polygon">
             <div class="player-name">
-                <input [id]="player.id" type="text" [placeholder]="player.name">
+                <input [id]="player.id" type="text" [placeholder]="player.name" (input)="onPlayerNameChange($event)">
                 <label [for]="player.id" class="img-container">
                     <img [src]="'assets/images/icons/edit.png'" />
                 </label>
@@ -26,8 +26,15 @@
 
     </div>
     <div [ngSwitch]="currentSelector">
-        <app-character-selector *ngSwitchCase="'characters'"></app-character-selector>
-        <app-skill-selector *ngSwitchCase="'skills'"></app-skill-selector>
+        <app-character-selector
+            *ngSwitchCase="'characters'"
+            (characterEmitter)="onCharacterSelected($event)"
+            (colorEmitter)="onColorSelected($event)"
+            (closeEmitter) ="closeSelector($event)"
+        ></app-character-selector>
+        <app-skill-selector
+            *ngSwitchCase="'skills'"
+        ></app-skill-selector>
     </div>
 
     <!-- PLAYING -->

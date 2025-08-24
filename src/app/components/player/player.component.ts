@@ -14,6 +14,14 @@ export class PlayerComponent implements OnInit {
   @Input() player!: Player;
   @Input() editable: boolean = false;
 
+  currentSelector = '';
+
+  // selectableSkills = this.utilsService.getSkills();
+  // selectableCharacters = this.utilsService.getFighterIcons();
+  // selectableColors = this.utilsService.getFighterColors();
+  fighterGif = '';
+  backgroundColor = '';
+
   buttons: GenericButton[] = [ // todo mover a default-factory.service
     {
       name: 'Personajes',
@@ -27,14 +35,6 @@ export class PlayerComponent implements OnInit {
     }
   ];
 
-  currentSelector = '';
-
-  selectableSkills = this.utilsService.getSkills();
-  selectableCharacters = this.utilsService.getFighterIcons();
-  selectableColors = this.utilsService.getFighterColors();
-  fighterGif = '';
-  backgroundColor = '';
-
   constructor(private utilsService: UtilsService, private gameService: GameService) { }
 
   ngOnInit(): void {
@@ -43,13 +43,14 @@ export class PlayerComponent implements OnInit {
     this.player.color = '#646464';
     this.player.fighterGif = '1';
 
-    this.updatePlayer(this.player);
+    this.setBackground(this.player.color);
+    this.setFighterGif(this.player.fighterGif);
+    this.gameService.modifyPlayer(this.player);
   }
 
-  private updatePlayer(player: Player) {
-    this.setBackground(player.color);
-    this.setFighterGif(player.fighterGif);
-    this.gameService.modifyPlayer(player);
+  onPlayerNameChange(event: any) {
+    this.player.name = event.target.value;
+    this.gameService.modifyPlayer(this.player);
   }
 
   private setBackground(color?: string) {
@@ -57,16 +58,31 @@ export class PlayerComponent implements OnInit {
   }
 
   private setFighterGif(number?: number | string) {
+    if(!number) number = Math.floor(Math.random() * this.utilsService.totalFighters) + 1;
     this.fighterGif = this.utilsService.getFighterGif(number || 1);
   }
 
-  displaySelector(selector: string) {
+  private displaySelector(selector: string) {
     let newSelector = selector;
     if(!selector || this.currentSelector === selector) newSelector = '';
     this.currentSelector = newSelector;
   }
 
-  // selectCharacter
-  // selectColor
+  onCharacterSelected(characterNumber: string | number) {
+    console.log('Character selected event:', characterNumber);
+    this.player.fighterGif = characterNumber;
+    this.setFighterGif(this.player.fighterGif);
+    this.gameService.modifyPlayer(this.player);
+  }
 
+  onColorSelected(colorHash: string) {
+    console.log('Color selected event:', colorHash);
+    this.player.color = colorHash;
+    this.setBackground(this.player.color);
+    this.gameService.modifyPlayer(this.player);
+  }
+
+  closeSelector(event: any) {
+    this.currentSelector = '';
+  }
 }
