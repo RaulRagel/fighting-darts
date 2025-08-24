@@ -37,6 +37,8 @@ export class GameService {
     }
   }
 
+  // modifyPlayerById
+
   removePlayer(playerId: number) {
     const currentPlayers = this.playersSubject.getValue();
     const updatedPlayers = currentPlayers.filter(p => p.id !== playerId);

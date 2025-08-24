@@ -2,7 +2,7 @@
 export interface Player {
     id?: number;
     name: string;
-    fighterGif: string,
+    fighterGif?: string | number,
     skill?: any, // ! Skill type
     objects?: any[], // ! Objec type
     color?: string,

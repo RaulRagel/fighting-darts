@@ -14,6 +14,8 @@ import { AddPlayersComponent } from './pages/add-players/add-players.component';
 import { PlayerComponent } from './components/player/player.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { GenericButtonComponent } from './components/generic-button/generic-button.component';
+import { CharacterSelectorComponent } from './components/player/character-selector/character-selector.component';
+import { SkillSelectorComponent } from './components/player/skill-selector/skill-selector.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { GenericButtonComponent } from './components/generic-button/generic-butt
     AddPlayersComponent,
     PlayerComponent,
     BackButtonComponent,
-    GenericButtonComponent
+    GenericButtonComponent,
+    CharacterSelectorComponent,
+    SkillSelectorComponent
   ],
   imports: [
     BrowserModule,

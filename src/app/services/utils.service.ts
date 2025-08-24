@@ -7,6 +7,7 @@ import { IconConfig } from '../interfaces/icon-config';
 export class UtilsService {
 
   fightersUrl = 'assets/images/fighters/';
+  fighterIconsUrl = 'assets/images/fighter-icons/';
   // ! todo agregar los personajes y colores para pasarlos al componente que los use
 
   constructor() { }
@@ -25,4 +26,27 @@ export class UtilsService {
     if (!character) return '';
     return this.fightersUrl + character + '.gif';
   }
+
+  getFighterIcons() {
+    let iconsLength = 17;
+    let urls = [];
+    for (let i = 1; i < (iconsLength + 1); i++) {
+      urls.push(this.getFighterIconUrl(i));
+    }
+    urls.push(this.getFighterIconUrl('random'));
+    return urls;
+  }
+
+  getFighterIconUrl(img: string | number) {
+    return this.fighterIconsUrl + img + '.png';
+  }
+
+  getFighterColors() {
+    return ['#646464', '#15c3e9', '#089e27', '#d39f12', '#8d5fc0'];
+  }
+
+  getSkills() {
+    // ! todo
+  }
+
 }

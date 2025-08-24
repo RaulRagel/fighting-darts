@@ -1,8 +1,8 @@
 <div class="player-container" *ngIf="player">
     <div class="character-container">
         <div class="character">
-            <div class="img-container">
-                <img [src]="player.fighterGif" alt="Character Image" />
+            <div class="img-container" [ngStyle]="{'background': backgroundColor}">
+                <img [src]="fighterGif" alt="Character Image" />
             </div>
         </div>
     </div>
@@ -23,6 +23,11 @@
                 ></app-generic-button>
             </div>
         </div>
+
+    </div>
+    <div [ngSwitch]="currentSelector">
+        <app-character-selector *ngSwitchCase="'characters'"></app-character-selector>
+        <app-skill-selector *ngSwitchCase="'skills'"></app-skill-selector>
     </div>
 
     <!-- PLAYING -->

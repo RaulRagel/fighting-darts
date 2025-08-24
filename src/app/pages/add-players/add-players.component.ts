@@ -18,11 +18,11 @@ export class AddPlayersComponent implements OnInit {
   defaultPlayers = [ // todo mover a default-factory.service
     {
       name: 'Jugador 1',
-      fighterGif: this.utilsService.getFighterGif(1)
+      // fighterGif: this.utilsService.getFighterGif(1)
     },
     {
       name: 'Jugador 2',
-      fighterGif: this.utilsService.getFighterGif(1)
+      // fighterGif: this.utilsService.getFighterGif(1)
     }
   ];
 
