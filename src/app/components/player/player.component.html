@@ -1,4 +1,9 @@
 <div class="player-container" *ngIf="player">
+    <div class="remove-player-container">
+        <button class="remove-player-button" (click)="deletePlayer()">
+            <img src="assets/images/icons/trash-white.png">
+        </button>
+    </div>
     <div class="character-container">
         <div class="character">
             <div class="img-container" [ngStyle]="{'background': backgroundColor}">
@@ -11,9 +16,9 @@
     <div class="info-container-editable polygon" *ngIf="editable; else playing">
         <div class="player-info polygon">
             <div class="player-name">
-                <input [id]="player.id" type="text" [placeholder]="player.name" (input)="onPlayerNameChange($event)">
+                <input [id]="player.id" type="text" [placeholder]="player.name" (blur)="onPlayerNameChange($event)">
                 <label [for]="player.id" class="img-container">
-                    <img [src]="'assets/images/icons/edit.png'" />
+                    <img src="assets/images/icons/edit.png" />
                 </label>
             </div>
             <div class="buttons">
@@ -38,12 +43,12 @@
             *ngSwitchCase="'characters'"
             (characterEmitter)="onCharacterSelected($event)"
             (colorEmitter)="onColorSelected($event)"
-            (closeEmitter) ="closeSelector($event)"
+            (closeEmitter)="closeSelector()"
         ></app-character-selector>
         <app-skill-selector
             *ngSwitchCase="'skills'"
             (skillEmitter)="onSkillSelected($event)"
-            (closeEmitter) ="closeSelector($event)"
+            (closeEmitter)="closeSelector()"
         ></app-skill-selector>
     </div>
 

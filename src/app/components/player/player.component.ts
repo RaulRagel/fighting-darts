@@ -84,6 +84,7 @@ export class PlayerComponent implements OnInit {
     console.log('Skill selected event:', skillName);
     this.player.skill = this.utilsService.getSkillByName(skillName);
     this.selectedSkill = skillName;
+    this.closeSelector();
     this.gameService.modifyPlayer(this.player);
   }
 
@@ -93,7 +94,11 @@ export class PlayerComponent implements OnInit {
     this.gameService.modifyPlayer(this.player);
   }
 
-  closeSelector(event: any) {
+  closeSelector() {
     this.currentSelector = '';
+  }
+
+  deletePlayer() {
+    this.gameService.removePlayer(this.player.id!);
   }
 }

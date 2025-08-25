@@ -2,7 +2,7 @@ import { Skill } from "./skill";
 
 export interface Player {
     id?: number;
-    name: string;
+    name?: string;
     fighterGif?: string | number,
     skill?: Skill,
     objects?: any[], // ! Objec type

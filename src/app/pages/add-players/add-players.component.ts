@@ -15,22 +15,11 @@ export class AddPlayersComponent implements OnInit {
 
   players: Player[] = [];
 
-  defaultPlayers = [ // todo mover a default-factory.service
-    {
-      name: 'Jugador 1',
-      // fighterGif: this.utilsService.getFighterGif(1)
-    },
-    {
-      name: 'Jugador 2',
-      // fighterGif: this.utilsService.getFighterGif(1)
-    }
-  ];
-
   newPlayerBtn: GenericButton = { // todo mover a button-factory.service
     name: 'Nuevo jugador',
     icon: this.utilsService.getIconUrl('add'),
     size: 'big',
-    action: () => this.addNewPlayerTemplate()
+    action: () => this.addNewPlayer()
   }
 
   readyBtn: MenuButton = {
@@ -47,13 +36,14 @@ export class AddPlayersComponent implements OnInit {
       console.log('Current players:', this.players);
     });
 
-    if(!this.players.length) {
-      this.gameService.addPlayer(...this.defaultPlayers);
+    if(!this.players.length) { // default players
+      this.gameService.addPlayer({});
+      this.gameService.addPlayer({});
     }
   }
 
-  addNewPlayerTemplate() {
-
+  addNewPlayer() {
+    this.gameService.addPlayer({});
   }
 
 }

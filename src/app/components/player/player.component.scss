@@ -7,6 +7,20 @@
     padding: 0 10px;
     margin-bottom: 2vw;
     border-radius: 10px;
+    .remove-player-container {
+        position: absolute;
+        z-index: 2;
+        .remove-player-button {
+            all: unset;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: var(--red);
+            outline: 5px solid black;
+            padding: 1vw;
+        }
+    }
     .character-container {
         position: relative;
         width: 40vw;
@@ -70,7 +84,6 @@
                 width: 80%;
                 border-radius: 6px;
                 padding: 3px;
-                font-family: monospace;
                 font-weight: bold;
                 font-size: 5vw;
             }
@@ -92,17 +105,17 @@
     .selected-skill {
         position: absolute;
         bottom: 0;
-        padding: 2vw;
-        font-size: 3.5vw;
-        width: 100%;
+        padding: 2vw 2vw 1vw 2vw;
+        font-size: 3.1vw;
+        width: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         .delete-btn {
             all: unset;
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             cursor: pointer;
-            position: absolute;
-            right: 5vw;
-            bottom: 1vw;
         }
     }
 }
@@ -131,7 +144,6 @@
                 width: 80%;
                 border-radius: 6px;
                 padding: 3px;
-                font-family: monospace;
                 font-weight: bold;
                 font-size: 5vw;
             }

@@ -9,16 +9,17 @@ export class GameService {
 
   playersSubject = new BehaviorSubject<Player[]>([]);
   players$ = this.playersSubject.asObservable();
+  count = 0;
 
   constructor() { }
 
   addPlayer(...players: Player[]) {
     const currentPlayers = this.playersSubject.getValue();
-    players = players.map((player, index) => {
-      if(!player.name) player.name = 'Sin nombre';
+    players = players.map(player => {
+      if(!player.name) player.name = 'Player ' + (++this.count);
       return {
         ...player,
-        id: new Date().getTime() + index
+        id: new Date().getTime() + currentPlayers.length
       }
     });
 
@@ -34,7 +35,7 @@ export class GameService {
       this.playersSubject.next([...currentPlayers]);
       console.log('Player modified:', player);
     } else {
-      console.warn('Player not found:', player);
+      console.error('Player not found:', player);
     }
   }
 
