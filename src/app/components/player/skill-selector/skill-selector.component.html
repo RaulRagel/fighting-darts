@@ -1,1 +1,23 @@
-<p>NO IMPLEMENTADO AÚN</p>
+<div class="selector-container">
+    <div class="selector-header">
+        <div class="title">
+            <div class="img-container">
+                <img src="assets/images/icons/skills/skill2-yellow.png" />
+            </div>
+            <span>Elige una habilidad</span>
+        </div>
+        <button class="close-button" (click)="closeSelector()">
+            <img src="assets/images/icons/cross.png" />
+        </button>
+    </div>
+    <div class="skill-list">
+        <div
+            class="skill img-container"
+            *ngFor="let skill of skills"
+            (click)="selectSkill(skill.name)"
+        >
+            <span class="skill-name"><strong>{{skill.name}}</strong>: </span>
+            <span class="skill-desc">{{skill.description}}</span>
+        </div>
+    </div>
+</div>

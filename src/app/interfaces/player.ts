@@ -1,9 +1,10 @@
+import { Skill } from "./skill";
 
 export interface Player {
     id?: number;
     name: string;
     fighterGif?: string | number,
-    skill?: any, // ! Skill type
+    skill?: Skill,
     objects?: any[], // ! Objec type
     color?: string,
     isAlive?: boolean,

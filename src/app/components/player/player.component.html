@@ -22,6 +22,14 @@
                     [button]="button"
                 ></app-generic-button>
             </div>
+            <div class="selected-skill">
+                <span>
+                    <strong>Pasiva:</strong> {{selectedSkill || 'Ninguna'}}
+                </span>
+                <button *ngIf="selectedSkill" class="delete-btn" (click)="deleteSkill()">
+                    <img src="assets/images/icons/trash-red.png" />
+                </button>
+            </div>
         </div>
 
     </div>
@@ -34,6 +42,8 @@
         ></app-character-selector>
         <app-skill-selector
             *ngSwitchCase="'skills'"
+            (skillEmitter)="onSkillSelected($event)"
+            (closeEmitter) ="closeSelector($event)"
         ></app-skill-selector>
     </div>
 

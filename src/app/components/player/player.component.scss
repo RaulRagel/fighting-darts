@@ -89,6 +89,22 @@
             right: 7vw;
         }
     }
+    .selected-skill {
+        position: absolute;
+        bottom: 0;
+        padding: 2vw;
+        font-size: 3.5vw;
+        width: 100%;
+        .delete-btn {
+            all: unset;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            position: absolute;
+            right: 5vw;
+            bottom: 1vw;
+        }
+    }
 }
 
 /* PLAYING */

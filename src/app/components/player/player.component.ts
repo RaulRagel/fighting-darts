@@ -16,11 +16,9 @@ export class PlayerComponent implements OnInit {
 
   currentSelector = '';
 
-  // selectableSkills = this.utilsService.getSkills();
-  // selectableCharacters = this.utilsService.getFighterIcons();
-  // selectableColors = this.utilsService.getFighterColors();
   fighterGif = '';
   backgroundColor = '';
+  selectedSkill = '';
 
   buttons: GenericButton[] = [ // todo mover a default-factory.service
     {
@@ -79,6 +77,19 @@ export class PlayerComponent implements OnInit {
     console.log('Color selected event:', colorHash);
     this.player.color = colorHash;
     this.setBackground(this.player.color);
+    this.gameService.modifyPlayer(this.player);
+  }
+
+  onSkillSelected(skillName: string) {
+    console.log('Skill selected event:', skillName);
+    this.player.skill = this.utilsService.getSkillByName(skillName);
+    this.selectedSkill = skillName;
+    this.gameService.modifyPlayer(this.player);
+  }
+
+  deleteSkill() {
+    delete this.player.skill;
+    this.selectedSkill = '';
     this.gameService.modifyPlayer(this.player);
   }
 
