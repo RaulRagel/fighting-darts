@@ -22,6 +22,11 @@ export class GameComponent implements OnInit {
       this.players = players;
       console.log('Current players:', this.players);
     });
+
+    if(!this.players.length) { // !! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
+      this.gameService.addPlayer({});
+      this.gameService.addPlayer({});
+    }
   }
 
 }
