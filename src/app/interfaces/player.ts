@@ -1,3 +1,4 @@
+import { BehaviorSubject } from "rxjs";
 import { Skill } from "./skill";
 
 export interface Player {
@@ -12,4 +13,5 @@ export interface Player {
     healPoints?: number[],
     health?: number,
     maxHealth?: number,
+    hp$?: BehaviorSubject<number>;
 }

@@ -55,11 +55,14 @@
     <!-- PLAYING -->
     <ng-template #playing>
         <div class="info-container polygon">
-        <div class="player-info polygon">
-            <div class="player-name">
-                <input name="name" type="text">
+            <div class="player-info polygon">
+                <div class="player-name">
+                    <span>{{player.name || 'Player'}}</span>
+                </div>
             </div>
         </div>
-    </div>
+        <button (click)="hit()">-</button>
+        <button (click)="heal()">+</button>
+        <app-hpbar [hp$]="player.hp$"></app-hpbar>
     </ng-template>
 </div>

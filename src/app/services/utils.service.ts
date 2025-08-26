@@ -15,6 +15,10 @@ export class UtilsService {
     return 17;
   }
 
+  get maxHealth() {
+    return 25;
+  }
+
   constructor() { }
 
   getIconUrl(icon: string, config?: IconConfig): string {

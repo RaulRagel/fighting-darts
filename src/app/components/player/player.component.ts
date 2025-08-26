@@ -67,6 +67,8 @@ export class PlayerComponent implements OnInit {
     this.currentSelector = newSelector;
   }
 
+  // In edit mode actions
+
   onCharacterSelected(characterNumber: string | number) {
     console.log('Character selected event:', characterNumber);
     this.player.fighterGif = characterNumber;
@@ -106,5 +108,25 @@ export class PlayerComponent implements OnInit {
 
   deletePlayer() {
     this.gameService.removePlayer(this.player.id!);
+  }
+
+  // In game actions
+
+  hit(points: number = 1) {
+    if(!this.player.hp$) return;
+
+    const currentHp = this.player.hp$.getValue();
+    let damaged = currentHp - points;
+    if(damaged < 0) damaged = 0;
+    this.player.hp$.next(damaged);
+
+  }
+
+  heal(points: number = 1) {
+    if(!this.player.hp$) return;
+    const currentHp = this.player.hp$.getValue();
+    let healed = currentHp + points;
+    if(healed > this.utilsService.maxHealth) healed = this.utilsService.maxHealth;
+    this.player.hp$.next(healed);
   }
 }

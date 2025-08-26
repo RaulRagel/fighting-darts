@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../interfaces/player';
 import { BehaviorSubject } from 'rxjs';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class GameService {
   players$ = this.playersSubject.asObservable();
   count = 0;
 
-  constructor() { }
+  constructor(private utilsService: UtilsService) { }
 
   addPlayer(...players: Player[]) {
     const currentPlayers = this.playersSubject.getValue();
@@ -19,7 +20,8 @@ export class GameService {
       if(!player.name) player.name = 'Player ' + (++this.count);
       return {
         ...player,
-        id: new Date().getTime() + currentPlayers.length
+        id: new Date().getTime() + currentPlayers.length,
+        hp$: new BehaviorSubject<number>(this.utilsService.maxHealth)
       }
     });
 

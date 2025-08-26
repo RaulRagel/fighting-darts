@@ -1,0 +1,37 @@
+.hp-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 5vw;
+  right: 15vw;
+  z-index: 1;
+
+  .hpbar-container {
+    width: 250px;
+    background-color: black;
+    border-radius: 10px;
+    clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 0% 100%);
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 4px;
+    padding: 1px 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  td {
+    width: 5px;
+    height: 20px;
+    background: linear-gradient(135deg, #38ef7d 20%, #11998e 100%);
+  }
+
+  td.low-hp {
+    background: linear-gradient(135deg, #ff4e50 60%, #c0392b 100%);
+  }
+
+  td.mid-hp {
+    background: linear-gradient(135deg, #ffb347 60%, #ff7c2a 100%);
+  }
+}

@@ -1,0 +1,16 @@
+
+<div class="hp-bar">
+    <div class="hpbar-container">
+        <table *ngIf="hpArray.length > 0">
+            <tr>
+                <td
+                    *ngFor="let _ of hpArray; let i = index"
+                    [ngClass]="{
+                        'low-hp': i < 3,
+                        'mid-hp': i >= 3 && i < 8
+                    }"
+                ></td>
+            </tr>
+        </table>
+    </div>
+</div>

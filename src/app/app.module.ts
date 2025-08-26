@@ -16,6 +16,7 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
 import { GenericButtonComponent } from './components/generic-button/generic-button.component';
 import { CharacterSelectorComponent } from './components/player/character-selector/character-selector.component';
 import { SkillSelectorComponent } from './components/player/skill-selector/skill-selector.component';
+import { HpbarComponent } from './components/player/hpbar/hpbar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SkillSelectorComponent } from './components/player/skill-selector/skill
     BackButtonComponent,
     GenericButtonComponent,
     CharacterSelectorComponent,
-    SkillSelectorComponent
+    SkillSelectorComponent,
+    HpbarComponent
   ],
   imports: [
     BrowserModule,

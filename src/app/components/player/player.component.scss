@@ -139,13 +139,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            input {
-                all: unset;
-                width: 80%;
-                border-radius: 6px;
-                padding: 3px;
+            span {
                 font-weight: bold;
-                font-size: 5vw;
+                text-shadow: -3px 3px 6px #00000075;
+                font-size: 6vw;
             }
         }
         .player-name::after {
