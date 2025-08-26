@@ -47,6 +47,12 @@ img {
     height: 100%;
 }
 
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 /* Estilos generales para los selectores */
 
 .selector-container {

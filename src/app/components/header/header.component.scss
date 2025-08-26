@@ -45,13 +45,18 @@
             align-items: center;
             justify-content: center;
         }
-
         .title {
             font-size: 8vw;
             font-weight: bold;
             text-shadow: -3px 3px 6px black;
             color: white;
             text-align: center;
+            margin-left: 10px;
+        }
+        .subtitle {
+            font-size: 6vw;
+            font-weight: bold;
+            color: white;
             margin-left: 10px;
         }
     }

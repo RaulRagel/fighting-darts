@@ -1,1 +1,15 @@
-<p>game works!</p>
+<div>
+    <app-header
+        [title]="title"
+        [subtitle]="subtitle"
+        [icon]="'dart2'"
+        [showBackButton]="true"
+    ></app-header>
+    <div class="players-container">
+        <app-player
+            *ngFor="let player of players"
+            [player]="player"
+            [editable]="false"
+        ></app-player>
+    </div>
+</div>

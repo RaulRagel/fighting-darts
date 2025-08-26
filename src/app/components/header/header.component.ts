@@ -11,12 +11,11 @@ export class HeaderComponent implements OnInit {
   @Input() title: string = '';
   @Input() icon: string = '';
   @Input() showBackButton: boolean = false;
-  subtitle: string = 'Turno de:';
+  @Input() subtitle: string = '';
 
   constructor(private utilsService: UtilsService) { }
 
   ngOnInit(): void {
-
     this.icon = this.utilsService.getIconUrl(this.icon, {color: 'white'});
   }
 

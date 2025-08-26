@@ -5,7 +5,10 @@
         <div class="icon-container" *ngIf="icon">
             <img [src]="icon">
         </div>
-        <div class="title">{{title}}</div>
+        <div class="flex-column">
+            <div class="title">{{title}}</div>
+            <div *ngIf="subtitle" class="subtitle">{{subtitle}}</div>
+        </div>
     </div>
     <ng-template #showLogo>
         <div class="img-container">
