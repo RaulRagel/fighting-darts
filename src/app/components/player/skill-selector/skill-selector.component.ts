@@ -20,7 +20,6 @@ export class SkillSelectorComponent implements OnInit {
   }
 
   selectSkill(skill: Skill) {
-    console.log('Selected skill:', skill);
     this.skillEmitter.emit(skill);
   }
 
