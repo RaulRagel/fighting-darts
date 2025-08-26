@@ -14,10 +14,10 @@
         <div
             class="skill img-container"
             *ngFor="let skill of skills"
-            (click)="selectSkill(skill.name)"
+            (click)="selectSkill(skill)"
         >
-            <span class="skill-name"><strong>{{skill.name}}</strong>: </span>
-            <span class="skill-desc">{{skill.description}}</span>
+            <span class="skill-name"><strong>{{skill.name}}</strong></span>
+            <span *ngIf="skill.description" class="skill-desc">: {{skill.description}}</span>
         </div>
     </div>
 </div>

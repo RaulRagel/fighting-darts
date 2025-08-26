@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuButton } from 'src/app/interfaces/menu-button';
-import { StatesService } from 'src/app/services/states.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -36,14 +36,14 @@ export class MainMenuComponent implements OnInit {
     // }
   ];
 
-  constructor(private statesService: StatesService) { }
+  constructor(private stateService: StateService) { }
 
   ngOnInit(): void {
     // this.initButtons();
   }
 
   // initButtons() {
-  //   this.buttons = this.statesService.getStates().map(state => ({
+  //   this.buttons = this.stateService.getStates().map(state => ({
   //     id: state.id || '',
   //     name: state.name || '',
   //     icon: state.icon || '',
@@ -53,8 +53,8 @@ export class MainMenuComponent implements OnInit {
 
   goTo(id: string) {
     // var appState = this.buttons.find(button => button.id === id);
-    this.statesService.navigateTo(`/${id}`);
-    // this.statesService.setAppState(appState || {});
+    this.stateService.navigateTo(`/${id}`);
+    // this.stateService.setAppState(appState || {});
   }
 
 }

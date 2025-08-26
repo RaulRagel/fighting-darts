@@ -9,6 +9,7 @@ import { MenuButton } from 'src/app/interfaces/menu-button';
 export class CustomBtnComponent implements OnInit {
 
   @Input() button!: MenuButton;
+  @Input() disabled: boolean = false;
 
   constructor() {
 

@@ -1,6 +1,6 @@
 
 
-<button class="custom-btn" (click)="onClick()">
+<button class="custom-btn" (click)="onClick()" [ngClass]="{ 'disabled': disabled }">
     <div class="title">
         <span>{{button.name}}</span>
     </div>

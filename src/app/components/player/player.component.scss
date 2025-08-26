@@ -150,7 +150,7 @@
         }
         .player-name::after {
             content: "";
-            background: #909090;
+            background: var(--gray);
             position: absolute;
             width: 100%;
             height: 5px;

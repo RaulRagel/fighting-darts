@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatesService } from './services/states.service';
+import { StateService } from './services/state.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,13 @@ import { StatesService } from './services/states.service';
 export class AppComponent implements OnInit {
   title = 'boxing-darts-angular';
 
-  constructor(private statesService: StatesService) {
-    this.statesService.init();
+  constructor(private stateService: StateService) {
+    this.stateService.init();
   }
 
   ngOnInit() {
     document.addEventListener('backbutton', () => {
-      this.statesService.goBack();
+      this.stateService.goBack();
     });
   }
 }

@@ -60,6 +60,9 @@ export class UtilsService {
   getSkills(): Skill[] {
     return [
       {
+        name: 'Ninguna'
+      },
+      {
         name: 'Última palabra',
         description: 'Cuando recibes un golpe letal por primera vez en esta partida, lo ignoras y recuperas el 25% de vida.'
       },
@@ -76,12 +79,16 @@ export class UtilsService {
         description: 'Durante tu turno, los objetos tienen un 66% de aparecer en la diana. Pueden aparecer hasta 3.'
       },
       {
+        name: 'Ninja',
+        description: 'Tienes un 20% de probabilidades de esquivar el daño.'
+      },
+      {
         name: 'Sacerdote',
         description: 'Tienes un 50% de probabilidades de curarte el doble. Pueden aparecer pociones como objeto extra en la diana.'
       },
       {
         name: 'Víbora',
-        description: 'Al final de cada ronda, tus rivales tienen un 70% de recibir 1 de daño.'
+        description: 'Al final de cada ronda, tus rivales tienen un 50% de recibir 2 de daño.'
       },
       {
         name: 'Sniper',
@@ -95,7 +102,9 @@ export class UtilsService {
   }
 
   getSkillByName(name: string): Skill | undefined {
-    return this.getSkills().find(x => x.name.toLowerCase() === name.toLowerCase());
+    return this.getSkills().find(x => {
+      x.name.toLowerCase() === name.toLowerCase()
+    });
   }
 
 }

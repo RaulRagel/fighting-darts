@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   @Input() title: string = '';
   @Input() icon: string = '';
   @Input() showBackButton: boolean = false;
+  subtitle: string = 'Turno de:';
 
   constructor(private utilsService: UtilsService) { }
 

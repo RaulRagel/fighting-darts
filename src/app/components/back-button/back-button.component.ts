@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatesService } from 'src/app/services/states.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-back-button',
@@ -8,7 +8,7 @@ import { StatesService } from 'src/app/services/states.service';
 })
 export class BackButtonComponent implements OnInit {
 
-  constructor(private stateService: StatesService) { }
+  constructor(private stateService: StateService) { }
 
   ngOnInit(): void {
   }

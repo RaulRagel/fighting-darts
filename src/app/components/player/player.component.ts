@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Player } from 'src/app/interfaces/player';
 import { GenericButton } from 'src/app/interfaces/generic-button';
 import { GameService } from 'src/app/services/game.service';
+import { Skill } from 'src/app/interfaces/skill';
 
 @Component({
   selector: 'app-player',
@@ -80,10 +81,15 @@ export class PlayerComponent implements OnInit {
     this.gameService.modifyPlayer(this.player);
   }
 
-  onSkillSelected(skillName: string) {
-    console.log('Skill selected event:', skillName);
-    this.player.skill = this.utilsService.getSkillByName(skillName);
-    this.selectedSkill = skillName;
+  onSkillSelected(skill: Skill) {
+    console.log('Skill selected event:', skill);
+    if(!skill.description) {
+      this.deleteSkill();
+      this.closeSelector();
+      return
+    }
+    this.player.skill = skill;
+    this.selectedSkill = skill.name;
     this.closeSelector();
     this.gameService.modifyPlayer(this.player);
   }

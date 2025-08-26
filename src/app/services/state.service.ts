@@ -7,7 +7,7 @@ import { State } from '../interfaces/state';
 @Injectable({
   providedIn: 'root'
 })
-export class StatesService {
+export class StateService {
 
   private currentRouteSubject = new BehaviorSubject<string>('/');
   currentRoute$ = this.currentRouteSubject.asObservable();
@@ -34,7 +34,6 @@ export class StatesService {
 
   goBack() {
     if (this.router.url !== '/menu') {
-      // this.setAppState({});
       this.navigateTo('../');  // o window.history.back();
     }
   }

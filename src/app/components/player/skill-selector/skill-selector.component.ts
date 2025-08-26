@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Skill } from 'src/app/interfaces/skill';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class SkillSelectorComponent implements OnInit {
 
   skills = this.utilsService.getSkills();
-  @Output() skillEmitter = new EventEmitter<string>();
+  @Output() skillEmitter = new EventEmitter<Skill>();
   @Output() closeEmitter = new EventEmitter<string>();
 
   constructor(private utilsService: UtilsService) { }
@@ -18,9 +19,9 @@ export class SkillSelectorComponent implements OnInit {
     console.log('Skills:', this.skills)
   }
 
-  selectSkill(skillName: string) {
-    console.log('Selected skill:', skillName);
-    this.skillEmitter.emit(skillName);
+  selectSkill(skill: Skill) {
+    console.log('Selected skill:', skill);
+    this.skillEmitter.emit(skill);
   }
 
   closeSelector() {
