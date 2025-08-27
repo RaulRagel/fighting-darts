@@ -6,7 +6,7 @@
     </div>
     <div class="character-container">
         <div class="character">
-            <div class="img-container" [ngStyle]="{'background': player.color}">
+            <div class="img-container" [ngStyle]="{'background': player.background}">
                 <img [src]="player.fighterGif" alt="Character Image" />
             </div>
         </div>
@@ -15,7 +15,7 @@
     <!-- ADDING -->
     <div class="info-container-editable polygon" *ngIf="editable; else playing">
         <div class="player-info polygon">
-            <div class="player-name">
+            <div class="player-name" [ngStyle]="{'background': player.color}">
                 <input [id]="player.id" type="text" [placeholder]="player.name" (blur)="onPlayerNameChange($event)">
                 <label [for]="player.id" class="img-container">
                     <img src="assets/images/icons/edit.png" />
@@ -53,7 +53,7 @@
     <ng-template #playing>
         <div class="info-container polygon">
             <div class="player-info polygon">
-                <div class="player-name">
+                <div class="player-name" [ngStyle]="{'background': player.color}">
                     <span>{{player.name || 'Player'}}</span>
                 </div>
             </div>

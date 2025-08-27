@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { InfoDartboardService } from 'src/app/services/info-dartboard.service';
 import { enablePinchZoom } from 'src/app/plugins/pinch-zoom';
 import { enableMobileHover } from 'src/app/plugins/mobile-hover';
@@ -10,13 +10,16 @@ import { enableMobileHover } from 'src/app/plugins/mobile-hover';
 })
 export class DartBoardComponent implements OnInit {
 
+  @ViewChild('boardContainer', { static: true }) boardContainerRef!: ElementRef<HTMLElement>;
+
   dartboardSections!: HTMLElement[];
+  boardContainer!: HTMLElement;
 
   constructor(private infoService: InfoDartboardService) {
     
   }
 
-  // ngAfterViewInit() {
+  // ngAfterViewInit() { // usar static: false en el ViewChild, elemento puede no estar presente
   //   const sections = document.querySelectorAll('.dartboard-section') as NodeListOf<HTMLElement>;
   //   enableMobileHover(sections);
 
@@ -24,16 +27,23 @@ export class DartBoardComponent implements OnInit {
   //   enablePinchZoomPan(board);
   // }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // usar static: true en el ViewChild, elemento siempre presente
+
+    const boardContainer = this.boardContainerRef.nativeElement;
 
     // ! este init será movido a game.service cuando sesté creado
     this.infoService.init();
 
-    this.dartboardSections = Array.from(document.querySelectorAll('#dartboard #areas g path, #dartboard #areas g circle'));
+    this.dartboardSections = Array.from(
+      boardContainer.querySelectorAll('#dartboard #areas g path, #dartboard #areas g circle')
+    );
+    
+
     console.log('init boardSections', this.dartboardSections);
 
+    // ! si la diana es ready-only no añadimos eventos
     this.dartboardSections.forEach(p =>
-      p.addEventListener('click', (event) => this.boardClickHandler(event)) // evitamos perder el contexto
+      p.addEventListener('click', (event) => this.boardClickHandler(event))
     );
 
     (window as any).paint = this.paintZone.bind(this); // id

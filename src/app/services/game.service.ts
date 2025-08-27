@@ -19,7 +19,8 @@ export class GameService {
     this.playersSubject.next([...currentPlayers, {
       id: new Date().getTime() + currentPlayers.length,
       name: 'Player ' + (++this.count),
-      color: this.utilsService.parseBackgroundColor('#646464'),
+      color: '#797979',
+      background: this.utilsService.parseBackgroundColor('#797979'),
       fighterGif: this.utilsService.parseFighterGif(1),
       skill: { name: 'Ninguna'},
       hp$: new BehaviorSubject<number>(this.utilsService.maxHealth)

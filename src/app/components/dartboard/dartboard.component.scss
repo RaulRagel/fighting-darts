@@ -6,7 +6,7 @@ body {
 
 .board-container {
     width: 95vw;
-    background: gray;
+    background: var(--gray);
     border-radius: 10px;
     overflow: hidden; /* importante para el zoom de #board */
     display: flex;
@@ -23,7 +23,6 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: gray;
     border-radius: 10px;
     display: inline-block;
     touch-action: none; /* importante para que no interfiera el scroll al hacerle zoom */

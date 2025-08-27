@@ -57,7 +57,8 @@ export class PlayerComponent implements OnInit {
 
   onColorSelected(colorHash: string) {
     console.log('Color selected event:', colorHash);
-    this.player.color = this.utilsService.parseBackgroundColor(colorHash);
+    this.player.color = colorHash;
+    this.player.background = this.utilsService.parseBackgroundColor(colorHash);
     this.gameService.modifyPlayer(this.player);
   }
 

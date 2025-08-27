@@ -13,6 +13,17 @@
         ></app-player>
     </div>
     <div class="control-panel">
-
+        <div class="dartboard">
+            <app-dartboard></app-dartboard>
+        </div>
+        <div class="button-container">
+            <!-- <app-generic-button
+                [button]="nextTurnBtn"
+            ></app-generic-button> -->
+            <app-generic-button
+                *ngFor="let button of buttons"
+                [button]="button"
+            ></app-generic-button>
+        </div>
     </div>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { GenericButton } from 'src/app/interfaces/generic-button';
 import { Player } from 'src/app/interfaces/player';
 import { GameService } from 'src/app/services/game.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-game',
@@ -14,19 +16,40 @@ export class GameComponent implements OnInit {
 
   players: Player[] = [];
 
-  constructor(private gameService: GameService) { }
+  buttons: GenericButton[] = [ // todo mover a button-factory.service
+    {
+      name: 'Lanzar dardos',
+      icon: this.utilsService.getIconUrl('dart'),
+      // size: 'big',
+      action: () => {}
+    },
+    {
+      name: 'Siguiente turno',
+      icon: this.utilsService.getIconUrl('right'),
+      // size: 'big',
+      action: () => {}
+    },
+  ];
+
+  constructor(private gameService: GameService, private utilsService: UtilsService) { }
 
   ngOnInit(): void {
     this.gameService.players$
     .subscribe(players => {
       this.players = players;
       console.log('Current players:', this.players);
+      this.initGame();
     });
 
     if(!this.players.length) { // !! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
       this.gameService.addNewPlayer();
       this.gameService.addNewPlayer();
     }
+  }
+
+  initGame() {
+    console.log('Game started');
+    // this.setTurn(0);
   }
 
 }

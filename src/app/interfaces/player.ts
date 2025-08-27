@@ -5,6 +5,7 @@ export interface Player {
     id: number;
     name: string;
     color: string,
+    background: string,
     fighterGif: string | number,
     skill?: Skill,
     hp$: BehaviorSubject<number>;
