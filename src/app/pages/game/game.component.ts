@@ -24,8 +24,8 @@ export class GameComponent implements OnInit {
     });
 
     if(!this.players.length) { // !! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
-      this.gameService.addPlayer({});
-      this.gameService.addPlayer({});
+      this.gameService.addNewPlayer();
+      this.gameService.addNewPlayer();
     }
   }
 

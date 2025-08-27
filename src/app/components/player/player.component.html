@@ -6,8 +6,8 @@
     </div>
     <div class="character-container">
         <div class="character">
-            <div class="img-container" [ngStyle]="{'background': backgroundColor}">
-                <img [src]="fighterGif" alt="Character Image" />
+            <div class="img-container" [ngStyle]="{'background': player.color}">
+                <img [src]="player.fighterGif" alt="Character Image" />
             </div>
         </div>
     </div>
@@ -29,11 +29,8 @@
             </div>
             <div class="selected-skill">
                 <span>
-                    <strong>Pasiva:</strong> {{selectedSkill || 'Ninguna'}}
+                    <strong>Pasiva:</strong> {{player.skill?.name || 'Ninguna'}}
                 </span>
-                <!-- <button *ngIf="selectedSkill" class="delete-btn" (click)="deleteSkill()">
-                    <img src="assets/images/icons/trash-red.png" />
-                </button> -->
             </div>
         </div>
 

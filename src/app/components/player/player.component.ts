@@ -17,11 +17,7 @@ export class PlayerComponent implements OnInit {
 
   currentSelector = '';
 
-  fighterGif = '';
-  backgroundColor = '';
-  selectedSkill = '';
-
-  buttons: GenericButton[] = [ // todo mover a default-factory.service
+  buttons: GenericButton[] = [
     {
       name: 'Personajes',
       icon: this.utilsService.getIconUrl('avatar', {color: 'gray'}),
@@ -38,27 +34,11 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Player data:', this.player);
-
-    this.player.color = '#646464';
-    this.player.fighterGif = '1';
-
-    this.setBackground(this.player.color);
-    this.setFighterGif(this.player.fighterGif);
-    this.gameService.modifyPlayer(this.player);
   }
 
   onPlayerNameChange(event: any) {
     this.player.name = event.target.value;
     this.gameService.modifyPlayer(this.player);
-  }
-
-  private setBackground(color?: string) {
-    this.backgroundColor = `linear-gradient(120deg, #000000 0%, ${color || '#646464'} 100%)`;
-  }
-
-  private setFighterGif(number?: number | string) {
-    if(!number) number = Math.floor(Math.random() * this.utilsService.totalFighters) + 1;
-    this.fighterGif = this.utilsService.getFighterGif(number || 1);
   }
 
   private displaySelector(selector: string) {
@@ -71,34 +51,20 @@ export class PlayerComponent implements OnInit {
 
   onCharacterSelected(characterNumber: string | number) {
     console.log('Character selected event:', characterNumber);
-    this.player.fighterGif = characterNumber;
-    this.setFighterGif(this.player.fighterGif);
+    this.player.fighterGif = this.utilsService.parseFighterGif(characterNumber);
     this.gameService.modifyPlayer(this.player);
   }
 
   onColorSelected(colorHash: string) {
     console.log('Color selected event:', colorHash);
-    this.player.color = colorHash;
-    this.setBackground(this.player.color);
+    this.player.color = this.utilsService.parseBackgroundColor(colorHash);
     this.gameService.modifyPlayer(this.player);
   }
 
   onSkillSelected(skill: Skill) {
-    console.log('Skill selected event:', skill);
-    if(!skill.description) {
-      this.deleteSkill();
-      this.closeSelector();
-      return
-    }
-    this.player.skill = skill;
-    this.selectedSkill = skill.name;
+    if(!skill.description) delete this.player.skill;
+    else this.player.skill = skill;
     this.closeSelector();
-    this.gameService.modifyPlayer(this.player);
-  }
-
-  deleteSkill() {
-    delete this.player.skill;
-    this.selectedSkill = '';
     this.gameService.modifyPlayer(this.player);
   }
 

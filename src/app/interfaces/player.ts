@@ -2,16 +2,15 @@ import { BehaviorSubject } from "rxjs";
 import { Skill } from "./skill";
 
 export interface Player {
-    id?: number;
-    name?: string;
-    fighterGif?: string | number,
+    id: number;
+    name: string;
+    color: string,
+    fighterGif: string | number,
     skill?: Skill,
+    hp$: BehaviorSubject<number>;
     objects?: any[], // ! Objec type
-    color?: string,
     isAlive?: boolean,
     weakPoints?: number[],
     healPoints?: number[],
-    health?: number,
     maxHealth?: number,
-    hp$?: BehaviorSubject<number>;
 }

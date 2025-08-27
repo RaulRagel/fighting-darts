@@ -14,18 +14,16 @@ export class GameService {
 
   constructor(private utilsService: UtilsService) { }
 
-  addPlayer(...players: Player[]) {
+  addNewPlayer() {
     const currentPlayers = this.playersSubject.getValue();
-    players = players.map(player => {
-      if(!player.name) player.name = 'Player ' + (++this.count);
-      return {
-        ...player,
-        id: new Date().getTime() + currentPlayers.length,
-        hp$: new BehaviorSubject<number>(this.utilsService.maxHealth)
-      }
-    });
-
-    this.playersSubject.next([...currentPlayers, ...players]);
+    this.playersSubject.next([...currentPlayers, {
+      id: new Date().getTime() + currentPlayers.length,
+      name: 'Player ' + (++this.count),
+      color: this.utilsService.parseBackgroundColor('#646464'),
+      fighterGif: this.utilsService.parseFighterGif(1),
+      skill: { name: 'Ninguna'},
+      hp$: new BehaviorSubject<number>(this.utilsService.maxHealth)
+    }]);
   }
 
   modifyPlayer(player: Player) {

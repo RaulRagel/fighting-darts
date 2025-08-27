@@ -9,7 +9,7 @@ export class UtilsService {
 
   fightersUrl = 'assets/images/fighters/';
   fighterIconsUrl = 'assets/images/fighter-icons/';
-  // ! todo agregar los personajes y colores para pasarlos al componente que los use
+  iconsUrl = 'assets/images/icons/';
 
   get totalFighters() {
     return 17;
@@ -23,17 +23,27 @@ export class UtilsService {
 
   getIconUrl(icon: string, config?: IconConfig): string {
     if (!icon) return '';
-    let color = null, subcarpet = null, iconsUrl = 'assets/images/icons/';
+    let color = null, subcarpet = null;
     if(config) {
       color = config.color || null;
       subcarpet = config.subcarpet || null;
     }
-    return iconsUrl + (subcarpet ? `${subcarpet}/` : '') + icon + (color ? `-${color}` : '') + '.png';
+    return this.iconsUrl + (subcarpet ? `${subcarpet}/` : '') + icon + (color ? `-${color}` : '') + '.png';
   }
 
-  getFighterGif(character: string | number): string {
-    if (!character) return '';
-    return this.fightersUrl + character + '.gif';
+  /**
+  /* Recibimos un color y devolvemos el background en gradiente
+  */
+  parseBackgroundColor(color?: string) {
+    return `linear-gradient(120deg, #000000 0%, ${color || '#646464'} 100%)`;
+  }
+
+  /**
+  /* Recibimos un número o string y devolvemos la URL del gif
+  */
+  parseFighterGif(number?: number | string) {
+    if(!number) number = Math.floor(Math.random() * this.totalFighters) + 1;
+    return this.fightersUrl + number + '.gif';
   }
 
   getFighterIcons() {

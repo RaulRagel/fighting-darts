@@ -38,13 +38,13 @@ export class AddPlayersComponent implements OnInit {
     });
 
     if(!this.players.length) { // default players
-      this.gameService.addPlayer({});
-      this.gameService.addPlayer({});
+      this.gameService.addNewPlayer();
+      this.gameService.addNewPlayer();
     }
   }
 
   addNewPlayer() {
-    this.gameService.addPlayer({});
+    this.gameService.addNewPlayer();
   }
 
   startGame() {
