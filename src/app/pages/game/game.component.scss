@@ -14,16 +14,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 15vh;
+    height: 17vh;
     background: linear-gradient(90deg, var(--gray) 30%, white 100%);
     padding: 2vw;
     justify-content: flex-end;
     border-top: 10px solid black;
+    border-bottom: 10px solid black;
     .dartboard {
         position: fixed;
         left: -32vw;
-        bottom: -32vw;
+        bottom: -34vw;
         transform: scale(.3);
+        transition: all .3s ease-in-out;
+    }
+    // TEST
+    .dartboard.show {
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: none;
+        z-index: 5;
+        background: var(--gray);
+        height: 100%;
+        width: 100%;
     }
     .button-container {
         height: 100%;

@@ -1,10 +1,10 @@
 export function enablePinchZoom(
-  element: HTMLElement,
+  element: Element,
   container: HTMLElement,
   debug: boolean = false
 ) {
-  element.style.touchAction = "none";
-  element.style.transformOrigin = "0 0";
+  (element as HTMLElement).style.touchAction = "none";
+  (element as HTMLElement).style.transformOrigin = "0 0";
 
   let startDistance = 0;
   let startScale = 1;
@@ -25,18 +25,19 @@ export function enablePinchZoom(
   element.addEventListener(
     "touchstart",
     (e) => {
-      if (e.touches.length === 2) {
+      const event = e as TouchEvent;
+      if (event.touches.length === 2) {
         mode = "pinching";
-        startDistance = getDistance(e.touches[0], e.touches[1]);
+        startDistance = getDistance(event.touches[0], event.touches[1]);
         startScale = scale;
 
-        const mid = getMidpoint(e.touches[0], e.touches[1]);
+        const mid = getMidpoint(event.touches[0], event.touches[1]);
         startMidpointEl = screenToElementCoords(mid.x, mid.y);
         log("🔍 Pinch start", { startDistance, startScale, startMidpointEl });
-      } else if (e.touches.length === 1 && scale > 1 && mode !== "pinching") {
+      } else if (event.touches.length === 1 && scale > 1 && mode !== "pinching") {
         mode = "panning";
-        startX = e.touches[0].clientX - translateX;
-        startY = e.touches[0].clientY - translateY;
+        startX = event.touches[0].clientX - translateX;
+        startY = event.touches[0].clientY - translateY;
         log("🖐 Pan start", { startX, startY });
       }
     },
@@ -46,15 +47,16 @@ export function enablePinchZoom(
   element.addEventListener(
     "touchmove",
     (e) => {
-      if (e.touches.length === 2 && mode === "pinching") {
-        const newDistance = getDistance(e.touches[0], e.touches[1]);
+      const event = e as TouchEvent;
+      if (event.touches.length === 2 && mode === "pinching") {
+        const newDistance = getDistance(event.touches[0], event.touches[1]);
         const newScale = clamp(
           startScale * (newDistance / startDistance),
           1,
           5
         );
 
-        const mid = getMidpoint(e.touches[0], e.touches[1]);
+        const mid = getMidpoint(event.touches[0], event.touches[1]);
         const midAfter = {
           x: startMidpointEl.x * newScale,
           y: startMidpointEl.y * newScale,
@@ -68,9 +70,9 @@ export function enablePinchZoom(
         clampTranslation();
         applyTransform();
         log("🔍 Pinching", { scale, translateX, translateY });
-      } else if (e.touches.length === 1 && mode === "panning") {
-        translateX = e.touches[0].clientX - startX;
-        translateY = e.touches[0].clientY - startY;
+      } else if (event.touches.length === 1 && mode === "panning") {
+        translateX = event.touches[0].clientX - startX;
+        translateY = event.touches[0].clientY - startY;
         clampTranslation();
         applyTransform();
         log("🖐 Panning", { translateX, translateY });
@@ -82,7 +84,8 @@ export function enablePinchZoom(
   element.addEventListener(
     "touchend",
     (e) => {
-      if (e.touches.length === 0) {
+      const event = e as TouchEvent;
+      if (event.touches.length === 0) {
         mode = "idle";
         recenterIfNeeded();
         applyTransform();
@@ -105,13 +108,13 @@ export function enablePinchZoom(
   );
 
   function applyTransform() {
-    element.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    (element as HTMLElement).style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   }
 
   function clampTranslation() {
     const containerRect = container.getBoundingClientRect();
-    const elemWidth = element.offsetWidth * scale;
-    const elemHeight = element.offsetHeight * scale;
+    const elemWidth = (element as HTMLElement).offsetWidth * scale;
+    const elemHeight = (element as HTMLElement).offsetHeight * scale;
 
     const minX = Math.min(0, containerRect.width - elemWidth);
     const maxX = Math.max(0, containerRect.width - elemWidth);
@@ -139,8 +142,8 @@ export function enablePinchZoom(
 
   function recenterIfNeeded() {
     const containerRect = container.getBoundingClientRect();
-    const elemWidth = element.offsetWidth * scale;
-    const elemHeight = element.offsetHeight * scale;
+    const elemWidth = (element as HTMLElement).offsetWidth * scale;
+    const elemHeight = (element as HTMLElement).offsetHeight * scale;
 
     const minX = Math.min(0, containerRect.width - elemWidth);
     const maxX = Math.max(0, containerRect.width - elemWidth);

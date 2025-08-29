@@ -1,15 +1,16 @@
 // mobile-hover.js
-export function enableMobileHover(dartboardSections: HTMLElement[]) {
+export function enableMobileHover(dartboardSections: Element[]) {
   dartboardSections.forEach(el => {
-    el.addEventListener('touchstart', (e: TouchEvent) => {
-      if (e.touches.length === 1) { // Solo un dedo → hover
+    el.addEventListener('touchstart', (e: Event) => {
+      const event = e as TouchEvent;
+      if (event.touches.length === 1) {
         el.classList.add('mobile-hover');
       }
     }, { passive: true });
 
-    const cleanup = (e: TouchEvent) => {
-      // Limpia solo si ya no hay dedos o queda solo uno
-      if (e.touches.length <= 1) {
+    const cleanup = (e: Event) => {
+      const event = e as TouchEvent;
+      if (event.touches.length <= 1) {
         el.classList.remove('mobile-hover');
       }
     };
@@ -17,11 +18,11 @@ export function enableMobileHover(dartboardSections: HTMLElement[]) {
     el.addEventListener('touchend', cleanup, { passive: true });
     el.addEventListener('touchcancel', cleanup, { passive: true });
 
-    el.addEventListener('touchmove', (e: TouchEvent) => {
-      if (e.touches.length === 1) {
+    el.addEventListener('touchmove', (e: Event) => {
+      const event = e as TouchEvent;
+      if (event.touches.length === 1) {
         cleanup(e);
       }
-      // Si hay más de un dedo, dejamos que el navegador maneje el pinch-zoom
     }, { passive: true });
   });
 }

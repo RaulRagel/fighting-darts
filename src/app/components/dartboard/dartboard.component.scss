@@ -11,6 +11,10 @@ body {
     overflow: hidden; /* importante para el zoom de #board */
     display: flex;
     justify-content: center;
+
+    // para el .show
+    margin-left: 2.5vw;
+    margin-top: 16vw;
 }
 
 #board { /* zoomable (pinch-zoom.ts) */

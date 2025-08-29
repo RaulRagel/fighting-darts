@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { StateService } from 'src/app/services/state.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-back-button',
@@ -8,12 +7,14 @@ import { StateService } from 'src/app/services/state.service';
 })
 export class BackButtonComponent implements OnInit {
 
-  constructor(private stateService: StateService) { }
+  @Output() back = new EventEmitter<void>();
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   goBack() {
-    this.stateService.goBack();
+    this.back.emit();
   }
 }

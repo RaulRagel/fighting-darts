@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dartboard-throws',
@@ -7,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DartboardThrowsComponent implements OnInit {
 
-  show = true; // ! esta valor cambiará a false cuando la info de la diana esté oculta
+  // closeDartboard
+  @Output() closeDartboard = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  close() {
+    this.closeDartboard.emit();
+  }
 }

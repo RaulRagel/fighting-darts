@@ -16,6 +16,6 @@
         </div>
     </ng-template>
     <div *ngIf="showBackButton">
-        <app-back-button></app-back-button>
+        <app-back-button (back)="onBackClick()"></app-back-button>
     </div>
 </div>

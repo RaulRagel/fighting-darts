@@ -55,6 +55,9 @@
             <div class="player-info polygon">
                 <div class="player-name" [ngStyle]="{'background': player.color}">
                     <span>{{player.name || 'Player'}}</span>
+                    <div class="img-container current-turn-img" *ngIf="player.currentTurn">
+                        <img src="assets/images/icons/dart.png" />
+                    </div>
                 </div>
             </div>
         </div>

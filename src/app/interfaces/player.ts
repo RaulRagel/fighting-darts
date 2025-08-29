@@ -7,10 +7,11 @@ export interface Player {
     color: string,
     background: string,
     fighterGif: string | number,
+    isAlive: boolean,
+    currentTurn?: boolean,
     skill?: Skill,
     hp$: BehaviorSubject<number>;
     objects?: any[], // ! Objec type
-    isAlive?: boolean,
     weakPoints?: number[],
     healPoints?: number[],
     maxHealth?: number,

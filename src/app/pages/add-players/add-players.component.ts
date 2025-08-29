@@ -5,6 +5,8 @@ import { MenuButton } from 'src/app/interfaces/menu-button';
 import { GameService } from 'src/app/services/game.service';
 import { StateService } from 'src/app/services/state.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-add-players',
@@ -14,6 +16,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class AddPlayersComponent implements OnInit {
 
   players: Player[] = [];
+
+  onDestroy$ = new Subject<boolean>();
 
   newPlayerBtn: GenericButton = { // todo mover a button-factory.service
     name: 'Nuevo jugador',
@@ -32,14 +36,17 @@ export class AddPlayersComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameService.players$
+    .pipe(
+      takeUntil(this.onDestroy$)
+    )
     .subscribe(players => {
       this.players = players;
       console.log('Current players:', this.players);
     });
 
     if(!this.players.length) { // default players
-      this.gameService.addNewPlayer();
-      this.gameService.addNewPlayer();
+      this.gameService.addNewPlayer({ name: 'Player 1' });
+      this.gameService.addNewPlayer({ name: 'Player 2' });
     }
   }
 
@@ -50,10 +57,17 @@ export class AddPlayersComponent implements OnInit {
   startGame() {
     if(this.players.length < 2) return;
     this.stateService.navigateTo('game');
+    this.onDestroy$.next(true);
+    this.onDestroy$.complete();
   }
 
   get isDisabled() {
     return this.players.length < 2;
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next(true);
+    this.onDestroy$.complete();
   }
 
 }

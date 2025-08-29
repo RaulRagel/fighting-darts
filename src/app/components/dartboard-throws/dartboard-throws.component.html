@@ -1,5 +1,8 @@
 
-<div *ngIf="show">
+<div class="dartboard-throws-container">
+    <div>
+        <button class="close-button" (click)="close()">X</button>
+    </div>
     <app-dartboard></app-dartboard>
     <app-throws></app-throws>
 </div>

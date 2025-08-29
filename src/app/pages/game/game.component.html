@@ -14,16 +14,21 @@
     </div>
     <div class="control-panel">
         <div class="dartboard">
-            <app-dartboard></app-dartboard>
+            <app-dartboard
+                [readonly]="true"
+                (click)="openDartboard()"
+            ></app-dartboard>
         </div>
         <div class="button-container">
-            <!-- <app-generic-button
-                [button]="nextTurnBtn"
-            ></app-generic-button> -->
             <app-generic-button
                 *ngFor="let button of buttons"
                 [button]="button"
             ></app-generic-button>
         </div>
+    </div>
+    <div class="throws-container" *ngIf="showDartboard">
+        <app-dartboard-throws
+            (closeDartboard)="showDartboard = false"
+        ></app-dartboard-throws>
     </div>
 </div>

@@ -144,6 +144,12 @@
                 text-shadow: -3px 3px 6px #00000075;
                 font-size: 6vw;
             }
+            .current-turn-img {
+                width: 16vw;
+                position: absolute;
+                right: 2vw;
+                top: 0vw;
+            }
         }
         .player-name::after {
             content: "";
