@@ -1,6 +1,6 @@
 <div class="player-container" *ngIf="player">
-    <div class="remove-player-container">
-        <button *ngIf="editable" class="remove-player-button" (click)="deletePlayer()">
+    <div class="remove-player-container" *ngIf="editable">
+        <button class="remove-player-button" (click)="deletePlayer()">
             <img src="assets/images/icons/trash-white.png">
         </button>
     </div>
@@ -54,7 +54,7 @@
         <div class="info-container polygon">
             <div class="player-info polygon">
                 <div class="player-name" [ngStyle]="{'background': player.color}">
-                    <span>{{player.name || 'Player'}}</span>
+                    <span [ngClass]="{'current-turn': player.currentTurn}">{{player.name || 'Player'}}</span>
                     <div class="img-container current-turn-img" *ngIf="player.currentTurn">
                         <img src="assets/images/icons/dart.png" />
                     </div>
