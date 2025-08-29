@@ -10,9 +10,9 @@
                 *ngFor="let info of throwInfo"
                 [ngClass]="getZoneClass(info.area)">
                 {{ info.area }}
-                <ng-container *ngIf="isSuccessThrow(info.area)">
+                <!-- <ng-container *ngIf="isSuccessThrow(info.area)"> -->
                     (+{{info.value}})
-                </ng-container>
+                <!-- </ng-container> -->
             </span>
         </div>
     </div>

@@ -44,7 +44,7 @@
         span {
             padding: 2px;
             border-radius: 5px;
-            background: white;
+            outline: 2px solid white;
             color: gray;
             font-size: 4vw;
             min-width: 35px;
@@ -52,6 +52,7 @@
         }
 
         span.success {
+            background: white;
             color: black;
             font-weight: bold;
         }

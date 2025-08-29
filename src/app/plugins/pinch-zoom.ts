@@ -107,14 +107,36 @@ export function enablePinchZoom(
     { passive: true }
   );
 
+  function getElementWidth() {
+    if ('getBBox' in element) {
+      return (element as SVGGraphicsElement).getBBox().width * scale;
+    }
+    return (element as HTMLElement).offsetWidth * scale;
+  }
+
+  function getElementHeight() {
+    if ('getBBox' in element) {
+      return (element as SVGGraphicsElement).getBBox().height * scale;
+    }
+    return (element as HTMLElement).offsetHeight * scale;
+  }
+
   function applyTransform() {
-    (element as HTMLElement).style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    if ('getBBox' in element) {
+      // Para SVG, usa el atributo transform
+      (element as SVGGraphicsElement).setAttribute(
+        'transform',
+        `translate(${translateX},${translateY}) scale(${scale})`
+      );
+    } else {
+      (element as HTMLElement).style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
   }
 
   function clampTranslation() {
     const containerRect = container.getBoundingClientRect();
-    const elemWidth = (element as HTMLElement).offsetWidth * scale;
-    const elemHeight = (element as HTMLElement).offsetHeight * scale;
+    const elemWidth = getElementWidth();
+    const elemHeight = getElementHeight();
 
     const minX = Math.min(0, containerRect.width - elemWidth);
     const maxX = Math.max(0, containerRect.width - elemWidth);

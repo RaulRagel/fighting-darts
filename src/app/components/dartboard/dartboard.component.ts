@@ -13,12 +13,14 @@ import { BoardZone } from 'src/app/interfaces/board-zone';
 export class DartBoardComponent implements OnInit {
 
   @ViewChild('boardContainer', { static: true }) boardContainerRef!: ElementRef<HTMLElement>;
+  @ViewChild('zoomableArea', { static: true }) zoomableAreaRef!: ElementRef<HTMLElement>;
   @ViewChild('dartboardSvg', { static: true }) dartboardSvgRef!: ElementRef<SVGSVGElement>;
 
   @Input() readonly: boolean = false;
 
   dartboardSections!: HTMLElement[];
   boardContainer!: HTMLElement;
+  zoomableArea!: HTMLElement;
 
   boardZones: BoardZone[] = [];
 
@@ -27,6 +29,8 @@ export class DartBoardComponent implements OnInit {
   ngOnInit(): void { // usar static: true en el ViewChild, elemento siempre presente
 
     this.boardContainer = this.boardContainerRef.nativeElement;
+    this.zoomableArea = this.zoomableAreaRef.nativeElement;
+
     const svg = this.dartboardSvgRef.nativeElement; // svg representa la diana
 
     this.infoService.init();
@@ -78,8 +82,8 @@ export class DartBoardComponent implements OnInit {
     // HOVER PARA MOVIL
     enableMobileHover(this.dartboardSections);
     enablePinchZoom(
-      svg,
-      this.boardContainer,
+      this.zoomableArea, // Elemento a escalar
+      this.boardContainer, // Área de referencia (puede ser el mismo si no hay padre)
       false // logs
     );
   }
