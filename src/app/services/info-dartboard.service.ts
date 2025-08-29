@@ -50,13 +50,13 @@ export class InfoDartboardService {
     let throwInfo: ThrowInfo[] = [];
 
     for(let currentThrow of throws) {
-      duplicatedThrow = throwInfo.find(d => d.name === this.getThrowName(currentThrow));
+      duplicatedThrow = throwInfo.find(d => d.area === this.getThrowName(currentThrow));
       if(duplicatedThrow) {
         duplicatedThrow.hits++;
         duplicatedThrow.value += this.getThrowValue(currentThrow);
       } else {
         throwInfo.push({
-          name: this.getThrowName(currentThrow),
+          area: this.getThrowName(currentThrow),
           hits: 1,
           value: this.getThrowValue(currentThrow)
         });
@@ -65,7 +65,7 @@ export class InfoDartboardService {
 
     this.throwInfo$.next(throwInfo);
 
-    // console.log('throwInfo', this.throwInfo$.value);
+    console.log('throwInfo', this.throwInfo$.value);
   }
 
   getThrowName(id: string): string {

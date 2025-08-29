@@ -29,13 +29,11 @@ export class GameComponent implements OnInit {
     {
       name: 'Lanzar dardos',
       icon: this.utilsService.getIconUrl('dart'),
-      // size: 'big',
-      action: () => {}
+      action: () => this.openDartboard()
     },
     {
       name: 'Siguiente turno',
       icon: this.utilsService.getIconUrl('right'),
-      // size: 'big',
       action: () => this.nextTurn()
     },
   ];
@@ -49,7 +47,7 @@ export class GameComponent implements OnInit {
     )
     .subscribe(players => {
       this.players = players;
-      console.log('Current players:', this.players);
+      // console.log('Current players:', this.players);
       if(!this.playing) this.initGame();
     });
 
@@ -60,7 +58,7 @@ export class GameComponent implements OnInit {
   }
 
   initGame() {
-    console.log('Game started');
+    // console.log('Game started');
     if(this.players.length >= 2) {
       this.playing = true;
       this.gameService.startGame();
@@ -83,7 +81,7 @@ export class GameComponent implements OnInit {
 
   // Abrir pantalla de detalles para que el jugador pueda apuntar los lanzamientos en la diana
   openDartboard() {
-    console.log('Open dartboard');
+    // console.log('Open dartboard');
     this.showDartboard = true;
   }
 

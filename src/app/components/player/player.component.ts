@@ -33,7 +33,7 @@ export class PlayerComponent implements OnInit {
   constructor(private utilsService: UtilsService, private gameService: GameService) { }
 
   ngOnInit(): void {
-    console.log('Player data:', this.player);
+    // console.log('Player data:', this.player);
   }
 
   onPlayerNameChange(event: any) {
@@ -50,13 +50,13 @@ export class PlayerComponent implements OnInit {
   // In edit mode actions
 
   onCharacterSelected(characterNumber: string | number) {
-    console.log('Character selected event:', characterNumber);
+    // console.log('Character selected event:', characterNumber);
     this.player.fighterGif = this.utilsService.parseFighterGif(characterNumber);
     this.gameService.modifyPlayer(this.player);
   }
 
   onColorSelected(colorHash: string) {
-    console.log('Color selected event:', colorHash);
+    // console.log('Color selected event:', colorHash);
     this.player.color = colorHash;
     this.player.background = this.utilsService.parseBackgroundColor(colorHash);
     this.gameService.modifyPlayer(this.player);

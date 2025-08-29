@@ -16,7 +16,7 @@ export class SkillSelectorComponent implements OnInit {
   constructor(private utilsService: UtilsService) { }
 
   ngOnInit(): void {
-    console.log('Skills:', this.skills)
+    // console.log('Skills:', this.skills)
   }
 
   selectSkill(skill: Skill) {

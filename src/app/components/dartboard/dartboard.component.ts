@@ -36,11 +36,11 @@ export class DartBoardComponent implements OnInit {
       svg.querySelectorAll('#areas g path, #areas g circle')
     );
 
-    console.log('init boardSections', this.dartboardSections);
+    // console.log('init boardSections', this.dartboardSections);
 
     this.gameService.boardZones$
       .subscribe(zones => {
-        console.log('boardZones$', zones);
+        // console.log('boardZones$', zones);
         // Primero quitamos todos los gradientes SOLO en este SVG
         this.dartboardSections.forEach(p => {
           const id = p.getAttribute('id');
@@ -48,7 +48,7 @@ export class DartBoardComponent implements OnInit {
         });
         // Luego pintamos los que haya SOLO en este SVG
         zones.forEach(zone => {
-          console.log('paint zone', zone);
+          // console.log('paint zone', zone);
           this.paintZone(zone, svg);
         });
       });
@@ -80,7 +80,7 @@ export class DartBoardComponent implements OnInit {
     enablePinchZoom(
       svg,
       this.boardContainer,
-      true
+      false // logs
     );
   }
 

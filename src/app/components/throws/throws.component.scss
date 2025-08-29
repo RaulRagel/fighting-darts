@@ -1,5 +1,5 @@
 .info-container {
-    width: 100%;
+    width: 90vw;
     user-select: none;
 }
 .info {
@@ -8,7 +8,7 @@
     margin-top: 15px;
     flex-direction: column;
     color: white;
-    background-color: #454545;
+    background-color: black;
     font-weight: bold;
     border-radius: 10px;
     padding: 8px;
@@ -17,14 +17,14 @@
     .info-header {
         display: flex;
         justify-content: space-between;
-        padding: 5px;
         align-items: center;
-        font-size: 1.1rem;
+        padding: 3vw;
+        font-size: 4vw;
 
         button {
             all: unset;
             cursor: pointer;
-            background-color: #ff8383;
+            background-color: var(--red);
             padding: 5px;
             border-radius: 10px;
             font-weight: normal;
@@ -36,18 +36,32 @@
         border-radius: 10px;
         padding: 5px;
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
         gap: 15px;
         box-sizing: border-box;
 
         span {
+            padding: 2px;
+            border-radius: 5px;
+            background: white;
             color: gray;
+            font-size: 4vw;
+            min-width: 35px;
+            text-align: center;
+        }
+
+        span.success {
+            color: black;
+            font-weight: bold;
         }
     }
     
     .info-points {
         display: flex;
         justify-content: space-between;
+        font-size: 4vw;
+        padding: 5px;
 
         .dmg {
             color: #ed3737;

@@ -15,7 +15,7 @@ export class StateService {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   init() {
-    console.log('Current path:', this.router.url);
+    // console.log('Current path:', this.router.url);
 
     this.currentRouteSubject.next(this.router.url);
 

@@ -17,17 +17,17 @@ export class CharacterSelectorComponent implements OnInit {
   constructor(private utilsService: UtilsService) { }
 
   ngOnInit(): void {
-    console.log('Characters:', this.characters);
-    console.log('Colors:', this.colors);
+    // console.log('Characters:', this.characters);
+    // console.log('Colors:', this.colors);
   }
 
   selectCharacter(characterId: any) {
-    console.log('Selected character:', characterId);
+    // console.log('Selected character:', characterId);
     this.characterEmitter.emit(characterId);
   }
 
   selectColor(color: string) {
-    console.log('Selected color:', color);
+    // console.log('Selected color:', color);
     this.colorEmitter.emit(color);
   }
 

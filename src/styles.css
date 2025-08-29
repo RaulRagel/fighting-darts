@@ -53,6 +53,13 @@ img {
     justify-content: center;
 }
 
+.close-button {
+  all: unset;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
 /* Estilos generales para los selectores */
 
 .selector-container {
@@ -70,13 +77,6 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: 13px 10px 5px 10px;
-}
-
-.selector-container .selector-header .close-button {
-  all: unset;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
 }
 
 .selector-container .selector-header .title {

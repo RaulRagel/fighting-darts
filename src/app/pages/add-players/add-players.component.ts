@@ -41,7 +41,7 @@ export class AddPlayersComponent implements OnInit {
     )
     .subscribe(players => {
       this.players = players;
-      console.log('Current players:', this.players);
+      // console.log('Current players:', this.players);
     });
 
     if(!this.players.length) { // default players

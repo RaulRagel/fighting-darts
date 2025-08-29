@@ -5,30 +5,35 @@
             <span>Lanzamientos</span>
             <button (click)="removeLastDart()">Borrar último</button>
         </div>
-        <hr>
         <div class="info-throws">
-            <span *ngFor="let info of throwInfo">{{ info.name }} (+{{info.value}})</span>
+            <span
+                *ngFor="let info of throwInfo"
+                [ngClass]="getZoneClass(info.area)">
+                {{ info.area }}
+                <ng-container *ngIf="isSuccessThrow(info.area)">
+                    (+{{info.value}})
+                </ng-container>
+            </span>
         </div>
     </div>
     <div class="info">
         <div class="info-header">
             <span>Puntuación</span>
-            <button>Finalizar turno</button>
+            <button>Confirmar turno</button>
         </div>
-        <hr>
         <div class="info-points">
             <div>
                 <span class="dmg">Daño: </span>
-                <span>3</span>
+                <span>{{damage}}</span>
             </div>
             <div>
                 <span class="heal">Curación: </span>
-                <span>5</span>
+                <span>{{health}}</span>
             </div>
-            <div>
+            <!-- <div>
                 <span class="obj">Objeto: </span>
-                <span>Poción</span>
-            </div>
+                <span>{{object}}</span>
+            </div> -->
         </div>
     </div>
 </div>

@@ -56,9 +56,9 @@ export class GameService {
       if(!player.name) player.name = 'Player';
       currentPlayers[index] = player;
       this.playersSubject.next([...currentPlayers]);
-      console.log('Player modified:', player);
+      // console.log('Player modified:', player);
     } else {
-      console.error('Player not found:', player);
+      // console.error('Player not found:', player);
     }
   }
 
@@ -123,26 +123,39 @@ export class GameService {
     let availableAreas = [...this.utilsService.getBoardDefaults().areas];
     let boardZones: BoardZone[] = [];
 
-    function addZone(area: string, color: string, intenseColor: string) {
+    function addZone(area: string, color: string, intenseColor: string, type: 'damage' | 'health') {
       let zone = boardZones.find(z => z.area === area);
 
       if (!zone) {
-        boardZones.push({ area: area, color1: color });
-      } else if (!zone.color2) {
-        // Si el color ya está, intensifica, si no, añade segundo color
+        // Primera vez: inicializa color y el tipo a 1
+        boardZones.push({ area, color1: color, [type]: 1 });
+      } else {
+        // Inicializa el tipo si no existe, si existe suma 1
+        if (zone[type] === undefined) {
+          zone[type] = 1;
+        } else {
+          zone[type] = (zone[type] ?? 0) + 1;
+        }
+
+        // Si el color ya está, intensifica
         if (zone.color1 === color) {
           zone.color1 = intenseColor;
-        } else {
+        } else if (!zone.color2) {
+          // Si no hay segundo color, añádelo
           zone.color2 = color;
+        } else {
+          // Si ambos colores están, intensifica el que coincide
+          if (zone.color1 === color) zone.color1 = intenseColor;
+          if (zone.color2 === color) zone.color2 = intenseColor;
         }
-      } else {
-        // Si ambos colores están y uno coincide, intensifica
-        if (zone.color1 === color) zone.color1 = intenseColor;
-        if (zone.color2 === color) zone.color2 = intenseColor;
       }
 
       // Si ambos colores son intensos, elimina de disponibles
-      if (zone && zone.color1 === intenseColor && zone.color2 === intenseColor) {
+      if (
+        zone &&
+        zone.color1 === intenseColor &&
+        zone.color2 === intenseColor
+      ) {
         availableAreas = availableAreas.filter(a => a !== area);
       }
     }
@@ -150,13 +163,13 @@ export class GameService {
     // Pintar zonas de daño
     for (let i = 0; i < hitZones && availableAreas.length > 0; i++) {
       const area = availableAreas[Math.floor(Math.random() * availableAreas.length)];
-      addZone(area, colors.hit, colors.hit2);
+      addZone(area, colors.hit, colors.hit2, 'damage');
     }
 
     // Pintar zonas de curación
     for (let i = 0; i < healZones && availableAreas.length > 0; i++) {
       const area = availableAreas[Math.floor(Math.random() * availableAreas.length)];
-      addZone(area, colors.heal, colors.heal2);
+      addZone(area, colors.heal, colors.heal2, 'health');
     }
 
     this.boardZonesSubject.next(boardZones);
