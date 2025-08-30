@@ -2,23 +2,29 @@
 <div class="info-container">
     <div class="info">
         <div class="info-header">
-            <span>Lanzamientos</span>
+            <span>Lanzamientos</span><span>({{totalThrows}})</span>
             <button (click)="removeLastDart()">Borrar último</button>
         </div>
         <div class="info-throws">
             <span
                 *ngFor="let info of throwInfo"
                 [ngClass]="getZoneClass(info.area)">
+                
                 {{ info.area }}
-                <!-- <ng-container *ngIf="isSuccessThrow(info.area)"> -->
+                <div *ngIf="isSuccessThrow(info.area); else blabla">
                     (+{{info.value}})
-                <!-- </ng-container> -->
+                </div>
+                <ng-template #blabla>
+                    <div>
+                        (+0)
+                    </div>
+                </ng-template>
             </span>
         </div>
     </div>
     <div class="info">
         <div class="info-header">
-            <span>Puntuación</span>
+            <span>Resultado</span>
             <button>Confirmar turno</button>
         </div>
         <div class="info-points">

@@ -13,6 +13,7 @@ export class ThrowsComponent implements OnInit {
   throwInfo: ThrowInfo[] = [];
   damage: number = 0;
   health: number = 0;
+  totalThrows: number = 0;
 
   constructor(private infoService: InfoDartboardService, private gameService: GameService) { }
 
@@ -21,8 +22,9 @@ export class ThrowsComponent implements OnInit {
     .pipe()
     .subscribe(
       (throwInfo) => {
-        // console.log('throwInfo$ changed', throwInfo);
+        console.log('throwInfo$ changed', throwInfo);
         this.throwInfo = throwInfo;
+        this.totalThrows = throwInfo.reduce((acc, area) => acc + area.hits, 0);
         this.updateDamageAndHealth(this.throwInfo);
       }
     );
@@ -53,8 +55,7 @@ export class ThrowsComponent implements OnInit {
   }
 
   getZoneClass(area: string) {
-    console.log('this.gameService.boardZones', this.gameService.boardZones)
-    console.log('area', area)
+    console.log('this.gameService.boardZones', this.gameService.boardZones);
     const zone = this.gameService.boardZones.find(z => z.area === area);
     return zone ? 'success' : '';
   }
