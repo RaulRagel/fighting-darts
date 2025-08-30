@@ -44,7 +44,7 @@ export class ThrowsComponent implements OnInit {
       let zone = damageZones.find(z => z.area === throwInfo.area);
       if(zone) {
         if(zone.damage) this.damage += (zone.damage * throwInfo.value);
-        if(zone.health) this.health += (zone.health * throwInfo.value);
+        if(zone.heal) this.health += (zone.heal * throwInfo.value);
       }
     }
     console.log('Total damage:', this.damage, 'Total health:', this.health);

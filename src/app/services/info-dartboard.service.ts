@@ -44,8 +44,11 @@ export class InfoDartboardService {
     this.throws$.next(throws);
   }
 
+  resetThrows() { // al pasar de turno (o confirmarlo), limpiamos los throws
+    this.throws$.next([]);
+  }
 
-  updateThrows(throws: string[]) {
+  private updateThrows(throws: string[]) { // privado porque solo debe actualizarse si se actualizan los throws
     let duplicatedThrow;
     let throwInfo: ThrowInfo[] = [];
 

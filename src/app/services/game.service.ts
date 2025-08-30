@@ -3,6 +3,7 @@ import { Player } from '../interfaces/player';
 import { BehaviorSubject } from 'rxjs';
 import { UtilsService } from './utils.service';
 import { BoardZone } from '../interfaces/board-zone';
+import { InfoDartboardService } from './info-dartboard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class GameService {
     return this.boardZonesSubject.getValue();
   }
 
-  constructor(private utilsService: UtilsService) { }
+  constructor(private utilsService: UtilsService, private infoDartboardService: InfoDartboardService) { }
 
   get currentPlayers(): Player[] {
     return this.playersSubject.getValue();
@@ -80,7 +81,6 @@ export class GameService {
     });
     this.playersSubject.next(currentPlayers);
     this.setTurn(0);
-    this.paintRandomZones();
   }
 
   nextTurn() {
@@ -92,8 +92,6 @@ export class GameService {
       this.roundSubject.next(this.roundSubject.getValue() + 1);
     }
     this.setTurn(currentTurn);
-
-    this.paintRandomZones();
   }
 
   setTurn(playerIndex: number) {
@@ -103,79 +101,110 @@ export class GameService {
     });
     this.playersSubject.next(currentPlayers);
     this.turnOfSubject.next(playerIndex);
+
+    // reiniciamos los lanzamientos
+    this.infoDartboardService.resetThrows();
+
+    // generamos zonas para jugadores
+    const playerZones = this.setZonesForPlayers();
+    // pintamos en la diana según esas zonas
+    this.paintZonesFromPlayers(playerZones);
   }
 
   /**
-   * Llamamos zona al conjunto de un área (numero) y dos colores.
-   * Pintamos zonas en la diana, cada zona tiene un numero y dos posibles colores aleatorios.
-   * Si coincide el color que intentamos pintar en el área, se pinta en un solo color pero más intenso.
-   * Si un área ya tiene dos colores intensos, no se vuelve a pintar (se elimina de availableAreas).
-   * 
-   * Ejemplo:
-   * Si se intenta pinta un área de rojo, y ya estaba en rojo, el color1 será rojo intenso.
-   * Si esa misma area se intenta pintar de azul, el color2 será azul, y la zona será de dos colores (rojo intenso y azul).
+   * Genera zonas individuales para cada jugador (curación o daño).
+   * Devuelve un array con todas las zonas generadas (para pintarlas en la diana).
    */
-  paintRandomZones() {
-    this.cleanZones()
-    const hitZones = 3;
-    const healZones = 1;
+  setZonesForPlayers(): { area: string, type: 'damage' | 'heal' }[] {
+    const players = this.currentPlayers;
+    const allZones: { area: string, type: 'damage' | 'heal' }[] = [];
+
+    const availableAreas = [...this.utilsService.getBoardDefaults().areas];
+
+    players.forEach(player => {
+      player.healPoints = [];
+      player.weakPoints = [];
+
+      if (player.currentTurn) {
+        // 🎯 jugador en turno → obtiene 1 zona de curación
+        const healArea = availableAreas[Math.floor(Math.random() * availableAreas.length)];
+        player.healPoints.push(Number(healArea));
+        allZones.push({ area: healArea, type: 'heal' });
+      } else {
+        // 🎯 rivales → obtienen 3 zonas de daño
+        for (let i = 0; i < 3; i++) {
+          const damageArea = availableAreas[Math.floor(Math.random() * availableAreas.length)];
+          player.weakPoints.push(Number(damageArea));
+          allZones.push({ area: damageArea, type: 'damage' });
+        }
+      }
+    });
+
+    this.playersSubject.next(players);
+    return allZones;
+  }
+
+  /**
+  * Pinta en la diana las zonas recibidas (acumuladas de todos los jugadores).
+  */
+  paintZonesFromPlayers(playerZones: { area: string, type: 'damage' | 'heal' }[]) {
+    this.cleanZones();
     const colors = this.utilsService.getBoardDefaults().colors;
-    let availableAreas = [...this.utilsService.getBoardDefaults().areas];
     let boardZones: BoardZone[] = [];
 
-    function addZone(area: string, color: string, intenseColor: string, type: 'damage' | 'health') {
+    function addZone(area: string, color: string, intenseColor: string, type: 'damage' | 'heal') {
       let zone = boardZones.find(z => z.area === area);
 
       if (!zone) {
-        // Primera vez: inicializa color y el tipo a 1
+        // primera vez
         boardZones.push({ area, color1: color, [type]: 1 });
       } else {
-        // Inicializa el tipo si no existe, si existe suma 1
-        if (zone[type] === undefined) {
-          zone[type] = 1;
-        } else {
-          zone[type] = (zone[type] ?? 0) + 1;
-        }
+        // inicializa contador
+        zone[type] = (zone[type] ?? 0) + 1;
 
-        // Si el color ya está, intensifica
+        // intensificar colores
         if (zone.color1 === color) {
           zone.color1 = intenseColor;
         } else if (!zone.color2) {
-          // Si no hay segundo color, añádelo
           zone.color2 = color;
         } else {
-          // Si ambos colores están, intensifica el que coincide
           if (zone.color1 === color) zone.color1 = intenseColor;
           if (zone.color2 === color) zone.color2 = intenseColor;
         }
       }
+    }
 
-      // Si ambos colores son intensos, elimina de disponibles
-      if (
-        zone &&
-        zone.color1 === intenseColor &&
-        zone.color2 === intenseColor
-      ) {
-        availableAreas = availableAreas.filter(a => a !== area);
+    // recorrer todas las zonas generadas
+    playerZones.forEach(z => {
+      if (z.type === 'damage') {
+        addZone(z.area, colors.hit, colors.hit2, 'damage');
+      } else {
+        addZone(z.area, colors.heal, colors.heal2, 'heal');
       }
-    }
-
-    // Pintar zonas de daño
-    for (let i = 0; i < hitZones && availableAreas.length > 0; i++) {
-      const area = availableAreas[Math.floor(Math.random() * availableAreas.length)];
-      addZone(area, colors.hit, colors.hit2, 'damage');
-    }
-
-    // Pintar zonas de curación
-    for (let i = 0; i < healZones && availableAreas.length > 0; i++) {
-      const area = availableAreas[Math.floor(Math.random() * availableAreas.length)];
-      addZone(area, colors.heal, colors.heal2, 'health');
-    }
+    });
 
     this.boardZonesSubject.next(boardZones);
   }
 
   cleanZones() {
     this.boardZonesSubject.next([]);
+  }
+
+  hitPlayer(player: Player, points: number) {
+    const currentHp = player.hp$.getValue();
+    if(!currentHp) return;
+
+    let damage = currentHp - points;
+    if(damage < 0) damage = 0;
+    player.hp$.next(damage);
+  }
+
+  healPlayer(player: Player, points: number) {
+    const currentHp = player.hp$.getValue();
+    if(!currentHp) return;
+
+    let healed = currentHp + points;
+    if(healed > this.utilsService.maxHealth) healed = this.utilsService.maxHealth;
+    player.hp$.next(healed);
   }
 }

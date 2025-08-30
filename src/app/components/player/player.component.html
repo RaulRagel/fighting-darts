@@ -59,6 +59,16 @@
                         <img src="assets/images/icons/dart.png" />
                     </div>
                 </div>
+                <div class="player-zone weak-points" *ngIf="player.weakPoints?.length">
+                    <span *ngFor="let point of player.weakPoints">
+                        {{point}}
+                    </span>
+                </div>
+                <div class="player-zone heal-points" *ngIf="player.healPoints?.length">
+                    <span *ngFor="let point of player.healPoints">
+                        {{point}}
+                    </span>
+                </div>
             </div>
         </div>
         <button (click)="hit()">-</button>

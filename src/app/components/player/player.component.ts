@@ -33,7 +33,6 @@ export class PlayerComponent implements OnInit {
   constructor(private utilsService: UtilsService, private gameService: GameService) { }
 
   ngOnInit(): void {
-    // console.log('Player data:', this.player);
   }
 
   onPlayerNameChange(event: any) {
@@ -86,7 +85,6 @@ export class PlayerComponent implements OnInit {
     let damaged = currentHp - points;
     if(damaged < 0) damaged = 0;
     this.player.hp$.next(damaged);
-
   }
 
   heal(points: number = 1) {

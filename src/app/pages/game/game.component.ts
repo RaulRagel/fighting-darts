@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { delay, takeUntil } from 'rxjs/operators';
 import { GenericButton } from 'src/app/interfaces/generic-button';
 import { Player } from 'src/app/interfaces/player';
 import { GameService } from 'src/app/services/game.service';
@@ -42,15 +42,14 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameService.players$
-    .pipe(
-      takeUntil(this.onDestroy$)
-    )
-    .subscribe(players => {
-      this.players = players;
-      // console.log('Current players:', this.players);
-      if(!this.playing) this.initGame();
-    });
-
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(players => {
+        this.players = players;
+        if (!this.playing && this.players.length >= 2) {
+          this.initGame();
+        }
+      });
+    
     if(!this.players.length) { // !! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
       this.gameService.addNewPlayer();
       this.gameService.addNewPlayer();
@@ -58,21 +57,19 @@ export class GameComponent implements OnInit {
   }
 
   initGame() {
-    // console.log('Game started');
-    if(this.players.length >= 2) {
-      this.playing = true;
-      this.gameService.startGame();
+    console.log('call initGame, hay players');
+    this.playing = true;
+    this.gameService.startGame();
 
-      this.gameService.turnOf$.subscribe(turnIndex => {
-        const currentPlayer = this.players[turnIndex];
-        this.title = `Turno de ${currentPlayer.name}`;
-      });
+    this.gameService.turnOf$.subscribe(turnIndex => {
+      const currentPlayer = this.players[turnIndex];
+      this.title = `Turno de ${currentPlayer.name}`;
+    });
 
-      this.gameService.round$.subscribe(round => {
-        this.round = round;
-        this.subtitle = `Ronda ${this.round}`;
-      });
-    }
+    this.gameService.round$.subscribe(round => {
+      this.round = round;
+      this.subtitle = `Ronda ${this.round}`;
+    });
   }
 
   nextTurn() {
@@ -89,5 +86,10 @@ export class GameComponent implements OnInit {
     this.onDestroy$.next(true);
     this.onDestroy$.complete();
   }
+
+  // testAction() { // !! test
+  //   let player = this.gameService.currentPlayers[0];
+  //   this.gameService.hitPlayer(player, 5);
+  // }
 
 }
