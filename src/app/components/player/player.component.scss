@@ -129,7 +129,7 @@
     background: black;
     border-radius: 10px;
     .player-info {
-        width: 54%;
+        width: 52%;
         height: 17vh;
         background: #ffffff;
         right: 25px;
@@ -140,12 +140,12 @@
             background: #909090;
             color: white;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             span {
-                // font-weight: bold;
-                // text-shadow: -3px 3px 6px #00000075;
                 font-size: 6vw;
+                padding-left: 3vw;
+                z-index: 1;
                 &.current-turn {
                     font-weight: bold;
                     text-shadow: -3px 3px 6px #00000075;
@@ -168,7 +168,7 @@
             bottom: -10px;
         }
         .player-zone {
-            width: 100%;
+            width: 95%;
             margin-top: 5vw;
             padding: 2vw;
             display: flex;

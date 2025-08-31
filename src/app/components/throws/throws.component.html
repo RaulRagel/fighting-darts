@@ -11,17 +11,16 @@
                 [ngStyle]="getZoneStyle(info.area)">
                 
                 {{ info.area }}
-                <div *ngIf="isSuccessThrow(info.area); else blabla">
+                <div *ngIf="isSuccessThrow(info.area); else unSuccessThrow">
                     (+{{info.value}})
                 </div>
-                <ng-template #blabla>
-                    <div>
-                        (+0)
-                    </div>
+                <ng-template #unSuccessThrow>
+                    <div>(+0)</div>
                 </ng-template>
             </span>
         </div>
     </div>
+    <hr>
     <div class="info">
         <div class="info-header">
             <span>Resultado</span>
@@ -29,17 +28,15 @@
         </div>
         <div class="info-points">
             <div>
-                <span class="dmg">Daño: </span>
-                <span>{{damage}}</span>
+                <span class="dmg">Daño:</span>
+                <div *ngFor="let player of damagesToPlayers">
+                    {{player.name}} (-{{player.damage}})
+                </div>
             </div>
             <div>
                 <span class="heal">Curación: </span>
                 <span>{{health}}</span>
             </div>
-            <!-- <div>
-                <span class="obj">Objeto: </span>
-                <span>{{object}}</span>
-            </div> -->
         </div>
     </div>
 </div>

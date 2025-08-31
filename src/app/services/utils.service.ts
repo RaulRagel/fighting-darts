@@ -19,6 +19,10 @@ export class UtilsService {
     return 25;
   }
 
+  get bullName() {
+    return 'Diana';
+  }
+
   constructor() { }
 
   getIconUrl(icon: string, config?: IconConfig): string {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ThrowInfo } from '../interfaces/throw';
+import { UtilsService } from './utils.service';
 
 const VALUES: { [key: string]: number } = {
   s: 1,
@@ -18,7 +19,7 @@ export class InfoDartboardService {
   throws$ = new BehaviorSubject<string[]>([]);
   throwInfo$ = new BehaviorSubject<ThrowInfo[]>([]);
 
-  constructor() { }
+  constructor(private utilsService: UtilsService) { }
 
   init() {
     this.throws$
@@ -73,7 +74,7 @@ export class InfoDartboardService {
 
   getThrowName(id: string): string {
     if (!id) return '';
-    if(['bull', 'outer'].includes(id)) return 'Centro';
+    if(['bull', 'outer'].includes(id)) return this.utilsService.bullName;
     
     return id.slice(1);
   }

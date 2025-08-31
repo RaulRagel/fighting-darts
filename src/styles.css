@@ -60,6 +60,10 @@ img {
   cursor: pointer;
 }
 
+hr {
+  width: 100%;
+}
+
 /* Estilos generales para los selectores */
 
 .selector-container {

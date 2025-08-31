@@ -1,25 +1,30 @@
 .info-container {
     width: 90vw;
+    height: 85vw;
     user-select: none;
     background-color: black;
     border-radius: 10px;
+    overflow: auto;
+    padding: 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
 }
 .info {
     display: flex;
     width: 100%;
-    margin-top: 15px;
     flex-direction: column;
     color: white;
     font-weight: bold;
-    padding: 8px;
     box-sizing: border-box;
+    // margin-top: 15px;
 
     .info-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 3vw;
         font-size: 4vw;
+        margin-bottom: 4vw;
 
         button {
             all: unset;
@@ -50,12 +55,6 @@
             min-width: 35px;
             text-align: center;
         }
-
-        // span.success {
-        //     background: white;
-        //     color: black;
-        //     font-weight: bold;
-        // }
     }
     
     .info-points {
@@ -63,6 +62,7 @@
         justify-content: space-around;
         font-size: 4vw;
         padding: 5px;
+        gap: 4vw;
 
         .dmg {
             color: #ed3737;

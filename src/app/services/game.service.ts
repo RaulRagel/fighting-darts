@@ -121,7 +121,7 @@ export class GameService {
 
     const availableAreas = [...this.utilsService.getBoardDefaults().areas];
 
-    players.forEach(player => {
+    players.filter(p => p.isAlive).forEach(player => {
       player.healPoints = [];
       player.weakPoints = [];
 
@@ -195,7 +195,10 @@ export class GameService {
     if(!currentHp) return;
 
     let damage = currentHp - points;
-    if(damage < 0) damage = 0;
+    if(damage < 0) {
+      damage = 0;
+      // player.isAlive = false; // ! hacer que isAlive sea un observable?
+    }
     player.hp$.next(damage);
   }
 
