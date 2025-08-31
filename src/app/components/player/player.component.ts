@@ -35,6 +35,10 @@ export class PlayerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get totalPlayers() {
+    return this.gameService.currentPlayers.length;
+  }
+
   onPlayerNameChange(event: any) {
     this.player.name = event.target.value;
     this.gameService.modifyPlayer(this.player);

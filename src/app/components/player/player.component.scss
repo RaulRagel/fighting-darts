@@ -192,3 +192,28 @@
         }
     }
 }
+
+/* OVERRIDE SI HAY MÁS DE 2 JUGADORES */
+
+.player-container.more-players {
+  min-height: 0;
+
+  .character-container {
+    width: 37vw;
+    height: 18vh;
+  }
+
+  .info-container {
+    height: 14vh;
+
+    .player-info {
+      height: 12vh;
+      right: 28px;
+
+      .player-zone {
+        width: 90%;
+        margin-top: 3vw;
+      }
+    }
+  }
+}
