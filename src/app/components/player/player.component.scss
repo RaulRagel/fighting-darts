@@ -4,10 +4,9 @@
     position: relative;
     width: 100%;
     padding: 0 10px;
-    margin-bottom: 2vw;
+    margin-bottom: 12vw;
     border-radius: 10px;
     min-height: 190px; // 3 jugadores
-    max-height: 200px; // 2 jugadores
     .remove-player-container {
         position: absolute;
         z-index: 2;
@@ -25,7 +24,7 @@
     .character-container {
         position: absolute;
         width: 40vw;
-        height: 20vh;
+        height: 23vh;
         background-color: black;
         padding: 6px 10px;
         z-index: 1;
@@ -126,12 +125,12 @@
 .info-container {
     position: relative;
     width: 100%;
-    height: 17vh;
+    height: 19.5vh;
     background: black;
     border-radius: 10px;
     .player-info {
         width: 54%;
-        height: 14vh;
+        height: 17vh;
         background: #ffffff;
         right: 25px;
 
@@ -169,8 +168,8 @@
             bottom: -10px;
         }
         .player-zone {
-            width: 90%;
-            margin-top: 2vw;
+            width: 100%;
+            margin-top: 5vw;
             padding: 2vw;
             display: flex;
             justify-content: space-around;
@@ -183,10 +182,12 @@
                 outline: 4px solid black;
             }
             &.heal-points span {
-                color: rgb(10, 122, 10);
+                color: #0a7a0a;
+                outline: 3px solid #0a7a0a;
             }
             &.weak-points span {
-                color: rgb(205, 14, 14);
+                color: #cd0e0e;
+                outline: 3px solid #cd0e0e;
             }
         }
     }

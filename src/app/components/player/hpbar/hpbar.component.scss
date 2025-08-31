@@ -3,12 +3,12 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 5vw;
+  bottom: -4.5vw;
   right: 15vw;
   z-index: 1;
 
   .hpbar-container {
-    width: 250px;
+    width: 280px;
     background-color: black;
     border-radius: 10px;
     clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 0% 100%);
@@ -16,14 +16,14 @@
 
   table {
     border-collapse: separate;
-    border-spacing: 4px;
-    padding: 1px 10px;
+    border-spacing: 3px;
+		padding: 4px 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   td {
-    width: 5px;
-    height: 20px;
+    height: 22px;
+		width: 7px;
     background: linear-gradient(135deg, #38ef7d 20%, #11998e 100%);
   }
 

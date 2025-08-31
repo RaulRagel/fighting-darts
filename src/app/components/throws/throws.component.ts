@@ -54,10 +54,22 @@ export class ThrowsComponent implements OnInit {
     return this.gameService.boardZones.some(zone => zone.area === area);
   }
 
-  getZoneClass(area: string) {
-    console.log('this.gameService.boardZones', this.gameService.boardZones);
+  // getZoneClass(area: string) {
+  //   console.log('this.gameService.boardZones', this.gameService.boardZones);
+  //   const zone = this.gameService.boardZones.find(z => z.area === area);
+  //   return zone ? 'success' : '';
+  // }
+
+  getZoneStyle(area: string) {
     const zone = this.gameService.boardZones.find(z => z.area === area);
-    return zone ? 'success' : '';
+    let style: any = {};
+    if(zone) {
+      style.background = zone.color1;
+      style.color = 'white';
+      if(zone.color2) style.background = `linear-gradient(90deg, ${zone.color1} 0%, ${zone.color2} 100%)`;
+    }
+    console.log('style', style);
+    return style;
   }
 
 }

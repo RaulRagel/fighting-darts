@@ -8,7 +8,7 @@
         <div class="info-throws">
             <span
                 *ngFor="let info of throwInfo"
-                [ngClass]="getZoneClass(info.area)">
+                [ngStyle]="getZoneStyle(info.area)">
                 
                 {{ info.area }}
                 <div *ngIf="isSuccessThrow(info.area); else blabla">

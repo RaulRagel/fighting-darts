@@ -1,6 +1,8 @@
 .info-container {
     width: 90vw;
     user-select: none;
+    background-color: black;
+    border-radius: 10px;
 }
 .info {
     display: flex;
@@ -8,9 +10,7 @@
     margin-top: 15px;
     flex-direction: column;
     color: white;
-    background-color: black;
     font-weight: bold;
-    border-radius: 10px;
     padding: 8px;
     box-sizing: border-box;
 
@@ -36,7 +36,7 @@
         border-radius: 10px;
         padding: 5px;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         flex-wrap: wrap;
         gap: 15px;
         box-sizing: border-box;
@@ -51,11 +51,11 @@
             text-align: center;
         }
 
-        span.success {
-            background: white;
-            color: black;
-            font-weight: bold;
-        }
+        // span.success {
+        //     background: white;
+        //     color: black;
+        //     font-weight: bold;
+        // }
     }
     
     .info-points {
