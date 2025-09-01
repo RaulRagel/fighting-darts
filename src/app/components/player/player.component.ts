@@ -16,6 +16,7 @@ export class PlayerComponent implements OnInit {
   @Input() editable: boolean = false;
 
   currentSelector = '';
+  showPlayersHealthActions = false;
 
   buttons: GenericButton[] = [
     {
@@ -33,6 +34,10 @@ export class PlayerComponent implements OnInit {
   constructor(private utilsService: UtilsService, private gameService: GameService) { }
 
   ngOnInit(): void {
+    this.gameService.showActions$
+    .subscribe(
+      show => this.showPlayersHealthActions = show
+    );
   }
 
   get totalPlayers() {

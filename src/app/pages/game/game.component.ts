@@ -38,6 +38,13 @@ export class GameComponent implements OnInit {
     },
   ];
 
+  headerExtraButtons: any[] = [
+    {
+      icon: this.utilsService.getIconUrl('edit'),
+      action: () => this.gameService.togglePlayersHealthActions()
+    }
+  ];
+
   constructor(private gameService: GameService, private utilsService: UtilsService) { }
 
   ngOnInit(): void {

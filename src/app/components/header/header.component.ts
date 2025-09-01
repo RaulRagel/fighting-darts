@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   @Input() showBackButton: boolean = false;
   @Input() subtitle: string = '';
 
+  @Input() extraButtons: any[] = [];
+
   @Output() back = new EventEmitter<void>();
 
   constructor(private utilsService: UtilsService, private stateService: StateService) { }

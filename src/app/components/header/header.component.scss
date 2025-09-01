@@ -60,4 +60,16 @@
             margin-left: 10px;
         }
     }
+
+    .buttons-container {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        .btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+    }
 }

@@ -24,6 +24,9 @@ export class GameService {
   boardZonesSubject = new BehaviorSubject<BoardZone[]>([]);
   boardZones$ = this.boardZonesSubject.asObservable();
 
+  showPlayersHealthActionsSubject = new BehaviorSubject<boolean>(false);
+  showActions$ = this.showPlayersHealthActionsSubject.asObservable();
+
   get boardZones(): BoardZone[] {
     return this.boardZonesSubject.getValue();
   }
@@ -83,6 +86,7 @@ export class GameService {
     });
     this.playersSubject.next(currentPlayers);
     this.setTurn(0);
+    this.togglePlayersHealthActions(false);
   }
 
   nextTurn() {
@@ -225,5 +229,10 @@ export class GameService {
       });
     }
     if(currentTurnPlayer && heal) this.healPlayer(currentTurnPlayer, heal);
+  }
+
+  togglePlayersHealthActions(value?: boolean) {
+    if(value) this.showPlayersHealthActionsSubject.next(value);
+    else this.showPlayersHealthActionsSubject.next(!this.showPlayersHealthActionsSubject.getValue());
   }
 }

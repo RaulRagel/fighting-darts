@@ -18,7 +18,7 @@
             <div class="player-name" [ngStyle]="{'background': player.color}">
                 <input [id]="player.id" type="text" [placeholder]="player.name" (blur)="onPlayerNameChange($event)" maxlength="12">
                 <label [for]="player.id" class="img-container">
-                    <img src="assets/images/icons/edit.png" />
+                    <img src="assets/images/icons/edit.png"/>
                 </label>
             </div>
             <div class="buttons">
@@ -71,8 +71,14 @@
                 </div>
             </div>
         </div>
-        <button (click)="hit()">-</button>
-        <button (click)="heal()">+</button>
+        <div class="edit-health-btns" *ngIf="showPlayersHealthActions">
+            <button class="img-container" (click)="hit()">
+                <img src="assets/images/icons/hit-red.png" />
+            </button>
+            <button class="img-container" (click)="heal()">
+                <img src="assets/images/icons/heal-green.png" />
+            </button>
+        </div>
         <app-hpbar [hp$]="player.hp$"></app-hpbar>
     </ng-template>
 </div>

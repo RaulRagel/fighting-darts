@@ -168,7 +168,7 @@
             bottom: -10px;
         }
         .player-zone {
-            width: 95%;
+            width: 90%;
             margin-top: 5vw;
             padding: 2vw;
             display: flex;
@@ -190,6 +190,29 @@
                 outline: 3px solid #cd0e0e;
             }
         }
+    }
+}
+.edit-health-btns {
+    position: absolute;
+    z-index: 1;
+    right: 5vw;
+    bottom: 6vw;
+    display: flex;
+    flex-direction: column;
+    gap: 4vw;
+    button {
+        all: unset;
+        position: relative;
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        padding: 1vw;
+        background: #ffffff;
+        outline: 5px solid black;
+        border-radius: 10px;
+    }
+    button:first-child {
+        margin-left: 1vw;
     }
 }
 

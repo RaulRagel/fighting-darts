@@ -12,7 +12,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { CustomBtnComponent } from './components/custom-btn/custom-btn.component';
 import { AddPlayersComponent } from './pages/add-players/add-players.component';
 import { PlayerComponent } from './components/player/player.component';
-import { BackButtonComponent } from './components/back-button/back-button.component';
 import { GenericButtonComponent } from './components/generic-button/generic-button.component';
 import { CharacterSelectorComponent } from './components/player/character-selector/character-selector.component';
 import { SkillSelectorComponent } from './components/player/skill-selector/skill-selector.component';
@@ -30,7 +29,6 @@ import { HpbarComponent } from './components/player/hpbar/hpbar.component';
     CustomBtnComponent,
     AddPlayersComponent,
     PlayerComponent,
-    BackButtonComponent,
     GenericButtonComponent,
     CharacterSelectorComponent,
     SkillSelectorComponent,

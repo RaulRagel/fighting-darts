@@ -15,7 +15,18 @@
             <img src="assets/images/logo-fd.png">
         </div>
     </ng-template>
-    <div *ngIf="showBackButton">
-        <app-back-button (back)="onBackClick()"></app-back-button>
+
+    <div class="buttons-container">
+        <div class="btn" *ngFor="let button of extraButtons">
+            <button class="simple-button" (click)="button.action()">
+                <img [src]="button.icon">
+            </button>
+        </div>
+    
+        <div class="btn" *ngIf="showBackButton">
+             <button class="simple-button" (click)="onBackClick()">
+                <img src="assets/images/icons/back.png">
+             </button>
+        </div>
     </div>
 </div>
