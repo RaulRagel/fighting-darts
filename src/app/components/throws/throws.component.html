@@ -24,18 +24,20 @@
     <div class="info">
         <div class="info-header">
             <span>Resultado</span>
-            <button>Confirmar turno</button>
+            <button (click)="confirmTurn()">
+                Confirmar turno
+            </button>
         </div>
         <div class="info-points">
             <div>
                 <span class="dmg">Daño:</span>
-                <div *ngFor="let player of damagesToPlayers">
-                    {{player.name}} (-{{player.damage}})
+                <div *ngFor="let damageInfo of damagesToPlayers">
+                    {{damageInfo.playerName}} (-{{damageInfo.damage}})
                 </div>
             </div>
             <div>
                 <span class="heal">Curación: </span>
-                <span>{{health}}</span>
+                <span>{{healToPlayer}}</span>
             </div>
         </div>
     </div>

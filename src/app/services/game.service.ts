@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { UtilsService } from './utils.service';
 import { BoardZone } from '../interfaces/board-zone';
 import { InfoDartboardService } from './info-dartboard.service';
+import { InfoDamage } from '../interfaces/info-damage';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +78,7 @@ export class GameService {
   startGame() {
     const currentPlayers = this.currentPlayers.map(player => {
       player.isAlive = true;
+      player.hp$.next(this.utilsService.maxHealth);
       return player;
     });
     this.playersSubject.next(currentPlayers);
@@ -209,5 +211,19 @@ export class GameService {
     let healed = currentHp + points;
     if(healed > this.utilsService.maxHealth) healed = this.utilsService.maxHealth;
     player.hp$.next(healed);
+  }
+
+  // aplicamos el turno, es decir, el daño que hemos generado etc
+  applyThrows(damages: InfoDamage[], heal: number) {
+    console.log('Apply', damages);
+    let currentTurnPlayer = this.currentPlayers.find(p => p.currentTurn);
+    // ! meter una animación o algo?
+    if(damages.length) {
+      damages.forEach((damageInfo) => {
+        let player = this.currentPlayers.find(p => p.id === damageInfo.id);
+        if(player) this.hitPlayer(player, damageInfo.damage);
+      });
+    }
+    if(currentTurnPlayer && heal) this.healPlayer(currentTurnPlayer, heal);
   }
 }

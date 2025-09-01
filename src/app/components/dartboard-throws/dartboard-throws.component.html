@@ -1,7 +1,9 @@
 
 <div class="dartboard-throws-container">
     <app-dartboard></app-dartboard>
-    <app-throws></app-throws>
+    <app-throws
+        (confirmTurnEmiter)="close()"
+    ></app-throws>
     <button class="close-button" (click)="close()">
         <img src="assets/images/icons/cross.png" />
     </button>

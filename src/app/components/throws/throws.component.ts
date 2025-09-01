@@ -1,14 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { InfoDamage } from 'src/app/interfaces/info-damage';
 import { ThrowInfo } from 'src/app/interfaces/throw';
 import { GameService } from 'src/app/services/game.service';
 import { InfoDartboardService } from 'src/app/services/info-dartboard.service';
 import { UtilsService } from 'src/app/services/utils.service';
-
-interface InfoDamage {
-  playerName: string,
-  id: number,
-  damage: number
-}
 
 @Component({
   selector: 'app-throws',
@@ -20,53 +15,48 @@ export class ThrowsComponent implements OnInit {
   throwInfo: ThrowInfo[] = [];
   totalThrows: number = 0;
 
-  damage: number = 0;
-  health: number = 0;
-  damagesToPlayers: any[] = [];
+  healToPlayer: number = 0; // lo que se cura el turno actual
+  damagesToPlayers: InfoDamage[] = []; // daño al resto de jugadores
 
-  constructor(private infoService: InfoDartboardService, private gameService: GameService, private utilsService: UtilsService) { }
+  @Output() confirmTurnEmiter = new EventEmitter<void>();
+
+  constructor(
+    private infoDartboardService: InfoDartboardService,
+    private gameService: GameService,
+    private utilsService: UtilsService
+  ) { }
 
   ngOnInit(): void {
-    this.infoService.throwInfo$
+    this.infoDartboardService.throwInfo$
     .pipe()
     .subscribe(
       (throwInfo) => {
         console.log('throwInfo$ changed', throwInfo);
         this.throwInfo = throwInfo;
         this.totalThrows = throwInfo.reduce((acc, area) => acc + area.hits, 0);
-        this.updateDamageAndHealth();
+        this.updatePlayerHeal();
         this.updateDamageToPlayer();
       }
     );
   }
 
   removeLastDart() {
-    this.infoService.removeDart();
-  }
-
-  private updateDamageAndHealth() { // ! mover logica al service? esto irá por cada jugador
-    console.log('players', this.gameService.currentPlayers);
-    // obetenemos las zonas donde se puede hacer daño o curar
-    let damageZones = this.gameService.boardZones;
-    // por cada area en throwInfo, buscamos si existe en damageZones
-    this.damage = 0;
-    this.health = 0;
-    for(let throwInfo of this.throwInfo) {
-      let zone = damageZones.find(z => z.area === throwInfo.area);
-      if(zone) {
-        if(zone.damage) this.damage += (zone.damage * throwInfo.value);
-        if(zone.heal) this.health += (zone.heal * throwInfo.value);
-      }
-      if(throwInfo.area === this.utilsService.bullName) {
-        this.damage += throwInfo.value;
-        this.health += throwInfo.value;
-      }
-    }
-    console.log('Total damage:', this.damage, 'Total health:', this.health);
+    this.infoDartboardService.removeDart();
   }
 
   private updatePlayerHeal() { // ! con esta función parecida a la de abajo, la de arriba no haría falta, ni damage tampoco
-
+    let damageZones = this.gameService.boardZones;
+    let heal = 0;
+    for(let throwInfo of this.throwInfo) {
+      let zone = damageZones.find(z => z.area === throwInfo.area);
+      if(zone?.heal) {
+        heal += (zone.heal * throwInfo.value);
+      }
+      if(throwInfo.area === this.utilsService.bullName) {
+        heal += throwInfo.value;
+      }
+    }
+    this.healToPlayer = heal;
   }
 
   private updateDamageToPlayer() {
@@ -84,7 +74,8 @@ export class ThrowsComponent implements OnInit {
           });
         });
         if(damage) this.damagesToPlayers.push({
-          name: player.name,
+          id: player.id,
+          playerName: player.name,
           damage: damage
         });
       }
@@ -110,6 +101,13 @@ export class ThrowsComponent implements OnInit {
       style.background = `linear-gradient(90deg, ${hit} 0%, ${heal} 100%)`;
     }
     return style;
+  }
+
+  confirmTurn() {
+    // al confirmar turno, aplicamos los daños a los jugadores, reiniciamos los lanzamientos y cerramos la diana
+    this.gameService.applyThrows(this.damagesToPlayers, this.healToPlayer);
+    this.infoDartboardService.resetThrows();
+    this.confirmTurnEmiter.emit();
   }
 
 }

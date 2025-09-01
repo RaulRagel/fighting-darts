@@ -68,8 +68,6 @@ export class InfoDartboardService {
     }
 
     this.throwInfo$.next(throwInfo);
-
-    console.log('throwInfo', this.throwInfo$.value);
   }
 
   getThrowName(id: string): string {
