@@ -18,11 +18,10 @@
 .info {
     display: flex;
     width: 100%;
+    min-height: 116px;
     flex-direction: column;
     color: white;
     font-weight: bold;
-    // box-sizing: border-box;
-    // margin-top: 15px;
     background: black;
     padding: 3vw;
     border-radius: 10px;
@@ -61,7 +60,10 @@
             color: gray;
             font-size: 4vw;
             min-width: 35px;
+            min-height: 40px;
             text-align: center;
+            display: grid;
+            place-content: center;
         }
     }
     

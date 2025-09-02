@@ -8,7 +8,8 @@ const VALUES: { [key: string]: number } = {
   d: 2,
   t: 3,
   outer: 1, // 1 a todos
-  bull: 3 // 3 a todos
+  bull: 3, // 3 a todos
+  out: -1 // daño al jugador
 }
 
 @Injectable({
@@ -36,7 +37,7 @@ export class InfoDartboardService {
     let throws: string[] = this.throws$.value;
     throws.push(id);
     this.throws$.next(throws);
-    // console.log('added dart', this.throws);
+    console.log('added dart', throws);
   }
 
   removeDart() {
@@ -59,6 +60,7 @@ export class InfoDartboardService {
         duplicatedThrow.hits++;
         duplicatedThrow.value += this.getThrowValue(currentThrow);
       } else {
+        debugger;
         throwInfo.push({
           area: this.getThrowName(currentThrow),
           hits: 1,
@@ -67,11 +69,13 @@ export class InfoDartboardService {
       }
     }
 
+    console.log('throwInfo$.next');
     this.throwInfo$.next(throwInfo);
   }
 
   getThrowName(id: string): string {
     if (!id) return '';
+    if(id === 'out') return this.utilsService.outName;
     if(['bull', 'outer'].includes(id)) return this.utilsService.bullName;
     
     return id.slice(1);
@@ -79,6 +83,7 @@ export class InfoDartboardService {
 
   getThrowValue(id: string): number {
     if (!id) return 0;
+    if(id === 'out') return VALUES[id];
     if(['bull', 'outer'].includes(id)) return VALUES[id];
     
     return VALUES[id[0]];

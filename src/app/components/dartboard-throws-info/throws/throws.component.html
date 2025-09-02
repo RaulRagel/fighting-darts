@@ -15,7 +15,7 @@
                     (+{{info.value}})
                 </div>
                 <ng-template #unSuccessThrow>
-                    <div>(+0)</div>
+                    <div *ngIf="info.area === outName">({{info.value}})</div>
                 </ng-template>
             </span>
         </div>

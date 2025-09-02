@@ -14,13 +14,14 @@ export class UtilsService {
   get totalFighters() {
     return 17;
   }
-
   get maxHealth() {
     return 25;
   }
-
   get bullName() {
     return 'Diana';
+  }
+  get outName() {
+    return 'Fuera';
   }
 
   constructor() { }

@@ -26,6 +26,10 @@ export class ThrowsComponent implements OnInit {
     private utilsService: UtilsService
   ) { }
 
+  get outName() {
+    return this.utilsService.outName;
+  }
+
   ngOnInit(): void {
     this.infoDartboardService.throwInfo$
     .pipe()
@@ -44,7 +48,7 @@ export class ThrowsComponent implements OnInit {
     this.infoDartboardService.removeDart();
   }
 
-  private updatePlayerHeal() { // ! con esta función parecida a la de abajo, la de arriba no haría falta, ni damage tampoco
+  private updatePlayerHeal() {
     let damageZones = this.gameService.boardZones;
     let heal = 0;
     for(let throwInfo of this.throwInfo) {
@@ -59,7 +63,7 @@ export class ThrowsComponent implements OnInit {
     this.healToPlayer = heal;
   }
 
-  private updateDamageToPlayer() {
+  private updateDamageToPlayer() { // ! agregar el out?
     let players = this.gameService.currentPlayers.filter(p => p.isAlive && !p.currentTurn);
     this.damagesToPlayers = [];
 

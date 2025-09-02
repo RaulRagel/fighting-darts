@@ -6,9 +6,6 @@ body {
 
 .board-container {
     width: 95vw;
-    background: var(--gray);
-    // border-radius: 10px;
-    border-radius: 50%;
     overflow: hidden; /* importante para el zoom de #board */
     display: flex;
     justify-content: center;
@@ -38,17 +35,8 @@ body {
         aspect-ratio: 1;
         position: absolute;
         left: -10%;
+        pointer-events: none; // importante para que no reciba el click outerBackground
     }
-}
-.inner-background {
-    width: 87%;
-    aspect-ratio: 1;
-    background: #cdcdcd;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
 }
 .outer-background {
     width: 100%;
@@ -60,10 +48,21 @@ body {
     justify-content: center;
     align-items: center;
 }
+.inner-background {
+    width: 87%;
+    aspect-ratio: 1;
+    background: #cdcdcd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
 
 #dartboard #areas g path,
 #dartboard #areas g circle {
     cursor: pointer;
+    pointer-events: all;
 }
 
 //* No funciona bien en movil *//

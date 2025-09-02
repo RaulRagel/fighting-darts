@@ -85,6 +85,7 @@ export class GameService {
       return player;
     });
     this.playersSubject.next(currentPlayers);
+    this.roundSubject.next(0);
     this.setTurn(0);
     this.togglePlayersHealthActions(false);
   }
@@ -218,7 +219,7 @@ export class GameService {
   }
 
   // aplicamos el turno, es decir, el daño que hemos generado etc
-  applyThrows(damages: InfoDamage[], heal: number) {
+  applyThrows(damages: InfoDamage[], heal: number) { // ! aplicar el out a sí mismo como si fuese su área asignada?
     console.log('Apply', damages);
     let currentTurnPlayer = this.currentPlayers.find(p => p.currentTurn);
     // ! meter una animación o algo?

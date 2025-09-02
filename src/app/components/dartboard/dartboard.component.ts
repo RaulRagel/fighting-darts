@@ -13,14 +13,16 @@ import { BoardZone } from 'src/app/interfaces/board-zone';
 export class DartBoardComponent implements OnInit {
 
   @ViewChild('boardContainer', { static: true }) boardContainerRef!: ElementRef<HTMLElement>;
-  @ViewChild('zoomableArea', { static: true }) zoomableAreaRef!: ElementRef<HTMLElement>;
+  @ViewChild('outerBackground', { static: true }) outerBackgroundRef!: ElementRef<HTMLElement>;
+  @ViewChild('innerBackground', { static: true }) innerBackgroundRef!: ElementRef<HTMLElement>;
   @ViewChild('dartboardSvg', { static: true }) dartboardSvgRef!: ElementRef<SVGSVGElement>;
 
   @Input() readonly: boolean = false;
 
   dartboardSections!: HTMLElement[];
   boardContainer!: HTMLElement;
-  zoomableArea!: HTMLElement;
+  outerBackground!: HTMLElement;
+  innerBackground!: HTMLElement;
 
   boardZones: BoardZone[] = [];
 
@@ -29,7 +31,8 @@ export class DartBoardComponent implements OnInit {
   ngOnInit(): void { // usar static: true en el ViewChild, elemento siempre presente
 
     this.boardContainer = this.boardContainerRef.nativeElement;
-    this.zoomableArea = this.zoomableAreaRef.nativeElement;
+    this.outerBackground = this.outerBackgroundRef.nativeElement;
+    this.innerBackground = this.innerBackgroundRef.nativeElement;
 
     const svg = this.dartboardSvgRef.nativeElement; // svg representa la diana
 
@@ -64,32 +67,40 @@ export class DartBoardComponent implements OnInit {
 
     // Interacción con la diana
 
-    // la diana interactiva se activa más tarde asi que hay que pintar las zonas por primera vez
-    // this.boardZones = this.gameService.boardZones;
-    // if (this.boardZones.length) {
-    //   this.boardZones.forEach(zone => {
-    //     console.log(zone);
-    //     this.paintZone(zone, svg);
-    //   });
-    // }
+    this.outerBackground.addEventListener('click', (e) => { // fondo negro (puntúa -1)
+      e.preventDefault();
+      e.stopPropagation();
+      // console.log('outerBackground clicked', e.currentTarget);
+      this.boardClickHandler('out');
+    });
 
-    // this.boardZones = this.gameService.boardZones;
+    this.innerBackground.addEventListener('click', (e) => { // fondo gris (no pasa nada)
+      e.preventDefault();
+      e.stopPropagation();
+      // console.log('innerBackground clicked', e.currentTarget);
+    });
 
     this.dartboardSections.forEach(p =>
-      p.addEventListener('click', (event) => this.boardClickHandler(event))
+      p.addEventListener('click', (event) => { // zonas puntuables
+        event.preventDefault();
+        event.stopPropagation();
+        const target = event.target as HTMLElement;
+        const id = target.getAttribute('id');
+        if(id) this.boardClickHandler(id);
+      })
     );
 
     // HOVER PARA MOVIL
     enableMobileHover(this.dartboardSections);
     enablePinchZoom(
-      this.zoomableArea, // Elemento a escalar
+      this.outerBackground, // Elemento a escalar
       this.boardContainer, // Área de referencia (puede ser el mismo si no hay padre)
       false // logs
     );
   }
 
-  boardClickHandler(event: any) {
-    this.infoService.addDart(event.target.getAttribute('id'));
+  boardClickHandler(id: string) {
+    this.infoService.addDart(id);
   }
 
   // Función para pintar una zona del dartboard con gradientes dinámicos
