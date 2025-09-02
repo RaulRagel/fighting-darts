@@ -85,7 +85,7 @@ export class GameService {
       return player;
     });
     this.playersSubject.next(currentPlayers);
-    this.roundSubject.next(0);
+    this.roundSubject.next(1);
     this.setTurn(0);
     this.togglePlayersHealthActions(false);
   }

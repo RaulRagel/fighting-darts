@@ -74,15 +74,21 @@
         padding: 5px;
         gap: 4vw;
 
+        .dmg-title {
+            margin-bottom: 2vw;
+        }
         .dmg {
             color: #ed3737;
         }
         .heal {
             color: #4f9962;
         }
-        .obj {
-            color: lightblue;
+        .outs {
+            color: var(--gray);
         }
+        // .obj {
+        //     color: lightblue;
+        // }
     }
     
     hr {

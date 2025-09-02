@@ -17,6 +17,7 @@ export class ThrowsComponent implements OnInit {
 
   healToPlayer: number = 0; // lo que se cura el turno actual
   damagesToPlayers: InfoDamage[] = []; // daño al resto de jugadores
+  autoDamage: number = 0; // daño a sí mismo si falla el tiro
 
   @Output() confirmTurnEmiter = new EventEmitter<void>();
 
@@ -40,6 +41,7 @@ export class ThrowsComponent implements OnInit {
         this.totalThrows = throwInfo.reduce((acc, area) => acc + area.hits, 0);
         this.updatePlayerHeal();
         this.updateDamageToPlayer();
+        this.updateAutoDamage();
       }
     );
   }
@@ -63,7 +65,7 @@ export class ThrowsComponent implements OnInit {
     this.healToPlayer = heal;
   }
 
-  private updateDamageToPlayer() { // ! agregar el out?
+  private updateDamageToPlayer() {
     let players = this.gameService.currentPlayers.filter(p => p.isAlive && !p.currentTurn);
     this.damagesToPlayers = [];
 
@@ -84,6 +86,11 @@ export class ThrowsComponent implements OnInit {
         });
       }
     });
+  }
+
+  private updateAutoDamage() {
+    let outs = this.throwInfo.find(thrw => thrw.area === this.utilsService.outName);
+    if(outs) this.autoDamage = outs.value;
   }
 
   isSuccessThrow(area: string): boolean {

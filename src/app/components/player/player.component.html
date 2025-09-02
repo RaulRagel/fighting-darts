@@ -22,7 +22,7 @@
     <div class="info-container-editable polygon" *ngIf="editable; else playing">
         <div class="player-info polygon">
             <div class="player-name" [ngStyle]="{'background': player.color}">
-                <input [id]="player.id" type="text" [placeholder]="player.name" (blur)="onPlayerNameChange($event)" maxlength="12">
+                <input [id]="player.id" type="text" [value]="player.name" (blur)="onPlayerNameChange($event)" maxlength="12">
                 <label [for]="player.id" class="img-container">
                     <img src="assets/images/icons/edit.png"/>
                 </label>

@@ -29,14 +29,13 @@
         </div>
         <div class="info-points">
             <div>
-                <span class="dmg">Daño:</span>
                 <div *ngFor="let damageInfo of damagesToPlayers">
-                    {{damageInfo.playerName}} (-{{damageInfo.damage}})
+                    {{damageInfo.playerName}} <span class="dmg">(-{{damageInfo.damage}})</span>
                 </div>
             </div>
             <div>
-                <span class="heal">Curación: </span>
-                <span>{{healToPlayer}}</span>
+                <div *ngIf="healToPlayer" class="heal-title">Curación: <span class="heal">{{healToPlayer}}</span></div>
+                <div *ngIf="autoDamage" class="outs-title">Fallos: <span class="outs">{{autoDamage}}</span></div>
             </div>
         </div>
     </div>
