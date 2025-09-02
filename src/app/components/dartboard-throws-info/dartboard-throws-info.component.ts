@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-dartboard-throws',
-  templateUrl: './dartboard-throws.component.html',
-  styleUrls: ['./dartboard-throws.component.scss']
+  selector: 'app-dartboard-throws-info',
+  templateUrl: './dartboard-throws-info.component.html',
+  styleUrls: ['./dartboard-throws-info.component.scss']
 })
 export class DartboardThrowsComponent implements OnInit {
 

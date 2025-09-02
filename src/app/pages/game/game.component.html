@@ -14,9 +14,6 @@
         ></app-player>
     </div>
     <div class="control-panel">
-        <!-- <button (click)="testAction()">
-            TEST ACTION BUTTON
-        </button> -->
         <div class="dartboard">
             <app-dartboard
                 [readonly]="true"
@@ -31,8 +28,8 @@
         </div>
     </div>
     <div class="throws-container" *ngIf="showDartboard">
-        <app-dartboard-throws
+        <app-dartboard-throws-info
             (closeDartboard)="showDartboard = false"
-        ></app-dartboard-throws>
+        ></app-dartboard-throws-info>
     </div>
 </div>

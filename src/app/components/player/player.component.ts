@@ -18,6 +18,8 @@ export class PlayerComponent implements OnInit {
   currentSelector = '';
   showPlayersHealthActions = false;
 
+  playerInfoDisplayed = false;
+
   buttons: GenericButton[] = [
     {
       name: 'Personajes',
@@ -102,5 +104,10 @@ export class PlayerComponent implements OnInit {
     let healed = currentHp + points;
     if(healed > this.utilsService.maxHealth) healed = this.utilsService.maxHealth;
     this.player.hp$.next(healed);
+  }
+
+  displayPlayerInfo() {
+    if(this.editable) return;
+    this.playerInfoDisplayed = true;
   }
 }

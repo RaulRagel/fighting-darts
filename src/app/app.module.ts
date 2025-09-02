@@ -4,8 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { DartBoardComponent } from './components/dartboard/dartboard.component';
-import { ThrowsComponent } from './components/throws/throws.component';
-import { DartboardThrowsComponent } from './components/dartboard-throws/dartboard-throws.component';
+import { ThrowsComponent } from './components/dartboard-throws-info/throws/throws.component';
+import { DartboardThrowsComponent } from './components/dartboard-throws-info/dartboard-throws-info.component';
 import { GameComponent } from './pages/game/game.component';
 import { MainMenuComponent } from './pages/main-menu/main-menu.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -16,6 +16,7 @@ import { GenericButtonComponent } from './components/generic-button/generic-butt
 import { CharacterSelectorComponent } from './components/player/character-selector/character-selector.component';
 import { SkillSelectorComponent } from './components/player/skill-selector/skill-selector.component';
 import { HpbarComponent } from './components/player/hpbar/hpbar.component';
+import { GenericInfoComponent } from './components/player/player-info-display/player-info-display.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HpbarComponent } from './components/player/hpbar/hpbar.component';
     GenericButtonComponent,
     CharacterSelectorComponent,
     SkillSelectorComponent,
-    HpbarComponent
+    HpbarComponent,
+    GenericInfoComponent
   ],
   imports: [
     BrowserModule,
