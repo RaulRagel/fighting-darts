@@ -21,7 +21,7 @@
                     <img src="assets/images/icons/edit.png"/>
                 </label>
             </div>
-            <div class="buttons">
+            <div class="generic-buttons">
                 <app-generic-button
                     *ngFor="let button of buttons"
                     [button]="button"
@@ -29,7 +29,7 @@
             </div>
             <div class="selected-skill">
                 <span>
-                    <strong>Pasiva:</strong> {{player.skill?.name || 'Ninguna'}}
+                    <strong>Habilidad:</strong> {{player.skill?.name || 'Ninguna'}}
                 </span>
             </div>
         </div>

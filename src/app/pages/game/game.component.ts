@@ -4,6 +4,7 @@ import { delay, takeUntil } from 'rxjs/operators';
 import { GenericButton } from 'src/app/interfaces/generic-button';
 import { Player } from 'src/app/interfaces/player';
 import { GameService } from 'src/app/services/game.service';
+import { StateService } from 'src/app/services/state.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -45,7 +46,7 @@ export class GameComponent implements OnInit {
     }
   ];
 
-  constructor(private gameService: GameService, private utilsService: UtilsService) { }
+  constructor(private stateService: StateService, private gameService: GameService, private utilsService: UtilsService) { }
 
   ngOnInit(): void {
     this.gameService.players$
@@ -60,6 +61,10 @@ export class GameComponent implements OnInit {
     if(!this.players.length) { // !! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
       this.gameService.addNewPlayer();
       this.gameService.addNewPlayer();
+    }
+
+    if(this.players.length < 2) {
+      this.stateService.goBack();
     }
   }
 

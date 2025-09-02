@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-hpbar',
@@ -16,7 +17,11 @@ export class HpbarComponent implements OnInit {
     return Array(this.hp).fill(0);
   }
 
-  constructor() { }
+  get totalPlayers() {
+    return this.gameService.currentPlayers.length;
+  }
+
+  constructor(private gameService: GameService) { }
 
   ngOnInit() {
     if(this.hp$) this.sub = this.hp$.subscribe(val => this.hp = val);

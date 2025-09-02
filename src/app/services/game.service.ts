@@ -232,7 +232,7 @@ export class GameService {
   }
 
   togglePlayersHealthActions(value?: boolean) {
-    if(value) this.showPlayersHealthActionsSubject.next(value);
+    if(value != null) this.showPlayersHealthActionsSubject.next(value);
     else this.showPlayersHealthActionsSubject.next(!this.showPlayersHealthActionsSubject.getValue());
   }
 }

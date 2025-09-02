@@ -71,6 +71,8 @@
         background: #ffffff;
         right: 25px;
         border-radius: 12px;
+        display: flex;
+        flex-direction: column;
 
         .player-name {
             position: relative;
@@ -79,10 +81,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 3vw;
             input {
                 all: unset;
                 background: white;
-                width: 80%;
+                width: 90%;
                 border-radius: 6px;
                 padding: 3px;
                 font-weight: bold;
@@ -94,17 +97,19 @@
                 right: 2vw;
             }
         }
-        .buttons {
-            position: absolute;
+        .generic-buttons {
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            width: 70%;
-            right: 7vw;
+            justify-content: space-evenly;
+            // width: 70%;
+            // right: 7vw;
+            height: 100%;
+            padding-left: 7vw;
         }
     }
     .selected-skill {
-        position: absolute;
+        position: relative;
         bottom: 0;
         padding: 2vw 2vw 1vw 2vw;
         font-size: 3.1vw;

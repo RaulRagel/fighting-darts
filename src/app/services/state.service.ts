@@ -34,7 +34,7 @@ export class StateService {
 
   goBack() {
     if (this.router.url !== '/menu') {
-      this.navigateTo('../');  // o window.history.back();
+      window.history.back();
     }
   }
 }
