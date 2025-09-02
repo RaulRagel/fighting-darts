@@ -70,12 +70,12 @@ export class ThrowsComponent implements OnInit {
     this.damagesToPlayers = [];
 
     players.forEach(player => {
-      let weakPoints = player.weakPoints;
-      if(weakPoints) {
+      let weakAreas = player.weakAreas;
+      if(weakAreas) {
         let damage = 0;
         this.throwInfo.forEach(thrw => {
           if(thrw.area === this.utilsService.bullName) damage += thrw.value;
-          weakPoints?.forEach(wp => {
+          weakAreas?.forEach(wp => {
             if(wp === Number(thrw.area)) damage += thrw.value;
           });
         });
@@ -116,7 +116,7 @@ export class ThrowsComponent implements OnInit {
 
   confirmTurn() {
     // al confirmar turno, aplicamos los daños a los jugadores, reiniciamos los lanzamientos y cerramos la diana
-    this.gameService.applyThrows(this.damagesToPlayers, this.healToPlayer);
+    this.gameService.applyThrows(this.damagesToPlayers, this.healToPlayer, this.autoDamage);
     this.infoDartboardService.resetThrows();
     this.confirmTurnEmiter.emit();
   }

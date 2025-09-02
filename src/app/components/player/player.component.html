@@ -65,14 +65,14 @@
                         <img src="assets/images/icons/dart.png" />
                     </div>
                 </div>
-                <div class="player-zone weak-points" *ngIf="player.weakPoints?.length">
-                    <span *ngFor="let point of player.weakPoints">
-                        {{point}}
+                <div class="player-zone weak-points" *ngIf="player.weakAreas?.length">
+                    <span *ngFor="let area of player.weakAreas">
+                        {{area}}
                     </span>
                 </div>
-                <div class="player-zone heal-points" *ngIf="player.healPoints?.length">
-                    <span *ngFor="let point of player.healPoints">
-                        {{point}}
+                <div class="player-zone heal-points" *ngIf="player.healAreas?.length">
+                    <span *ngFor="let area of player.healAreas">
+                        {{area}}
                     </span>
                 </div>
                 <div class="player-skill-name" *ngIf="player.skill?.description">

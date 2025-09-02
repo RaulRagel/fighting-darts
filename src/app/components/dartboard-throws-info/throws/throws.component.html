@@ -5,6 +5,7 @@
             <span>Lanzamientos</span><span>({{totalThrows}})</span>
             <button (click)="removeLastDart()">Borrar último</button>
         </div>
+        <hr>
         <div class="info-throws">
             <span
                 *ngFor="let info of throwInfo"
@@ -27,6 +28,7 @@
                 Confirmar turno
             </button>
         </div>
+        <hr>
         <div class="info-points">
             <div>
                 <div *ngFor="let damageInfo of damagesToPlayers">

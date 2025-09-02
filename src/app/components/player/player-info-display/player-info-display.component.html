@@ -1,8 +1,18 @@
 
 
 <div class="player-info-display-container">
+    <h1>
+        {{player.name}}
+    </h1>
     <div>
-        INFO PLAYER {{player.name}}
+        <span>Vida: </span><span>{{player.hp$.getValue()}}</span>
+    </div>
+    <div>
+        <img [src]="player.fighterGif" alt="Character Image" />
+    </div>
+    <div>
+        <div>Habilidad: <span>{{player.skill?.name}}</span></div>
+        <div>{{player.skill?.description}}</div>
     </div>
     <button class="close-button" (click)="close()">
         <img src="assets/images/icons/cross.png" />

@@ -11,8 +11,8 @@ export interface Player {
     currentTurn?: boolean,
     skill?: Skill,
     hp$: BehaviorSubject<number>;
-    weakPoints?: number[],
-    healPoints?: number[],
+    weakAreas?: number[],
+    healAreas?: number[],
     // objects?: any[],
     maxHealth?: number,
 }

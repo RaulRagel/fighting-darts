@@ -129,19 +129,19 @@ export class GameService {
     const availableAreas = [...this.utilsService.getBoardDefaults().areas];
 
     players.filter(p => p.isAlive).forEach(player => {
-      player.healPoints = [];
-      player.weakPoints = [];
+      player.healAreas = [];
+      player.weakAreas = [];
 
       if (player.currentTurn) {
         // 🎯 jugador en turno → obtiene 1 zona de curación
         const healArea = availableAreas[Math.floor(Math.random() * availableAreas.length)];
-        player.healPoints.push(Number(healArea));
+        player.healAreas.push(Number(healArea));
         allZones.push({ area: healArea, type: 'heal' });
       } else {
         // 🎯 rivales → obtienen 3 zonas de daño
         for (let i = 0; i < 3; i++) {
           const damageArea = availableAreas[Math.floor(Math.random() * availableAreas.length)];
-          player.weakPoints.push(Number(damageArea));
+          player.weakAreas.push(Number(damageArea));
           allZones.push({ area: damageArea, type: 'damage' });
         }
       }
@@ -219,7 +219,7 @@ export class GameService {
   }
 
   // aplicamos el turno, es decir, el daño que hemos generado etc
-  applyThrows(damages: InfoDamage[], heal: number) { // ! aplicar el out a sí mismo como si fuese su área asignada?
+  applyThrows(damages: InfoDamage[], heal: number, autoDamage: number) {
     console.log('Apply', damages);
     let currentTurnPlayer = this.currentPlayers.find(p => p.currentTurn);
     // ! meter una animación o algo?
@@ -229,7 +229,10 @@ export class GameService {
         if(player) this.hitPlayer(player, damageInfo.damage);
       });
     }
-    if(currentTurnPlayer && heal) this.healPlayer(currentTurnPlayer, heal);
+    if(currentTurnPlayer) {
+      if(autoDamage) this.hitPlayer(currentTurnPlayer, autoDamage); // ! matar al jugador instant o se puede curar aunque llegue la vida a cero?
+      if(heal) this.healPlayer(currentTurnPlayer, heal);
+    }
   }
 
   togglePlayersHealthActions(value?: boolean) {
