@@ -87,6 +87,10 @@ export class PlayerComponent implements OnInit {
     this.gameService.removePlayer(this.player.id!);
   }
 
+  cleanInput(input: HTMLInputElement) {
+    input.value = '';
+  }
+
   // In game actions
 
   hit(points: number = 1) {

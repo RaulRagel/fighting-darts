@@ -23,6 +23,9 @@ export class UtilsService {
   get outName() {
     return 'Fuera';
   }
+  get defaultName() {
+    return 'Player';
+  }
 
   constructor() { }
 

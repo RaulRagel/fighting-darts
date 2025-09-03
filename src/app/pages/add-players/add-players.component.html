@@ -4,7 +4,7 @@
         [icon]="'players'"
         [showBackButton]="true"
     ></app-header>
-    <div class="players-container">
+    <div class="players-container" #playersContainer>
         <app-player
             *ngFor="let player of players"
             [player]="player"

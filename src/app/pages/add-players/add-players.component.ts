@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Player } from 'src/app/interfaces/player';
 import { GenericButton } from 'src/app/interfaces/generic-button';
 import { MenuButton } from 'src/app/interfaces/menu-button';
@@ -15,11 +15,13 @@ import { Subject } from 'rxjs';
 })
 export class AddPlayersComponent implements OnInit {
 
+  @ViewChild('playersContainer') private playersContainerRef!: ElementRef;
+
   players: Player[] = [];
 
   onDestroy$ = new Subject<boolean>();
 
-  newPlayerBtn: GenericButton = { // todo mover a button-factory.service
+  newPlayerBtn: GenericButton = {
     name: 'Nuevo jugador',
     icon: this.utilsService.getIconUrl('add'),
     size: 'big',
@@ -45,13 +47,24 @@ export class AddPlayersComponent implements OnInit {
     });
 
     if(!this.players.length) { // default players
-      this.gameService.addNewPlayer({ name: 'Player 1' });
-      this.gameService.addNewPlayer({ name: 'Player 2' });
+      this.gameService.addNewPlayer();
+      this.gameService.addNewPlayer();
     }
   }
 
   addNewPlayer() {
     this.gameService.addNewPlayer();
+
+    // Espera a que Angular pinte el nuevo <app-player>
+    setTimeout(() => this.scrollToBottom(), 0);
+  }
+
+  private scrollToBottom() {
+    const el = this.playersContainerRef.nativeElement;
+    el.scrollTo({
+      top: el.scrollHeight,
+      behavior: 'smooth'
+    });
   }
 
   startGame() {

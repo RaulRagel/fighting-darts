@@ -43,7 +43,7 @@ export class GameService {
     const currentPlayers = this.currentPlayers;
     this.playersSubject.next([...currentPlayers, {
       id: new Date().getTime() + currentPlayers.length,
-      name: params.name || 'Player',
+      name: params.name || this.defaultPlayerName(),
       isAlive: false,
       color: '#797979',
       background: this.utilsService.parseBackgroundColor('#797979'),
@@ -53,12 +53,22 @@ export class GameService {
     }]);
   }
 
+  private defaultPlayerName() {
+    const currentNames = this.currentPlayers.map(p => p.name);
+    const name = this.utilsService.defaultName;
+    let idx = 1;
+    while(currentNames.includes(name+idx)) {
+      idx++;
+    }
+    return name+idx;
+  }
+
   modifyPlayer(player: Player) {
     const currentPlayers = this.currentPlayers;
     const index = currentPlayers.findIndex(p => p.id === player.id);
 
     if (index !== -1) {
-      if(!player.name) player.name = 'Player';
+      if(!player.name) player.name = this.defaultPlayerName();
       currentPlayers[index] = player;
       this.playersSubject.next([...currentPlayers]);
       // console.log('Player modified:', player);

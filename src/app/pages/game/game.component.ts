@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
   playing: boolean = false;
   round: number = 0;
 
-  title: string = 'Turno de Player 1'; // Turno de Player 1
+  title: string = 'Turno de Player1'; // Turno de Player1
   subtitle: string = 'Ronda 1'; // Ronda 1
 
   players: Player[] = [];
@@ -58,7 +58,7 @@ export class GameComponent implements OnInit {
         }
       });
     
-    if(!this.players.length) { // !! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
+    if(!this.players.length) { // ! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
       this.gameService.addNewPlayer();
       this.gameService.addNewPlayer();
     }

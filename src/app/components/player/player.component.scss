@@ -85,16 +85,25 @@
             input {
                 all: unset;
                 background: white;
-                width: 90%;
+                width: 95%;
                 border-radius: 6px;
                 padding: 3px;
                 font-weight: bold;
                 font-size: 5vw;
             }
-            .img-container {
+            // .img-container { // en desuso, es el icono del lapiz
+            //     position: absolute;
+            //     width: 7vw;
+            //     right: 2vw;
+            // }
+            .clean-input {
+                all: unset;
                 position: absolute;
-                width: 7vw;
-                right: 2vw;
+                cursor: pointer;
+                right: 6vw;
+                width: 4vw;
+                font-size: 5vw;
+                text-align: center;
             }
         }
         .generic-buttons {

@@ -22,10 +22,11 @@
     <div class="info-container-editable polygon" *ngIf="editable; else playing">
         <div class="player-info polygon">
             <div class="player-name" [ngStyle]="{'background': player.color}">
-                <input [id]="player.id" type="text" [value]="player.name" (blur)="onPlayerNameChange($event)" maxlength="12">
-                <label [for]="player.id" class="img-container">
+                <input #playerInput [id]="player.name" type="text" [value]="player.name" (blur)="onPlayerNameChange($event)" maxlength="13">
+                <!-- <label [for]="player.id" class="img-container">
                     <img src="assets/images/icons/edit.png"/>
-                </label>
+                </label> -->
+                <button class="clean-input" (click)="cleanInput(playerInput)">&times;</button>
             </div>
             <div class="generic-buttons">
                 <app-generic-button

@@ -9,7 +9,7 @@ const VALUES: { [key: string]: number } = {
   t: 3,
   outer: 1, // 1 a todos
   bull: 3, // 3 a todos
-  out: -1 // daño al jugador
+  out: 1 // daño al jugador
 }
 
 @Injectable({
@@ -60,7 +60,6 @@ export class InfoDartboardService {
         duplicatedThrow.hits++;
         duplicatedThrow.value += this.getThrowValue(currentThrow);
       } else {
-        debugger;
         throwInfo.push({
           area: this.getThrowName(currentThrow),
           hits: 1,
