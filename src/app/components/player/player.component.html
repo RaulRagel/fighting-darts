@@ -1,4 +1,12 @@
-<div class="player-container" [ngClass]="{'more-players': !editable && totalPlayers >= 3}" *ngIf="player">
+<div
+    *ngIf="player"
+    class="player-container"
+    [ngClass]="{
+        'current-turn': player.currentTurn,
+        'three-players': !editable && totalPlayers === 3,
+        'more-players': !editable && totalPlayers > 3
+    }"
+>
     <div class="remove-player-container" *ngIf="editable">
         <button class="remove-player-button" (click)="deletePlayer()">
             <img src="assets/images/icons/trash-white.png">
@@ -23,9 +31,6 @@
         <div class="player-info polygon">
             <div class="player-name" [ngStyle]="{'background': player.color}">
                 <input #playerInput [id]="player.name" type="text" [value]="player.name" (blur)="onPlayerNameChange($event)" maxlength="13">
-                <!-- <label [for]="player.id" class="img-container">
-                    <img src="assets/images/icons/edit.png"/>
-                </label> -->
                 <button class="clean-input" (click)="cleanInput(playerInput)">&times;</button>
             </div>
             <div class="generic-buttons">
@@ -58,13 +63,13 @@
 
     <!-- PLAYING -->
     <ng-template #playing>
+        <div *ngIf="player.currentTurn" class="current-turn-tag">
+            Tu turno
+        </div>
         <div class="info-container polygon">
             <div class="player-info polygon">
                 <div class="player-name" [ngStyle]="{'background': player.color}">
                     <span [ngClass]="{'current-turn': player.currentTurn}">{{player.name || 'Player'}}</span>
-                    <div class="img-container current-turn-img" *ngIf="player.currentTurn">
-                        <img src="assets/images/icons/dart.png" />
-                    </div>
                 </div>
                 <div class="player-zone weak-points" *ngIf="player.weakAreas?.length">
                     <span *ngFor="let area of player.weakAreas">
@@ -76,12 +81,12 @@
                         {{area}}
                     </span>
                 </div>
-                <div class="player-skill-name" *ngIf="player.skill?.description">
+                <!-- <div class="player-skill-name" *ngIf="player.skill?.description">
                     <i>{{player.skill?.name}}</i>
-                </div>
+                </div> -->
             </div>
         </div>
-        <div class="edit-health-btns" *ngIf="showPlayersHealthActions">
+        <div class="edit-health-btns" *ngIf="showPlayersHealthActions; else playerControlPanel">
             <button class="img-container" (click)="hit()">
                 <img src="assets/images/icons/hit-red.png" />
             </button>
@@ -89,6 +94,16 @@
                 <img src="assets/images/icons/heal-green.png" />
             </button>
         </div>
+        <ng-template #playerControlPanel>
+            <div class="player-control-panel">
+                <button *ngIf="player.skill?.description" class="img-container" (click)="{}">
+                    <img src="assets/images/icons/skills/skill-gray.png" />
+                </button>
+                <!-- <button class="img-container">
+                    <img src="assets/images/icons/skills/object.png" />
+                </button> -->
+            </div>
+        </ng-template>
         <app-hpbar [hp$]="player.hp$"></app-hpbar>
     </ng-template>
 </div>

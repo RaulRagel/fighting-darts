@@ -1,5 +1,5 @@
 
-<div class="hp-bar" [ngClass]="{'more-players': totalPlayers >= 3}">
+<div class="hp-bar" [ngClass]="{'three-players': totalPlayers === 3, 'more-players': totalPlayers > 3}">
     <div class="hpbar-container">
         <table *ngIf="hpArray.length > 0">
             <tr>

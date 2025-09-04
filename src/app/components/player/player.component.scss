@@ -3,7 +3,7 @@
 .player-container {
     position: relative;
     width: 100%;
-    padding: 0 10px;
+    padding: 4px 10px;
     margin-bottom: 12vw;
     border-radius: 10px;
     min-height: 190px; // 3 jugadores
@@ -49,13 +49,23 @@
     }
 }
 
-
-
-
 .polygon {
     position: absolute;
     clip-path: polygon(0 0, 100% 0%, 90% 100%, 0 100%);
     top: 10px;
+}
+
+.current-turn-tag {
+    position: absolute;
+    top: 4vw;
+    right: 5vw;
+    font-size: 4vw;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 5px;
+    z-index: 1;
 }
 
 /* ADDING */
@@ -139,7 +149,7 @@
 .info-container {
     position: relative;
     width: 100%;
-    height: 19.5vh;
+    height: 19vh;
     background: black;
     border-radius: 10px;
     .player-info {
@@ -166,12 +176,6 @@
                     font-size: 7vw;
                 }
             }
-            .current-turn-img {
-                position: absolute;
-                width: 16vw;
-                right: 2vw;
-                top: 0vw;
-            }
         }
         .player-name::after {
             content: "";
@@ -185,13 +189,14 @@
             width: 90%;
             margin: 4vw 0;
             padding: 2vw;
+            font-weight: bold;
             display: flex;
             justify-content: space-around;
             span {
                 width: 40px;
                 text-align: center;
-                font-size: 4vw;
-                padding: 2vw;
+                font-size: 6vw;
+                padding: 1vw;
                 border-radius: 10px;
                 outline: 4px solid black;
             }
@@ -204,27 +209,28 @@
                 outline: 3px solid #cd0e0e;
             }
         }
-        .player-skill-name {
-            width: fit-content;
-            margin-left: 3vw;
-            color: var(--yellow);
-            outline: 3px solid var(--gray);
-            padding: .7vw;
-            border-radius: 3px;
+        // .player-skill-name {
+        //     width: fit-content;
+        //     margin-left: 3vw;
+        //     color: var(--gray);
+        //     outline: 3px solid var(--gray);
+        //     padding: .7vw;
+        //     border-radius: 3px;
 
-            &.active {
-                font-weight: bold;
-                outline: 3px solid var(--yellow);
-                box-shadow: 0px 0px 15px 5px var(--yellow);
-            }
-        }
+        //     &.active {
+        //         font-weight: bold;
+        //         outline: 3px solid var(--yellow);
+        //         box-shadow: 0px 0px 15px 5px var(--yellow);
+        //     }
+        // }
     }
 }
+.player-control-panel,
 .edit-health-btns {
     position: absolute;
     z-index: 1;
     right: 5vw;
-    bottom: 6vw;
+    top: 20vw;
     display: flex;
     flex-direction: column;
     gap: 4vw;
@@ -244,27 +250,97 @@
     }
 }
 
-/* OVERRIDE SI HAY MÁS DE 2 JUGADORES */
+/* OVERRIDE SI HAY 3 JUGADORES */
+
+.player-container.three-players {
+    margin-bottom: 10vw;
+    min-height: 0;
+
+    .character-container {
+        width: 37vw;
+        height: 20.1vh;
+    }
+
+    .info-container {
+        height: 16vh;
+
+        .player-info {
+            height: 14vh;
+            right: 33px;
+
+            .player-zone {
+                width: 90%;
+                margin: 2vw 0 0 0;
+
+                span {
+                    font-size: 5vw;
+                }
+            }
+            .player-skill-name {
+                margin-left: 1vw;
+            }
+        }
+    }
+
+    .player-control-panel,
+    .edit-health-btns {
+        top: 15vw;
+        button {
+            width: 22px;
+            height: 22px;
+        }
+    }
+}
+
+/* OVERRIDE SI HAY MÁS DE 3 JUGADORES */
 
 .player-container.more-players {
-  min-height: 0;
+    min-height: 0;
+    margin-bottom: 4vw;
 
-  .character-container {
-    width: 37vw;
-    height: 18vh;
-  }
-
-  .info-container {
-    height: 14vh;
-
-    .player-info {
-      height: 12vh;
-      right: 28px;
-
-      .player-zone {
-        width: 90%;
-        margin-top: 3vw;
-      }
+    .character-container {
+        width: 33vw;
+        height: 15.5vh;
     }
-  }
+
+    .current-turn-tag {
+        top: 1vw;
+    }
+
+    .info-container {
+        height: 13.5vh;
+
+        &.polygon {
+            top: 0;
+        }
+
+        .player-info {
+        height: 11.5vh;
+        right: 8vw;
+        width: 57%;
+
+        .player-zone {
+            width: 90%;
+            margin: 2vw 0 0 0;
+
+            span {
+                font-size: 5vw;
+            }
+        }
+        .player-skill-name {
+            margin-left: 1vw;
+        }
+        }
+    }
+
+    .player-control-panel,
+    .edit-health-btns {
+        top: 10vw;
+        right: 5vw;
+        gap: 3vw;
+        button {
+            width: 22px;
+            height: 22px;
+        }
+    }
 }

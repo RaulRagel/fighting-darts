@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: -4.5vw;
+  bottom: -6.5vw;
   right: 15vw;
   z-index: 1;
 
@@ -36,6 +36,19 @@
   }
 }
 
+/* OVERRIDE SI HAY 3 JUGADORES */
+
+.hp-bar.three-players {
+  bottom: -9.5vw;
+}
+
+/* OVERRIDE SI HAY MÁS DE 3 JUGADORES */
+
 .hp-bar.more-players {
-  bottom: -9vw;
+  bottom: -4vw;
+  right: 14vw;
+
+  td {
+    height: 17px;
+  }
 }

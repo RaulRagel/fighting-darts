@@ -43,7 +43,7 @@ export class GameService {
     const currentPlayers = this.currentPlayers;
     this.playersSubject.next([...currentPlayers, {
       id: new Date().getTime() + currentPlayers.length,
-      name: params.name || this.defaultPlayerName(),
+      name: params.name?.trim() || this.defaultPlayerName(),
       isAlive: false,
       color: '#797979',
       background: this.utilsService.parseBackgroundColor('#797979'),
@@ -68,7 +68,7 @@ export class GameService {
     const index = currentPlayers.findIndex(p => p.id === player.id);
 
     if (index !== -1) {
-      if(!player.name) player.name = this.defaultPlayerName();
+      if(!player.name.trim()) player.name = this.defaultPlayerName();
       currentPlayers[index] = player;
       this.playersSubject.next([...currentPlayers]);
       // console.log('Player modified:', player);
@@ -243,6 +243,7 @@ export class GameService {
       if(autoDamage) this.hitPlayer(currentTurnPlayer, autoDamage); // ! matar al jugador instant o se puede curar aunque llegue la vida a cero?
       if(heal) this.healPlayer(currentTurnPlayer, heal);
     }
+    this.nextTurn();
   }
 
   togglePlayersHealthActions(value?: boolean) {
