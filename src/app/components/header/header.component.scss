@@ -55,10 +55,11 @@
             margin-left: 10px;
         }
         .subtitle {
+            position: absolute;
             font-size: 6vw;
             font-weight: bold;
-            color: white;
-            margin-left: 10px;
+            color: black;
+            bottom: 1vw;
         }
     }
 

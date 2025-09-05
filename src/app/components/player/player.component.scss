@@ -57,8 +57,8 @@
 
 .current-turn-tag {
     position: absolute;
-    top: 4vw;
-    right: 5vw;
+    top: 2vw;
+    right: 3vw;
     font-size: 4vw;
     background-color: black;
     color: white;
@@ -173,7 +173,6 @@
                 &.current-turn {
                     font-weight: bold;
                     text-shadow: -3px 3px 6px #00000075;
-                    font-size: 7vw;
                 }
             }
         }
