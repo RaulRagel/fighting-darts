@@ -14,6 +14,36 @@
     background: #ffffff38;
     backdrop-filter: blur(10px);
 
+    .player-header {
+        width: 100%;
+        background: black;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2vw;
+        border-radius: 10px;
+        box-shadow: 3px 3px 0px 5px white;
+    }
+    .player-skill {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // font-family: sans-serif;
+        background: black;
+        color: white;
+        padding: 2vw;
+        gap: 3vw;
+        border-radius: 10px;
+        box-shadow: 3px 3px 0px 5px white;
+        .skill-name {
+            font-weight: bold;
+        }
+        .skill-description {
+            
+        }
+    }
+
     .close-button {
         margin-top: 10vw;
         width: 10vw;
