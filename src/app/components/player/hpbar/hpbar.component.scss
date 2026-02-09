@@ -36,6 +36,23 @@
   }
 }
 
+.hpbar-points {
+  position: absolute;
+  left: -7vw;
+  background-color: black;
+  border-radius: 8px;
+  padding: 2vw 1vh;
+  z-index: 1;
+  width: 10vw;
+  text-align: center;
+}
+
+.hpbar-points span {
+  font-size: 5vw;
+  color: white;
+  font-weight: bold;
+}
+
 /* OVERRIDE SI HAY 3 JUGADORES */
 
 .hp-bar.three-players {
@@ -51,4 +68,43 @@
   td {
     height: 17px;
   }
+}
+
+/* Animación números flotantes */
+
+@keyframes float-up-fade {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+.floating-numbers-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.floating-number {
+  position: absolute;
+  font-weight: bold;
+  font-size: 7vw;
+  animation: float-up-fade 2s ease-out forwards;
+  bottom: 4vh;
+}
+
+.floating-damage {
+  color: red;
+}
+
+.floating-heal {
+  color: green;
 }

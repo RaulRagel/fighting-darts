@@ -1,7 +1,22 @@
 
 <div class="hp-bar" [ngClass]="{'three-players': totalPlayers === 3, 'more-players': totalPlayers > 3}">
+    <div class="hpbar-points">
+        <!-- Puntos de vida actuales -->
+        <span>{{hpArray.length}}</span>
+
+        <!-- Animación números flotantes -->
+        <div class="floating-numbers-container">
+            <div 
+                *ngFor="let event of activeNumbers" 
+                [ngClass]="'floating-' + event.type"
+                class="floating-number"
+            >
+                {{ (event.type === 'damage' ? '-' : '+') + event.amount }}
+            </div>
+        </div>
+    </div>
     <div class="hpbar-container">
-        <table *ngIf="hpArray.length > 0">
+        <table>
             <tr>
                 <td
                     *ngFor="let _ of hpArray; let i = index"

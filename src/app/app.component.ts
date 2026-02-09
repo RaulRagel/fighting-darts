@@ -7,7 +7,7 @@ import { StateService } from './services/state.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'boxing-darts-angular';
+  title = 'fighting-darts';
 
   constructor(private stateService: StateService) {
     this.stateService.init();

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../interfaces/player';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { UtilsService } from './utils.service';
 import { BoardZone } from '../interfaces/board-zone';
 import { InfoDartboardService } from './info-dartboard.service';
@@ -27,6 +27,10 @@ export class GameService {
   showPlayersHealthActionsSubject = new BehaviorSubject<boolean>(false);
   showActions$ = this.showPlayersHealthActionsSubject.asObservable();
 
+  // Animaciones de números flotantes
+  damageHealSubject = new Subject<{ playerId: number; amount: number; type: 'damage' | 'heal' }>();
+  damageHeal$ = this.damageHealSubject.asObservable();
+
   get boardZones(): BoardZone[] {
     return this.boardZonesSubject.getValue();
   }
@@ -35,6 +39,14 @@ export class GameService {
 
   get currentPlayers(): Player[] {
     return this.playersSubject.getValue();
+  }
+
+  get alivePlayers(): Player[] {
+    return this.currentPlayers.filter(p => p.isAlive);
+  }
+
+  get currentTurnPlayer(): Player | undefined {
+    return this.currentPlayers.find(p => p.currentTurn);
   }
 
   // In edit mode actions
@@ -95,7 +107,7 @@ export class GameService {
       return player;
     });
     this.playersSubject.next(currentPlayers);
-    this.roundSubject.next(1);
+    this.setRound(1);
     this.setTurn(0);
     this.togglePlayersHealthActions(false);
   }
@@ -106,7 +118,7 @@ export class GameService {
     currentTurn++;
     if (currentTurn >= currentPlayers.length) {
       currentTurn = 0;
-      this.roundSubject.next(this.roundSubject.getValue() + 1);
+      this.nextRound();
     }
     this.setTurn(currentTurn);
   }
@@ -126,6 +138,16 @@ export class GameService {
     const playerZones = this.setZonesForPlayers();
     // pintamos en la diana según esas zonas
     this.paintZonesFromPlayers(playerZones);
+  }
+
+  nextRound() {
+    let currentRound = this.roundSubject.getValue();
+    currentRound++;
+    this.roundSubject.next(currentRound);
+  }
+
+  setRound(roundNumber: number) {
+    this.roundSubject.next(roundNumber);
   }
 
   /**
@@ -217,6 +239,7 @@ export class GameService {
       // player.isAlive = false; // ! hacer que isAlive sea un observable?
     }
     player.hp$.next(damage);
+    this.damageHealSubject.next({ playerId: player.id, amount: points, type: 'damage' });
   }
 
   healPlayer(player: Player, points: number) {
@@ -226,13 +249,13 @@ export class GameService {
     let healed = currentHp + points;
     if(healed > this.utilsService.maxHealth) healed = this.utilsService.maxHealth;
     player.hp$.next(healed);
+    this.damageHealSubject.next({ playerId: player.id, amount: points, type: 'heal' });
   }
 
   // aplicamos el turno, es decir, el daño que hemos generado etc
   applyThrows(damages: InfoDamage[], heal: number, autoDamage: number) {
     console.log('Apply', damages);
-    let currentTurnPlayer = this.currentPlayers.find(p => p.currentTurn);
-    // ! meter una animación o algo?
+    let currentTurnPlayer = this.currentTurnPlayer;
     if(damages.length) {
       damages.forEach((damageInfo) => {
         let player = this.currentPlayers.find(p => p.id === damageInfo.id);
@@ -240,8 +263,12 @@ export class GameService {
       });
     }
     if(currentTurnPlayer) {
-      if(autoDamage) this.hitPlayer(currentTurnPlayer, autoDamage); // ! matar al jugador instant o se puede curar aunque llegue la vida a cero?
-      if(heal) this.healPlayer(currentTurnPlayer, heal);
+      const netEffect = heal - autoDamage;
+      if(netEffect > 0) {
+        this.healPlayer(currentTurnPlayer, netEffect);
+      } else if(netEffect < 0) {
+        this.hitPlayer(currentTurnPlayer, Math.abs(netEffect));
+      }
     }
     this.nextTurn();
   }

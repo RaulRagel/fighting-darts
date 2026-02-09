@@ -21,7 +21,7 @@ export class UtilsService {
     return 'Diana';
   }
   get outName() {
-    return 'Fuera';
+    return 'Out';
   }
   get defaultName() {
     return 'Player';
@@ -82,42 +82,52 @@ export class UtilsService {
   getSkills(): Skill[] {
     return [
       {
-        name: 'Ninguna'
+        name: 'Ninguna',
+        label: 'none'
       },
       {
         name: 'Última palabra',
+        label: 'lastWord',
         description: 'Cuando recibes un golpe letal por primera vez en esta partida, lo ignoras y recuperas el 25% de vida.'
       },
       {
         name: 'Vampiro',
+        label: 'vampire',
         description: 'Si has hecho daño durante la ronda, te curas 2 de vida al final de esta.'
       },
       {
         name: 'Golpe crítico',
+        label: 'criticalHit',
         description: 'Tienes un 20% de probabilidades de hacer el doble de daño. Solo puede pasar una vez durante la ronda.'
       },
-      {
-        name: 'Busca tesoros',
-        description: 'Durante tu turno, los objetos tienen un 66% de aparecer en la diana. Pueden aparecer hasta 3.'
-      },
+      // {
+      //   name: 'Busca tesoros',
+      //   label: 'treasureHunt',
+      //   description: 'Durante tu turno, los objetos tienen un 66% de aparecer en la diana. Pueden aparecer hasta 3.'
+      // },
       {
         name: 'Ninja',
+        label: 'ninja',
         description: 'Tienes un 20% de probabilidades de esquivar el daño.'
       },
       {
         name: 'Sacerdote',
+        label: 'priest',
         description: 'Tienes un 50% de probabilidades de curarte el doble. Pueden aparecer pociones como objeto extra en la diana.'
       },
       {
         name: 'Víbora',
+        label: 'viper',
         description: 'Al final de cada ronda, tus rivales tienen un 50% de recibir 2 de daño.'
       },
       {
         name: 'Sniper',
+        label: 'sniper',
         description: 'Si aciertas al centro de la diana, uno de tus rivales tiene un 20% de probabilidades de morir instantáneamente.'
       },
       {
         name: 'Mago',
+        label: 'mage',
         description: 'Tienes un 15% de probabilidades de ignorar el daño recibido. Si lo ignoras, tienes un 40% de probabilidades de devolverlo.'
       }
     ]
@@ -139,6 +149,18 @@ export class UtilsService {
         // object2: '#003366'
       }
     }
+  }
+
+  /**
+   * Devuelve true con la probabilidad indicada (porcentaje 0-100).
+   * 20 -> true ~20% de las veces; 50 -> true ~50% de las veces.
+   */
+  chance(percentage: number): boolean {
+    if (!Number.isFinite(percentage)) return false;
+    const p = Math.max(0, Math.min(100, percentage));
+    if (p === 0) return false;
+    if (p === 100) return true;
+    return Math.random() * 100 < p;
   }
 
 }

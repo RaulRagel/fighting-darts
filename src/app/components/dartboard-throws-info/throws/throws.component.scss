@@ -77,14 +77,11 @@
         .dmg-title {
             margin-bottom: 2vw;
         }
-        .dmg {
+        .dmg, .outs {
             color: #ed3737;
         }
         .heal {
             color: #4f9962;
-        }
-        .outs {
-            color: var(--gray);
         }
         // .obj {
         //     color: lightblue;
@@ -94,4 +91,10 @@
     hr {
         width: 100%;
     }
+}
+
+.info-current-player {
+    font-size: 7vw;
+    font-weight: bold;
+    text-align: center;
 }

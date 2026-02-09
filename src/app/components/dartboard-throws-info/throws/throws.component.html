@@ -1,5 +1,8 @@
 
 <div class="info-container">
+    <div class="info-current-player">
+        Turno de {{currentPlayer?.name || 'Player'}}
+    </div>
     <div class="info">
         <div class="info-header">
             <span>Lanzamientos</span><span>({{totalThrows}})</span>
@@ -11,13 +14,13 @@
                 *ngFor="let info of throwInfo"
                 [ngStyle]="getZoneStyle(info.area)">
                 
-                {{ info.area }}
-                <div *ngIf="isSuccessThrow(info.area); else unSuccessThrow">
+                {{ info.label }}
+                <!-- <div *ngIf="isSuccessThrow(info.area); else unSuccessThrow">
                     (+{{info.value}})
                 </div>
                 <ng-template #unSuccessThrow>
                     <div *ngIf="info.area === outName">(-{{info.value}})</div>
-                </ng-template>
+                </ng-template> -->
             </span>
         </div>
     </div>
@@ -36,8 +39,8 @@
                 </div>
             </div>
             <div>
-                <div *ngIf="healToPlayer" class="heal-title">Curación: <span class="heal">{{healToPlayer}}</span></div>
-                <div *ngIf="autoDamage" class="outs-title">Fallos: <span class="outs">{{autoDamage}}</span></div>
+                <div *ngIf="healToPlayer" class="heal-title">Curación: <span class="heal">+{{healToPlayer}}</span></div>
+                <div *ngIf="selfDamage" class="outs-title">Fallos: <span class="outs">-{{selfDamage}}</span></div>
             </div>
         </div>
     </div>

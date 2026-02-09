@@ -51,25 +51,45 @@ export class InfoDartboardService {
   }
 
   private updateThrows(throws: string[]) { // privado porque solo debe actualizarse si se actualizan los throws
-    let duplicatedThrow;
+    // let duplicatedThrow;
     let throwInfo: ThrowInfo[] = [];
 
     for(let currentThrow of throws) {
-      duplicatedThrow = throwInfo.find(d => d.area === this.getThrowName(currentThrow));
-      if(duplicatedThrow) {
-        duplicatedThrow.hits++;
-        duplicatedThrow.value += this.getThrowValue(currentThrow);
-      } else {
-        throwInfo.push({
-          area: this.getThrowName(currentThrow),
-          hits: 1,
-          value: this.getThrowValue(currentThrow)
-        });
-      }
+      // duplicatedThrow = throwInfo.find(d => d.area === this.getThrowName(currentThrow));
+      // if(duplicatedThrow) {
+      //   duplicatedThrow.hits++;
+      //   duplicatedThrow.value += this.getThrowValue(currentThrow);
+      // } else {
+      //   throwInfo.push({
+      //     area: this.getThrowName(currentThrow),
+      //     hits: 1,
+      //     value: this.getThrowValue(currentThrow)
+      //   });
+      // }
+      throwInfo.push({
+        label: this.getThrowLabel(currentThrow),
+        area: this.getThrowName(currentThrow),
+        value: this.getThrowValue(currentThrow)
+      });
     }
 
     console.log('throwInfo$.next');
     this.throwInfo$.next(throwInfo);
+  }
+
+  /**
+   * Si es 'single' aparecerá el número, si es 'double' aparecerá el número con una 'd', si es 'triple' aparecerá el número con una 't'
+   * @param id 
+   */
+  getThrowLabel(id: string): string {
+    if (!id) return '';
+    if(id === 'out') return this.utilsService.outName;
+    if(['bull', 'outer'].includes(id)) return this.utilsService.bullName;
+
+    if(id[0] === 's') return id.slice(1);
+    if(['d', 't'].includes(id[0])) return id;
+
+    return id.slice(1);
   }
 
   getThrowName(id: string): string {

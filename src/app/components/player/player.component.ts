@@ -94,20 +94,22 @@ export class PlayerComponent implements OnInit {
   // In game actions
 
   hit(points: number = 1) {
-    if(!this.player.hp$) return;
+    // if(!this.player.hp$) return;
 
-    const currentHp = this.player.hp$.getValue();
-    let damaged = currentHp - points;
-    if(damaged < 0) damaged = 0;
-    this.player.hp$.next(damaged);
+    // const currentHp = this.player.hp$.getValue();
+    // let damaged = currentHp - points;
+    // if(damaged < 0) damaged = 0;
+    // this.player.hp$.next(damaged);
+    this.gameService.hitPlayer(this.player, points);
   }
 
   heal(points: number = 1) {
-    if(!this.player.hp$) return;
-    const currentHp = this.player.hp$.getValue();
-    let healed = currentHp + points;
-    if(healed > this.utilsService.maxHealth) healed = this.utilsService.maxHealth;
-    this.player.hp$.next(healed);
+    // if(!this.player.hp$) return;
+    // const currentHp = this.player.hp$.getValue();
+    // let healed = currentHp + points;
+    // if(healed > this.utilsService.maxHealth) healed = this.utilsService.maxHealth;
+    // this.player.hp$.next(healed);
+    this.gameService.healPlayer(this.player, points);
   }
 
   displayPlayerInfo() {

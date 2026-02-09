@@ -12,12 +12,16 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class ThrowsComponent implements OnInit {
 
+  get currentPlayer() {
+    return this.gameService.currentTurnPlayer;
+  }
+
   throwInfo: ThrowInfo[] = [];
   totalThrows: number = 0;
 
   healToPlayer: number = 0; // lo que se cura el turno actual
   damagesToPlayers: InfoDamage[] = []; // daño al resto de jugadores
-  autoDamage: number = 0; // daño a sí mismo si falla el tiro
+  selfDamage: number = 0; // daño a sí mismo si falla el tiro
 
   @Output() confirmTurnEmiter = new EventEmitter<void>();
 
@@ -38,10 +42,11 @@ export class ThrowsComponent implements OnInit {
       (throwInfo) => {
         console.log('throwInfo$ changed', throwInfo);
         this.throwInfo = throwInfo;
-        this.totalThrows = throwInfo.reduce((acc, area) => acc + area.hits, 0);
+        // this.totalThrows = throwInfo.reduce((acc, area) => acc + area.hits, 0);
+        this.totalThrows = throwInfo.length;
         this.updatePlayerHeal();
-        this.updateDamageToPlayer();
-        this.updateAutoDamage();
+        this.updateDamageToPlayers();
+        this.updateSelfDamage();
       }
     );
   }
@@ -65,7 +70,7 @@ export class ThrowsComponent implements OnInit {
     this.healToPlayer = heal;
   }
 
-  private updateDamageToPlayer() {
+  private updateDamageToPlayers() {
     let players = this.gameService.currentPlayers.filter(p => p.isAlive && !p.currentTurn);
     this.damagesToPlayers = [];
 
@@ -88,9 +93,19 @@ export class ThrowsComponent implements OnInit {
     });
   }
 
-  private updateAutoDamage() {
-    let outs = this.throwInfo.find(thrw => thrw.area === this.utilsService.outName);
-    if(outs) this.autoDamage = outs.value;
+  /**
+   * Daño al jugador en turno si falla el tiro (si el área es "Fuera"), se acumula el daño de cada tiro fallido.
+   */
+  private updateSelfDamage() {
+    let outs = this.throwInfo.filter(thrw => thrw.area === this.utilsService.outName);
+    if(outs.length) {
+      // this.damagesToPlayers.push({
+      //   id: this.currentPlayer?.id || 0,
+      //   playerName: this.currentPlayer?.name || '',
+      //   damage: outs.length
+      // });
+      this.selfDamage = outs.length;
+    }
   }
 
   isSuccessThrow(area: string): boolean {
@@ -116,7 +131,7 @@ export class ThrowsComponent implements OnInit {
 
   confirmTurn() {
     // al confirmar turno, aplicamos los daños a los jugadores, reiniciamos los lanzamientos y cerramos la diana
-    this.gameService.applyThrows(this.damagesToPlayers, this.healToPlayer, this.autoDamage);
+    this.gameService.applyThrows(this.damagesToPlayers, this.healToPlayer, this.selfDamage);
     this.infoDartboardService.resetThrows();
     this.confirmTurnEmiter.emit();
   }
