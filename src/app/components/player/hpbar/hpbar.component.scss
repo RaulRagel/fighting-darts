@@ -9,6 +9,7 @@
 
   .hpbar-container {
     width: 280px;
+    min-height: 38px;
     background-color: black;
     border-radius: 10px;
     clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 0% 100%);
@@ -17,7 +18,7 @@
   table {
     border-collapse: separate;
     border-spacing: 3px;
-		padding: 4px 10px;
+		padding: 5px 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
@@ -38,19 +39,28 @@
 
 .hpbar-points {
   position: absolute;
-  left: -7vw;
+  left: -8vw;
   background-color: black;
   border-radius: 8px;
   padding: 2vw 1vh;
   z-index: 1;
-  width: 10vw;
+  width: 11vw;
   text-align: center;
 }
 
 .hpbar-points span {
-  font-size: 5vw;
+  font-size: 6vw;
   color: white;
   font-weight: bold;
+}
+
+.ko-title {
+  width: 100%;
+  color: red;
+  text-align: center;
+  letter-spacing: 5vw;
+  font-size: 4vw;
+  font-weight: bolder;
 }
 
 /* OVERRIDE SI HAY 3 JUGADORES */

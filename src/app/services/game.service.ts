@@ -31,6 +31,9 @@ export class GameService {
   damageHealSubject = new Subject<{ playerId: number; amount: number; type: 'damage' | 'heal' }>();
   damageHeal$ = this.damageHealSubject.asObservable();
 
+  winnerSubject = new BehaviorSubject<Player | null>(null);
+  winner$ = this.winnerSubject.asObservable();
+
   get boardZones(): BoardZone[] {
     return this.boardZonesSubject.getValue();
   }
@@ -56,7 +59,7 @@ export class GameService {
     this.playersSubject.next([...currentPlayers, {
       id: new Date().getTime() + currentPlayers.length,
       name: params.name?.trim() || this.defaultPlayerName(),
-      isAlive: false,
+      isAlive: true,
       color: '#797979',
       background: this.utilsService.parseBackgroundColor('#797979'),
       fighterGif: this.utilsService.parseFighterGif(1),
@@ -114,20 +117,53 @@ export class GameService {
 
   nextTurn() {
     const currentPlayers = this.currentPlayers;
+    const alivePlayers = currentPlayers.filter(p => p.isAlive);
+    
+    // Si hay 1 o menos vivos, el juego terminó
+    if(alivePlayers.length <= 1) {
+      return;
+    }
+    
     let currentTurn = this.turnOfSubject.getValue();
     currentTurn++;
     if (currentTurn >= currentPlayers.length) {
       currentTurn = 0;
       this.nextRound();
     }
+    
+    // Si el siguiente jugador está muerto, buscar el siguiente vivo
+    while(!currentPlayers[currentTurn].isAlive && alivePlayers.length > 1) {
+      currentTurn++;
+      if (currentTurn >= currentPlayers.length) {
+        currentTurn = 0;
+        this.nextRound();
+      }
+    }
+    
     this.setTurn(currentTurn);
   }
 
   setTurn(playerIndex: number) {
-    const currentPlayers = this.currentPlayers.map((player, index) => {
-      player.currentTurn = index === playerIndex;
-      return player;
+    const currentPlayers = this.currentPlayers;
+    const alivePlayers = currentPlayers.filter(p => p.isAlive);
+    
+    // Limpiar tags de todos
+    currentPlayers.forEach((player) => {
+      player.currentTurn = false;
+      if(player.tag?.title !== 'Muerto' && player.tag?.title !== 'Ganador') {
+        player.tag = undefined;
+      }
     });
+    
+    // Establecer turno al jugador
+    if(currentPlayers[playerIndex]) {
+      currentPlayers[playerIndex].currentTurn = true;
+      // Solo mostrar tag "Tu turno" si hay más de 1 jugador vivo
+      if(currentPlayers[playerIndex].isAlive && alivePlayers.length > 1) {
+        currentPlayers[playerIndex].tag = { title: 'Tu turno', color: '#d3b411' };
+      }
+    }
+    
     this.playersSubject.next(currentPlayers);
     this.turnOfSubject.next(playerIndex);
 
@@ -236,9 +272,24 @@ export class GameService {
     let damage = currentHp - points;
     if(damage < 0) {
       damage = 0;
-      // player.isAlive = false; // ! hacer que isAlive sea un observable?
     }
     player.hp$.next(damage);
+    
+    // Marcar como muerto si HP llega a 0
+    if(damage === 0) {
+      player.isAlive = false;
+      player.tag = { title: 'Muerto', color: '#ff4e50' };
+      this.playersSubject.next([...this.currentPlayers]);
+      
+      // Verificar si hay ganador
+      const alivePlayers = this.currentPlayers.filter(p => p.isAlive);
+      if(alivePlayers.length === 1) {
+        alivePlayers[0].tag = { title: 'Ganador', color: '#38ef7d' };
+        this.winnerSubject.next(alivePlayers[0]);
+        this.playersSubject.next([...this.currentPlayers]);
+      }
+    }
+    
     this.damageHealSubject.next({ playerId: player.id, amount: points, type: 'damage' });
   }
 

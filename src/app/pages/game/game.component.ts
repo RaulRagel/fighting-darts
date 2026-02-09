@@ -21,6 +21,7 @@ export class GameComponent implements OnInit {
   subtitle: string = 'Ronda 1'; // Ronda 1
 
   players: Player[] = [];
+  winner: Player | null = null;
 
   showDartboard: boolean = false;
 
@@ -57,11 +58,20 @@ export class GameComponent implements OnInit {
           this.initGame();
         }
       });
+
+    this.gameService.winner$
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(winner => {
+        this.winner = winner;
+        if(winner) {
+          this.updateButtonsForWinner();
+        }
+      });
     
-    if(!this.players.length) { // ! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
-      this.gameService.addNewPlayer();
-      this.gameService.addNewPlayer();
-    }
+    // if(!this.players.length) { // ! BORRAR, SOLO PARA DESAROLLAR ESTA PANTALLA SIN TENER QUE PASAR POR ADD PLAYERS
+    //   this.gameService.addNewPlayer();
+    //   this.gameService.addNewPlayer();
+    // }
 
     if(this.players.length < 2) {
       this.stateService.goBack();
@@ -92,6 +102,50 @@ export class GameComponent implements OnInit {
   openDartboard() {
     // console.log('Open dartboard');
     this.showDartboard = true;
+  }
+
+  updateButtonsForWinner() {
+    this.buttons = [
+      {
+        name: 'Reiniciar',
+        icon: this.utilsService.getIconUrl('refresh'),
+        action: () => this.restartGame()
+      }
+    ];
+  }
+
+  restartGame() {
+    // Resetear estado del juego pero manteniendo los jugadores actuales
+    this.winner = null;
+    this.gameService.winnerSubject.next(null);
+    
+    // Restaurar vida y estado de los jugadores
+    const currentPlayers = this.gameService.currentPlayers;
+    currentPlayers.forEach(player => {
+      player.isAlive = true;
+      player.hp$.next(this.utilsService.maxHealth);
+      player.tag = undefined;
+      player.currentTurn = false;
+    });
+    this.gameService.playersSubject.next([...currentPlayers]);
+    
+    // Restaurar botones normales
+    this.buttons = [
+      {
+        name: 'Lanzar dardos',
+        icon: this.utilsService.getIconUrl('dart'),
+        action: () => this.openDartboard()
+      },
+      {
+        name: 'Siguiente turno',
+        icon: this.utilsService.getIconUrl('right'),
+        action: () => this.nextTurn()
+      },
+    ];
+    
+    // Reiniciar el juego
+    this.playing = false;
+    this.initGame();
   }
 
   ngOnDestroy() {

@@ -43,6 +43,13 @@ export class AddPlayersComponent implements OnInit {
     )
     .subscribe(players => {
       this.players = players;
+      // Resetear estado de los jugadores cuando volvemos a esta pantalla
+      this.players.forEach(player => {
+        if(!player.isAlive) {
+          player.isAlive = true;
+        }
+        player.tag = undefined;
+      });
       // console.log('Current players:', this.players);
     });
 
@@ -69,6 +76,8 @@ export class AddPlayersComponent implements OnInit {
 
   startGame() {
     if(this.players.length < 2) return;
+    // Resetear el estado del ganador antes de empezar
+    this.gameService.winnerSubject.next(null);
     this.stateService.navigateTo('game');
     this.onDestroy$.next(true);
     this.onDestroy$.complete();

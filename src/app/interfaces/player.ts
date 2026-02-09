@@ -1,6 +1,11 @@
 import { BehaviorSubject } from "rxjs";
 import { Skill } from "./skill";
 
+export interface Tag {
+  title: string;
+  color: string;
+}
+
 export interface Player {
     id: number;
     name: string;
@@ -9,6 +14,7 @@ export interface Player {
     fighterGif: string | number;
     isAlive: boolean;
     currentTurn?: boolean;
+    tag?: Tag;
     skill?: Skill;
     hp$: BehaviorSubject<number>;
     weakAreas?: number[];

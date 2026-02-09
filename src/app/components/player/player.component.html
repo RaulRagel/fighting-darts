@@ -12,10 +12,11 @@
             <img src="assets/images/icons/trash-white.png">
         </button>
     </div>
-    <div class="character-container" (click)="displayPlayerInfo()">
+    <div class="character-container" [ngClass]="{'dead': !player.isAlive}" (click)="displayPlayerInfo()">
         <div class="character">
             <div class="img-container" [ngStyle]="{'background': player.background}">
                 <img [src]="player.fighterGif" alt="Character Image" />
+                <div class="dead-overlay" *ngIf="!player.isAlive"></div>
             </div>
         </div>
     </div>
@@ -63,8 +64,8 @@
 
     <!-- PLAYING -->
     <ng-template #playing>
-        <div *ngIf="player.currentTurn" class="current-turn-tag">
-            Tu turno
+        <div *ngIf="player.tag" class="current-turn-tag" [ngStyle]="{'color': player.tag.color}">
+            {{ player.tag.title }}
         </div>
         <div class="info-container polygon">
             <div class="player-info polygon">
