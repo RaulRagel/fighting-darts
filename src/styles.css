@@ -48,6 +48,18 @@ body {
   background: black;
 } */
 
+/* .paralel {
+  position: relative;
+  background: black;
+  clip-path: polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%);
+}
+
+.shadow {
+  position: absolute;
+  background: white;
+  clip-path: polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%);
+} */
+
 img {
     object-fit: contain;
     width: 100%;
