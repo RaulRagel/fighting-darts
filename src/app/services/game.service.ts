@@ -116,9 +116,11 @@ export class GameService {
       return player;
     });
 
-    // Aplicar orden aleatorio si está configurado
+    // Aplicar orden aleatorio o mantener orden de creación
     if (this.configService.randomPlayerOrder) {
       currentPlayers = this.utilsService.shufflePlayers(currentPlayers);
+    } else {
+      currentPlayers = this.utilsService.orderPlayers(currentPlayers);
     }
 
     this.playersSubject.next(currentPlayers);

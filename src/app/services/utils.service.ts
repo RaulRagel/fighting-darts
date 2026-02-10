@@ -174,4 +174,16 @@ export class UtilsService {
     return shuffled;
   }
 
+  /**
+   * Ordena jugadores por su índice de creación (createdIndex).
+   * Mantiene el orden original en el que fueron creados.
+   */
+  orderPlayers(players: Player[]): Player[] {
+    return [...players].sort((a, b) => {
+      const aIdx = (a.createdIndex != null) ? a.createdIndex : Infinity;
+      const bIdx = (b.createdIndex != null) ? b.createdIndex : Infinity;
+      return aIdx - bIdx;
+    });
+  }
+
 }
