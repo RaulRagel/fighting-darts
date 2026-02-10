@@ -13,6 +13,10 @@ export interface Player {
     background: string;
     fighterGif: string | number;
     isAlive: boolean;
+  /**
+   * Índice de creación para mantener orden original en la UI de edición.
+   */
+  createdIndex?: number;
     currentTurn?: boolean;
     tag?: Tag;
     skill?: Skill;

@@ -11,6 +11,7 @@ import { MainMenuComponent } from './pages/main-menu/main-menu.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CustomBtnComponent } from './components/custom-btn/custom-btn.component';
 import { AddPlayersComponent } from './pages/add-players/add-players.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 import { PlayerComponent } from './components/player/player.component';
 import { GenericButtonComponent } from './components/generic-button/generic-button.component';
 import { CharacterSelectorComponent } from './components/player/character-selector/character-selector.component';
@@ -35,6 +36,7 @@ import { GenericInfoComponent } from './components/player/player-info-display/pl
     SkillSelectorComponent,
     HpbarComponent,
     GenericInfoComponent
+    ,SettingsComponent
   ],
   imports: [
     BrowserModule,

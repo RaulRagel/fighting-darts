@@ -5,6 +5,7 @@ import { UtilsService } from './utils.service';
 import { BoardZone } from '../interfaces/board-zone';
 import { InfoDartboardService } from './info-dartboard.service';
 import { InfoDamage } from '../interfaces/info-damage';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class GameService {
     return this.boardZonesSubject.getValue();
   }
 
-  constructor(private utilsService: UtilsService, private infoDartboardService: InfoDartboardService) { }
+  constructor(private utilsService: UtilsService, private infoDartboardService: InfoDartboardService, private configService: ConfigService) { }
 
   get currentPlayers(): Player[] {
     return this.playersSubject.getValue();
@@ -56,6 +57,10 @@ export class GameService {
 
   addNewPlayer(params: Partial<Player> = {}) {
     const currentPlayers = this.currentPlayers;
+    // Calcular next createdIndex (basado en el máximo actual para evitar colisiones si se eliminaron jugadores)
+    const maxIndex = currentPlayers.length ? Math.max(...currentPlayers.map(p => p.createdIndex ?? -1)) : -1;
+    const nextCreatedIndex = maxIndex + 1;
+
     this.playersSubject.next([...currentPlayers, {
       id: new Date().getTime() + currentPlayers.length,
       name: params.name?.trim() || this.defaultPlayerName(),
@@ -64,7 +69,8 @@ export class GameService {
       background: this.utilsService.parseBackgroundColor('#797979'),
       fighterGif: this.utilsService.parseFighterGif(1),
       skill: { name: 'Ninguna'},
-      hp$: new BehaviorSubject<number>(this.utilsService.maxHealth)
+      hp$: new BehaviorSubject<number>(this.utilsService.maxHealth),
+      createdIndex: nextCreatedIndex
     }]);
   }
 
@@ -104,11 +110,17 @@ export class GameService {
   // In game actions
 
   startGame() {
-    const currentPlayers = this.currentPlayers.map(player => {
+    let currentPlayers = this.currentPlayers.map(player => {
       player.isAlive = true;
       player.hp$.next(this.utilsService.maxHealth);
       return player;
     });
+
+    // Aplicar orden aleatorio si está configurado
+    if (this.configService.randomPlayerOrder) {
+      currentPlayers = this.utilsService.shufflePlayers(currentPlayers);
+    }
+
     this.playersSubject.next(currentPlayers);
     this.setRound(1);
     this.setTurn(0);

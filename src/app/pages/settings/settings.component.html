@@ -1,0 +1,22 @@
+<div>
+    <app-header
+        [title]="'Ajustes'"
+        [icon]="'settings'"
+        [showBackButton]="true"
+    ></app-header>
+
+    <div class="settings-container">
+        <div class="setting-item">
+            <label>
+                Orden aleatorio al iniciar partida
+                <input #chk type="checkbox"
+                    [checked]="(randomPlayerOrder$ | async)"
+                    (change)="toggleRandom(chk.checked)" />
+            </label>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <app-custom-btn [button]="defaultsBtn"></app-custom-btn>
+    </div>
+</div>

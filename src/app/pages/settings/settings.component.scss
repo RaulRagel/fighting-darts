@@ -1,0 +1,31 @@
+
+.settings-container {
+  padding: 16px;
+  height: 66vh;
+  overflow-y: auto;
+
+  .setting-item {
+    width: 100%;
+    padding: 2vw;
+    margin-bottom: 1vh;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 7px 7px black;
+    label {
+      display: flex;
+      justify-content: space-around;
+      grid-gap: 8px;
+      font-weight: bold;
+      font-size: 4vw;
+    }
+  }
+}
+
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh;
+}

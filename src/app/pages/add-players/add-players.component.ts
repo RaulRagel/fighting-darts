@@ -42,7 +42,14 @@ export class AddPlayersComponent implements OnInit {
       takeUntil(this.onDestroy$)
     )
     .subscribe(players => {
-      this.players = players;
+      // Ordenar por createdIndex para mostrar en la UI de edición el orden de creación original
+      const sorted = [...players].sort((a, b) => {
+        const aIdx = (a.createdIndex != null) ? a.createdIndex : players.indexOf(a);
+        const bIdx = (b.createdIndex != null) ? b.createdIndex : players.indexOf(b);
+        return aIdx - bIdx;
+      });
+
+      this.players = sorted;
       // Resetear estado de los jugadores cuando volvemos a esta pantalla
       this.players.forEach(player => {
         if(!player.isAlive) {

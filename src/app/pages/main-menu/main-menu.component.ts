@@ -17,14 +17,16 @@ export class MainMenuComponent implements OnInit {
       action: () => this.goTo('players')
     },
     {
-      // id: 'question',
+      // id: 'instructions',
       name: 'Instrucciones',
-      icon: 'assets/images/icons/question.png'
+      icon: 'assets/images/icons/question.png',
+      action: () => this.goTo('instructions')
     },
     {
       // id: 'settings',
       name: 'Ajustes',
-      icon: 'assets/images/icons/settings.png'
+      icon: 'assets/images/icons/settings.png',
+      action: () => this.goTo('settings')
     },
     // {
     //   name: 'Créditos',

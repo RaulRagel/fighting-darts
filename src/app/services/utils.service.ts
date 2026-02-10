@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IconConfig } from '../interfaces/icon-config';
 import { Skill } from '../interfaces/skill';
+import { Player } from '../interfaces/player';
 
 @Injectable({
   providedIn: 'root'
@@ -161,6 +162,15 @@ export class UtilsService {
     if (p === 0) return false;
     if (p === 100) return true;
     return Math.random() * 100 < p;
+  }
+
+  shufflePlayers(players: Player[]): Player[] {
+    const shuffled = [...players];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
   }
 
 }
