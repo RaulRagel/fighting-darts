@@ -14,6 +14,18 @@
                     (change)="toggleRandom(chk.checked)" />
             </label>
         </div>
+
+        <div class="setting-item">
+            <label>
+                Vida máxima de jugadores
+                <input id="health-input" #healthInput type="number"
+                    [value]="(maxHealth$ | async)"
+                    min="1"
+                    max="50"
+                    (change)="updateMaxHealth(healthInput.valueAsNumber)" />
+            </label>
+            <span class="setting-range">(1 - 50)</span>
+        </div>
     </div>
 
     <div class="button-container">

@@ -5,6 +5,7 @@
 export interface AppConfig {
   // Gameplay
   randomPlayerOrder: boolean;
+  maxHealth: number;
 
   // Audio/Visual (preparado para futuro)
   soundEnabled?: boolean;
@@ -12,7 +13,6 @@ export interface AppConfig {
 
   // Difficulty/Balance (preparado para futuro)
   difficulty?: 'easy' | 'medium' | 'hard';
-  maxHealth?: number;
 }
 
 /**
@@ -24,4 +24,5 @@ export const DEFAULT_CONFIG: AppConfig = {
   soundEnabled: true,
   musicEnabled: true,
   difficulty: 'medium',
+  maxHealth: 25,
 };

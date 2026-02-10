@@ -134,4 +134,12 @@ export class ConfigService {
   set difficulty(value: 'easy' | 'medium' | 'hard') {
     this.updateSetting('difficulty', value);
   }
+
+  get maxHealth(): number {
+    return this.getSetting('maxHealth') ?? 25;
+  }
+
+  set maxHealth(value: number) {
+    this.updateSetting('maxHealth', value);
+  }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IconConfig } from '../interfaces/icon-config';
 import { Skill } from '../interfaces/skill';
 import { Player } from '../interfaces/player';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UtilsService {
     return 17;
   }
   get maxHealth() {
-    return 25;
+    return this.configService.maxHealth;
   }
   get bullName() {
     return 'Diana';
@@ -28,7 +29,7 @@ export class UtilsService {
     return 'Player';
   }
 
-  constructor() { }
+  constructor(private configService: ConfigService) { }
 
   getIconUrl(icon: string, config?: IconConfig): string {
     if (!icon) return '';
