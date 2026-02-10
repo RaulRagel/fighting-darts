@@ -1,9 +1,11 @@
 import { UtilsService } from './../../services/utils.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Player } from 'src/app/interfaces/player';
 import { GenericButton } from 'src/app/interfaces/generic-button';
 import { GameService } from 'src/app/services/game.service';
 import { Skill } from 'src/app/interfaces/skill';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-player',
@@ -19,6 +21,10 @@ export class PlayerComponent implements OnInit {
   showPlayersHealthActions = false;
 
   playerInfoDisplayed = false;
+  isWinner = false;
+  isGameOver = false;
+
+  private onDestroy$ = new Subject<void>();
 
   buttons: GenericButton[] = [
     {
@@ -40,8 +46,21 @@ export class PlayerComponent implements OnInit {
     .subscribe(
       show => this.showPlayersHealthActions = show
     );
+
+    // Suscribir al ganador para mostrar confeti y bloquear acciones
+    this.gameService.winner$
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(winner => {
+        this.isGameOver = !!winner;
+        this.isWinner = !!winner && winner.id === this.player.id;
+      });
+
   }
 
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
   get totalPlayers() {
     return this.gameService.currentPlayers.length;
   }
@@ -100,6 +119,7 @@ export class PlayerComponent implements OnInit {
     // let damaged = currentHp - points;
     // if(damaged < 0) damaged = 0;
     // this.player.hp$.next(damaged);
+    if (this.isGameOver) return;
     this.gameService.hitPlayer(this.player, points);
   }
 
@@ -109,6 +129,7 @@ export class PlayerComponent implements OnInit {
     // let healed = currentHp + points;
     // if(healed > this.utilsService.maxHealth) healed = this.utilsService.maxHealth;
     // this.player.hp$.next(healed);
+    if (this.isGameOver) return;
     this.gameService.healPlayer(this.player, points);
   }
 

@@ -110,6 +110,9 @@ export class GameService {
   // In game actions
 
   startGame() {
+    // limpiar ganador/confeti al iniciar una nueva partida
+    this.winnerSubject.next(null);
+
     let currentPlayers = this.currentPlayers.map(player => {
       player.isAlive = true;
       player.hp$.next(this.utilsService.maxHealth);
@@ -280,6 +283,9 @@ export class GameService {
   }
 
   hitPlayer(player: Player, points: number) {
+    // Si ya hay un ganador, no aplicar más daño
+    if (this.winnerSubject.getValue()) return;
+
     const currentHp = player.hp$.getValue();
     if(!currentHp) return;
 
@@ -308,6 +314,9 @@ export class GameService {
   }
 
   healPlayer(player: Player, points: number) {
+    // Si ya hay un ganador, no aplicar curaciones
+    if (this.winnerSubject.getValue()) return;
+
     const currentHp = player.hp$.getValue();
     if(!currentHp) return;
 

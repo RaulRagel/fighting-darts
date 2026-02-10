@@ -100,6 +100,7 @@ export class GameComponent implements OnInit {
 
   // Abrir pantalla de detalles para que el jugador pueda apuntar los lanzamientos en la diana
   openDartboard() {
+    if (this.winner) return;
     // console.log('Open dartboard');
     this.showDartboard = true;
   }

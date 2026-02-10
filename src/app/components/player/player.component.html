@@ -16,6 +16,7 @@
         <div class="character">
             <div class="img-container" [ngStyle]="{'background': player.background}">
                 <img [src]="player.fighterGif" alt="Character Image" />
+                <img *ngIf="isWinner" class="confetti" src="assets/images/confetti.gif" alt="Confetti" />
                 <div class="dead-overlay" *ngIf="!player.isAlive"></div>
             </div>
         </div>
@@ -87,7 +88,7 @@
                 </div> -->
             </div>
         </div>
-        <div class="edit-health-btns" *ngIf="showPlayersHealthActions; else playerControlPanel">
+        <div class="edit-health-btns" *ngIf="showPlayersHealthActions && !isGameOver; else playerControlPanel">
             <button class="img-container" (click)="hit()">
                 <img src="assets/images/icons/hit-red.png" />
             </button>
